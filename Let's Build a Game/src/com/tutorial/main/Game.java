@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
 	
@@ -14,11 +15,24 @@ public class Game extends Canvas implements Runnable {
 
 	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 	// this will be a single threaded game, generally not
-	// recommended but for the simplicify of this game it will be fine
+	// recommended but for the simplicity of this game it will be fine
 	private Thread thread;
 	private boolean running = false;
+	
+	private Random r;
+	private Handler handler;
+	
 	public Game() {
+		
+		handler = new Handler();
+		this.addKeyListener(new KeyInput());
+		
 		new Window(WIDTH, HEIGHT, "Let's Build a Game", this);
+		
+		r = new Random();
+		
+		handler.addObject(new Player(WIDTH / 2 - 32,HEIGHT / 2 - 32, ID.Player));
+		
 	}
 	
 	
@@ -59,6 +73,7 @@ public class Game extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
+				frames /= 100;
 				System.out.println("FPS: " + frames);
 				frames = 0;
 			}
@@ -70,7 +85,10 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick() {
 		
+		handler.tick();
+		
 	}
+	
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs==null) {
@@ -80,8 +98,10 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.green);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		handler.render(g);
 		
 		g.dispose();
 		bs.show();
