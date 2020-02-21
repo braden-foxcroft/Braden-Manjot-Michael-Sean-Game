@@ -1,6 +1,7 @@
 package com.tutorial.main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public abstract class GameObject {
 	
@@ -18,6 +19,7 @@ public abstract class GameObject {
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
+	public abstract Rectangle getBounds();
 	
 	public void setX(int x) {
 		this.setVelX(x);
@@ -43,10 +45,10 @@ public abstract class GameObject {
 	public void setVelX(int velX) {
 		this.velX = velX;
 	}
-	public int getVely() {
+	public int getVelY() {
 		return velY;
 	}
-	public void setVely(int vely) {
+	public void setVelY(int vely) {
 		velY = vely;
 	}
 	
