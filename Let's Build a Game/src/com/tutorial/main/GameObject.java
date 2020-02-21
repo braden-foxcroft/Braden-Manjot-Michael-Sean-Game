@@ -3,10 +3,10 @@ package com.tutorial.main;
 import java.awt.Graphics;
 
 public abstract class GameObject {
-	protected int x;
-	protected int y;
-	private int velX;
-	private int velY;
+	protected float x;
+	protected float y;
+	protected float velX;
+	protected float velY;
 	protected ID id;
 	
 	public GameObject(int x, int y, ID id) {
@@ -17,20 +17,22 @@ public abstract class GameObject {
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
+	public abstract void hit(boolean hurt);
+	public abstract void push(int xForce, int yForce);
 
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 	
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 
@@ -42,21 +44,28 @@ public abstract class GameObject {
 		this.id = id;
 	}
 
-	public int getVelX() {
+	public float getVelX() {
 		return velX;
 	}
 
-	public void setVelX(int velX) {
+	public void setVelX(float velX) {
 		this.velX = velX;
 	}
 
-	public int getVelY() {
+	public float getVelY() {
 		return velY;
 	}
 
-	public void setVelY(int velY) {
+	public void setVelY(float velY) {
 		this.velY = velY;
 	}
 	
+	public void accelX(int x) {
+		this.setVelX(this.getVelX()+x);
+	}
+	
+	public void accelY(int y) {
+		this.setVelY(this.getVelY()+y);
+	}
 	
 }
