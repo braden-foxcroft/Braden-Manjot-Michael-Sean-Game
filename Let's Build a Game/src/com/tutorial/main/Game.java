@@ -2,8 +2,13 @@ package com.tutorial.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+
+// TODO implement other character classes,
+// implement skills and appropriate collision mechanics
+
 
 public class Game extends Canvas implements Runnable {
 	
@@ -11,14 +16,21 @@ public class Game extends Canvas implements Runnable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1550691097823471818L;
-
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	
+	@SuppressWarnings("unused") // Please don't change this line or the next!
+	private Window win;
+	public static final int WIDTH = 960, HEIGHT = WIDTH / 12 * 9; // 720
 	// this will be a single threaded game, generally not
-	// recommended but for the simplicify of this game it will be fine
+	// recommended but for the simplicity of this game it will be fine
 	private Thread thread;
+	private Handler handler;
 	private boolean running = false;
 	public Game() {
-		new Window(WIDTH, HEIGHT, "Let's Build a Game", this);
+		this.handler = new Handler();
+		this.win = new Window(WIDTH, HEIGHT, "Our game", this);
+		Component canvas = win.canvas;
+		this.addKeyListener(new KeyInput(this.handler,canvas));
+		handler.addObject(new Player(100,100,ID.Player));
 	}
 	
 	
@@ -35,7 +47,7 @@ public class Game extends Canvas implements Runnable {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		}
+	}
 	
 	public void run() {
 		//The Game loop! (not original code)
@@ -69,7 +81,7 @@ public class Game extends Canvas implements Runnable {
 	
 	
 	private void tick() {
-		
+		handler.tick();
 	}
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -80,8 +92,10 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.green);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		handler.render(g);
 		
 		g.dispose();
 		bs.show();
