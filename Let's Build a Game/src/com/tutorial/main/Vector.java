@@ -51,10 +51,15 @@ public class Vector {
 		//System.out.println(vA.toString());
 		// get force acting on object (based on some strange math)
 		Vector force = vA.projection(collideDir);
-		System.out.println(force.add(frameShift).toString());
-		// apply force
-		vA = vA.add(force.negate());
-		vB = vB.add(force);
+		// apply force (only when diverging)
+		if (force.aligns(collideDir)) {
+			vA = vA.add(force.negate());
+			vB = vB.add(force);
+		}
+		else
+		{
+			System.out.println("Ignored");
+		}
 		// remember to change back
 		vA = vA.add(frameShift);
 		vB = vB.add(frameShift);
@@ -83,8 +88,18 @@ public class Vector {
 		return (other.x == x && other.y == y);
 	}
 	
-	public boolean exceeds(Vector other) {
-		return (Math.abs(other.x) <= Math.abs(x) && Math.abs(other.y) <= Math.abs(y));
+	public boolean contains(Vector other) {
+		boolean a = this.aligns(other);
+		boolean b = Math.abs(other.x) < Math.abs(this.x);
+		return a && b;
+	}
+
+	public boolean aligns(Vector other) {
+		float a = other.x * this.y;
+		float b = other.y * this.x;
+		boolean c = Math.abs(a - b) < 0.0001;
+		boolean d = Math.signum(other.x) == Math.signum(this.x);
+		return c && d;
 	}
 	
 	public Vector scaleAndCopy(float f) {

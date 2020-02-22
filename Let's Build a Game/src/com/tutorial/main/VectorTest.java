@@ -86,4 +86,12 @@ public class VectorTest {
 		Vector p = v.projection(w);
 		assertTrue(p.equals(new Vector(0,0)));
 	}
+	
+
+	@Test
+	public void containsTest() {
+		Vector v = new Vector(14,0);
+		Vector w = new Vector(24,0);
+		assertTrue(w.contains(v));
+	}
 }

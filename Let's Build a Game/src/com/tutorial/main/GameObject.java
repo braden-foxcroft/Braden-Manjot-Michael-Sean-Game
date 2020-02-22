@@ -31,10 +31,8 @@ public abstract class GameObject {
 			Vector vB = new Vector(other);
 			Vector dir = new Vector(this, other);
 			vA.collide(vB, dir);
-			System.out.println("collision!");
 			this.setVelocity(vA);
 			other.setVelocity(vB);
-			System.out.println(vB);
 		}
 	}
 	
