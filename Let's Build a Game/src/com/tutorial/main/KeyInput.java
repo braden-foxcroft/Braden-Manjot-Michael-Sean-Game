@@ -49,8 +49,8 @@ public class KeyInput extends KeyAdapter {
 			handler.setD_Down(s);
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			handler.player().velX = 4;
-			handler.player().velY = 10;
+			//handler.player().velX = 4;
+			//handler.player().velY = 10;
 		}
 		
 	}

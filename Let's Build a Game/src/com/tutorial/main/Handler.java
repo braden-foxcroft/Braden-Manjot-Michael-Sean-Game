@@ -14,6 +14,7 @@ public class Handler {
 	private boolean a_Down = false;
 	private boolean s_Down = false;
 	private boolean d_Down = false;
+	private boolean space_Down = false;
 	
 	
 	public void tick() {

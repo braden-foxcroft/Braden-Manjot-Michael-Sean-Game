@@ -9,7 +9,6 @@ public class Ball extends GameObject {
 		super(x, y, id);
 		this.radius = 40;
 	}
-
 	
 	public void tick() {
 		this.drag();
@@ -50,9 +49,15 @@ public class Ball extends GameObject {
 		if (x < 0 - radius) {
 			x = 960 + radius;
 		}
+		/*
 		if (y - radius < 0) {
 			y = radius;
 			setVelY(0);
+		}
+		*/
+		if (y < radius) {
+			this.setVelY(Math.abs(this.getVelY()));
+			y = radius;
 		}
 	}
 	
