@@ -2,34 +2,38 @@ package com.tutorial.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
-//import java.util.Random;
 
-public class Player extends GameObject{
+public class Ball extends GameObject {
 	
-	public Player(int x, int y, ID id) {
+	public Ball(int x, int y, ID id) {
 		super(x, y, id);
-		this.setVelX(0);
-		this.setVelY(0);
-		this.radius = 25;
+		this.radius = 40;
 	}
 
+	
 	public void tick() {
 		this.drag();
 		displace();
 		this.constrain();
 	}
 
+	public void render(Graphics g) {
+		g.setColor(Color.blue);
+		// g.fillRect(x, y, 50, 50);
+		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
+	}
+
+	public void hit(GameObject other) {
+		super.hit(other);
+		// TODO Auto-generated method stub
+		// same as other hit methods
+	}
+	
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
 
-	public void render(Graphics g) {
-		g.setColor(Color.red);
-		// g.fillRect(x, y, 50, 50);
-		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
-	}
-	
 	private void drag() {
 		this.setVelX(this.getVelX() * 0.99f);
 		this.setVelY(this.getVelY() * 0.99f);
@@ -50,12 +54,6 @@ public class Player extends GameObject{
 			y = radius;
 			setVelY(0);
 		}
-	}
-
-	public void hit(GameObject other) {
-		super.hit(other);
-		// TODO if hurt, get hurt.
-		// ensure appropriate skill cancels/triggers
 	}
 	
 }

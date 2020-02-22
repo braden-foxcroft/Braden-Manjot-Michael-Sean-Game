@@ -1,18 +1,15 @@
 package com.tutorial.main;
 
-import java.awt.Component;
-import java.awt.MouseInfo;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
 	
 	private Handler handler;
-	private Component canvas;
-	
-	public KeyInput(Handler handler, Component canvas) {
+	// note: All key input is stored in the handler class!
+	// This is because that is where it is used.
+	public KeyInput(Handler handler) {
 		this.handler = handler;
-		this.canvas = canvas;
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -50,12 +47,6 @@ public class KeyInput extends KeyAdapter {
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_D) {
 			handler.setD_Down(s);
-		}
-		else if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-			handler.player().velX = 0;
-			handler.player().velY = 0;
-			handler.player().x = MouseInfo.getPointerInfo().getLocation().x-canvas.getLocationOnScreen().x;
-			handler.player().y = MouseInfo.getPointerInfo().getLocation().y-canvas.getLocationOnScreen().y;
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			handler.player().velX = 4;

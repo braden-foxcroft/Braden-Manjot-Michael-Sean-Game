@@ -2,13 +2,14 @@ package com.tutorial.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 // TODO implement other character classes,
 // implement skills and appropriate collision mechanics
-
+// When implementing collisions with dynamic objects, keep in mind that
+// the force applied can only act along the direction that the two things collide.
+// Also, the momentum in must match the momentum out. Finally, the kinetic energies must match.
 
 public class Game extends Canvas implements Runnable {
 	
@@ -17,7 +18,6 @@ public class Game extends Canvas implements Runnable {
 	 */
 	private static final long serialVersionUID = 1550691097823471818L;
 	
-	@SuppressWarnings("unused") // Please don't change this line or the next!
 	private Window win;
 	public static final int WIDTH = 960, HEIGHT = WIDTH / 12 * 9; // 720
 	// this will be a single threaded game, generally not
@@ -28,9 +28,10 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		this.handler = new Handler();
 		this.win = new Window(WIDTH, HEIGHT, "Our game", this);
-		Component canvas = win.canvas;
-		this.addKeyListener(new KeyInput(this.handler,canvas));
-		handler.addObject(new Player(100,100,ID.Player));
+		handler.setCanvas(win.canvas);
+		this.addKeyListener(new KeyInput(this.handler));
+		handler.addObject(new Player(100,100,ID.Player));;
+		handler.addObject(new Ball(200,200,ID.Enemy));
 	}
 	
 	
@@ -71,7 +72,9 @@ public class Game extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+				if (frames > 1000) {
+					System.out.println("FPS: " + frames);
+				}
 				frames = 0;
 			}
 		}

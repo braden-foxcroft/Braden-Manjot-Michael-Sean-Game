@@ -8,6 +8,8 @@ public abstract class GameObject {
 	protected float velX;
 	protected float velY;
 	protected ID id;
+	protected boolean anchored = false;
+	protected int radius;
 	
 	public GameObject(int x, int y, ID id) {
 		this.setX(x);
@@ -17,9 +19,34 @@ public abstract class GameObject {
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
-	public abstract void hit(boolean hurt);
-	public abstract void push(int xForce, int yForce);
-
+	
+	
+	public void hit(GameObject other) {
+		if (other.anchored) {
+			
+		}
+		else
+		{
+			Vector vA = new Vector(this);
+			Vector vB = new Vector(other);
+			Vector dir = new Vector(this, other);
+			vA.collide(vB, dir);
+			System.out.println("collision!");
+			this.setVelocity(vA);
+			other.setVelocity(vB);
+			System.out.println(vB);
+		}
+	}
+	
+	public float distance(GameObject other) {
+		return (float)Math.sqrt(Math.pow(x - other.x,2) + Math.pow(y - other.y,2));
+	}
+	
+	public void setVelocity(Vector v) {
+		this.setVelX(v.x);
+		this.setVelY(v.y);
+	}
+	
 	public float getX() {
 		return x;
 	}
@@ -66,6 +93,10 @@ public abstract class GameObject {
 	
 	public void accelY(int y) {
 		this.setVelY(this.getVelY()+y);
+	}
+	
+	public int getRadius() {
+		return this.radius;
 	}
 	
 }
