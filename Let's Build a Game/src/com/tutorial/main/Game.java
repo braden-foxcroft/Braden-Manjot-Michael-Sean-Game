@@ -7,9 +7,6 @@ import java.awt.image.BufferStrategy;
 
 // TODO implement other character classes,
 // implement skills and appropriate collision mechanics
-// When implementing collisions with dynamic objects, keep in mind that
-// the force applied can only act along the direction that the two things collide.
-// Also, the momentum in must match the momentum out. Finally, the kinetic energies must match.
 
 public class Game extends Canvas implements Runnable {
 	
@@ -30,8 +27,9 @@ public class Game extends Canvas implements Runnable {
 		this.win = new Window(WIDTH, HEIGHT, "Our game", this);
 		handler.setCanvas(win.canvas);
 		this.addKeyListener(new KeyInput(this.handler));
-		handler.addObject(new Player(100,100,ID.Player));;
-		handler.addObject(new Ball(200,200,ID.Enemy));
+		handler.addObject(new Player(320,300,ID.Player, handler));
+		// handler.addObject(new Ball(200,200,ID.Ball));
+		handler.addObject(new Enemy(640,300,ID.Enemy, handler));
 	}
 	
 	
@@ -52,6 +50,7 @@ public class Game extends Canvas implements Runnable {
 	
 	public void run() {
 		//The Game loop! (not original code)
+		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
