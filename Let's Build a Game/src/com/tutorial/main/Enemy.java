@@ -2,24 +2,47 @@ package com.tutorial.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
-//import java.util.Random;
 
-public class Player extends Character{
+public class Enemy extends Character {
 	
 	private float accel = 0.2f;
 	
-	public Player(int x, int y, ID id, Handler handler) {
+	public Enemy(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.setVelX(0);
 		this.setVelY(0);
 		this.radius = 25;
 	}
-
+	
 	public void tick() {
 		this.drag();
+		think();
 		displace();
 		this.constrain();
 		this.skillUpdate();
+	}
+	
+	private void think() {
+		float playerX;
+		float playerY;
+		if (handler.player() == null) {
+			playerX = Game.WIDTH / 2;
+			playerY = Game.HEIGHT / 2;
+		}
+		else
+		{
+			playerX = handler.player().x;
+			playerY = handler.player().y;
+		}
+		float xA = playerX - x;
+		float yA = playerY - y;
+		Vector v = new Vector(xA,yA);
+		v = v.scaleAndCopy(0.01f);
+		if (v.length() > 1) {
+			v = v.scaleAndCopy(1 / v.length());
+		}
+		this.accelX(v.x);
+		this.accelY(v.y);
 	}
 	
 	private void displace() {
@@ -45,11 +68,7 @@ public class Player extends Character{
 	public float getAccel() {
 		return this.accel;
 	}
-
-	public void hitWall() {
-		super.hitWall();
-	}
-
+	
 	public void render(Graphics g) {
 		if (this.invincible) {
 			// g.setColor(new Color(100, 0, 0));
@@ -57,9 +76,10 @@ public class Player extends Character{
 		}
 		else
 		{
-			g.setColor(Color.blue);
+			g.setColor(Color.red);
 		}
 		// g.fillRect(x, y, 50, 50);
 		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
+
 }

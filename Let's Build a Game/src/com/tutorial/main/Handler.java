@@ -15,7 +15,7 @@ public class Handler {
 	private boolean s_Down = false;
 	private boolean d_Down = false;
 	private boolean space_Down = false;
-	
+	private static boolean check_Death = false;
 	
 	public void tick() {
 		if (playerIndex != -1) {
@@ -28,8 +28,10 @@ public class Handler {
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
+			if (tempObject.id == ID.Ball) {tempObject.anchored = this.space_Down;}
 			tempObject.tick(); // update all
 		}
+		// begin collision checks
 		for (int first = 0; first < object.size(); first++) {
 			for (int second = first + 1; second < object.size(); second++) {
 				GameObject a = object.get(first);
@@ -45,6 +47,15 @@ public class Handler {
 				}
 			}
 		}
+		// check for death, when needed
+		if (check_Death) {
+			for (int thing = 0; thing < object.size(); thing++) {
+				GameObject a = object.get(thing);
+				if (a.check_Death()) {
+					removeObject(a);
+				}
+			}
+		}
 	}
 	
 	public void render(Graphics g) {
@@ -56,22 +67,23 @@ public class Handler {
 	}
 	
 	public void addObject(GameObject o) {
+		boolean debug = false;
 		if (o.id == ID.Player) {
 			if (this.playerIndex == -1) {
 				this.object.add(o);
 				this.playerIndex = this.object.size() - 1;
 				// only one player permitted!
-				System.out.println("New " + o.id);
+				if (debug) {System.out.println("New " + o.id);}
 			}
 			else
 			{
-				System.out.println("Could not make new " + o.id);
+				if (debug) {System.out.println("Could not make new " + o.id);}
 			}
 		}
 		else
 		{
 			this.object.add(o);
-			System.out.println("New " + o.id);
+			if (debug) {System.out.println("New " + o.id);}
 		}
 	}
 	
@@ -139,6 +151,18 @@ public class Handler {
 	public void setCanvas(Component canvas) {
 		this.canvas = canvas;
 		// gets the canvas. Needed to get the mouse position.
+	}
+
+	public boolean isSpace_Down() {
+		return space_Down;
+	}
+
+	public void setSpace_Down(boolean space_Down) {
+		this.space_Down = space_Down;
+	}
+	
+	public static void time_To_Die() {
+		check_Death = true;
 	}
 	
 }

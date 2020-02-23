@@ -10,20 +10,59 @@ public abstract class GameObject {
 	protected ID id;
 	protected boolean anchored = false;
 	protected int radius;
+	protected Handler handler;
 	
-	public GameObject(int x, int y, ID id) {
+	public GameObject(int x, int y, ID id, Handler handler) {
 		this.setX(x);
 		this.setY(y);
 		this.setId(id);
+		this.handler = handler;
 	}
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
+	public abstract void hitWall();
 	
+	protected void constrain() {
+		int width = Game.WIDTH - 6;
+		int height = Game.HEIGHT - 30;
+		
+		if (y > height - radius) {
+			this.setVelY(-Math.abs(this.getVelY()));
+			y = height - radius;
+			this.hitWall();
+		}
+		if (y < radius) {
+			this.setVelY(Math.abs(this.getVelY()));
+			y = radius;
+			this.hitWall();
+		}
+		if (x < radius) {
+			this.setVelX(Math.abs(this.getVelX()));
+			x = radius;
+			this.hitWall();
+		}
+		if (x > width - radius) {
+			this.setVelX(-Math.abs(this.getVelX()));
+			x = width - radius;
+			this.hitWall();
+		}
+	}
+	
+	public boolean check_Death() {
+		return false;
+	}
 	
 	public void hit(GameObject other) {
 		if (other.anchored) {
-			
+			if (!this.anchored) {
+				Vector vA = new Vector(this);
+				Vector vB = new Vector(other);
+				Vector dir = new Vector(this, other);
+				vA.collideAnchored(vB, dir);
+				this.setVelocity(vA);
+				other.setVelocity(vB);
+			}
 		}
 		else
 		{
@@ -85,11 +124,11 @@ public abstract class GameObject {
 		this.velY = velY;
 	}
 	
-	public void accelX(int x) {
+	public void accelX(float x) {
 		this.setVelX(this.getVelX()+x);
 	}
 	
-	public void accelY(int y) {
+	public void accelY(float y) {
 		this.setVelY(this.getVelY()+y);
 	}
 	

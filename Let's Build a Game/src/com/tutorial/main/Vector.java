@@ -51,14 +51,34 @@ public class Vector {
 		//System.out.println(vA.toString());
 		// get force acting on object (based on some strange math)
 		Vector force = vA.projection(collideDir);
-		// apply force (only when diverging)
+		// apply force (only when force pushes apart)
 		if (force.aligns(collideDir)) {
 			vA = vA.add(force.negate());
 			vB = vB.add(force);
 		}
-		else
-		{
-			System.out.println("Ignored");
+		// remember to change back
+		vA = vA.add(frameShift);
+		vB = vB.add(frameShift);
+		this.set(vA);
+		other.set(vB);
+	}
+	
+	public void collideAnchored(Vector other, Vector collideDir) {
+		// 'Other' is the anchored vector.
+		Vector vA = new Vector(this);
+		Vector vB = new Vector(other);
+		// change perspective
+		Vector frameShift = new Vector(vB);
+		vA = vA.add(frameShift.negate());
+		vB = vB.add(frameShift.negate());
+		//System.out.println(vA.toString());
+		//System.out.println(vA.toString());
+		// get force acting on object (based on some strange math)
+		Vector force = vA.projection(collideDir).scaleAndCopy(2f);
+		// force = force.add(vB.projection(collideDir));
+		// apply force (only when force pushes apart)
+		if (force.aligns(collideDir)) {
+			vA = vA.add(force.negate());
 		}
 		// remember to change back
 		vA = vA.add(frameShift);
