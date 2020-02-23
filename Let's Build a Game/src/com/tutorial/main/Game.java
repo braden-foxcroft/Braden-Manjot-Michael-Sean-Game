@@ -5,20 +5,31 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+// TODO implement other character classes,
+// implement skills and appropriate collision mechanics
+
 public class Game extends Canvas implements Runnable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1550691097823471818L;
-
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	
+	private Window win;
+	public static final int WIDTH = 960, HEIGHT = WIDTH / 12 * 9; // 720
 	// this will be a single threaded game, generally not
-	// recommended but for the simplicify of this game it will be fine
+	// recommended but for the simplicity of this game it will be fine
 	private Thread thread;
+	private Handler handler;
 	private boolean running = false;
 	public Game() {
-		new Window(WIDTH, HEIGHT, "Let's Build a Game", this);
+		this.handler = new Handler();
+		this.win = new Window(WIDTH, HEIGHT, "Our game", this);
+		handler.setCanvas(win.canvas);
+		this.addKeyListener(new KeyInput(this.handler));
+		handler.addObject(new Player(320,300,ID.Player, handler));
+		// handler.addObject(new Ball(200,200,ID.Ball));
+		handler.addObject(new Enemy(640,300,ID.Enemy, handler));
 	}
 	
 	
@@ -35,10 +46,11 @@ public class Game extends Canvas implements Runnable {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		}
+	}
 	
 	public void run() {
 		//The Game loop! (not original code)
+		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -59,7 +71,9 @@ public class Game extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+				if (frames > 1000) {
+					System.out.println("FPS: " + frames);
+				}
 				frames = 0;
 			}
 		}
@@ -69,7 +83,7 @@ public class Game extends Canvas implements Runnable {
 	
 	
 	private void tick() {
-		
+		handler.tick();
 	}
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -80,8 +94,10 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.green);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		handler.render(g);
 		
 		g.dispose();
 		bs.show();

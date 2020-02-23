@@ -1,7 +1,7 @@
 package com.tutorial.main;
 
 import java.awt.Canvas;
-import java.awt.Dimension;
+import java.awt.Component;
 
 import javax.swing.JFrame;
 
@@ -13,6 +13,7 @@ public class Window extends Canvas {
 	 * 
 	 */
 	private static final long serialVersionUID = -240840600533728354L;
+	public Component canvas;
 	
 	public Window(int width, int height, String title, Game game) {
 		 JFrame frame = new JFrame(title);
@@ -27,8 +28,9 @@ public class Window extends Canvas {
 		 frame.setLocationRelativeTo(null);
 		 frame.add(game);
 		 frame.setVisible(true);
+		 canvas = frame.getComponents()[0];
+		 // System.out.println(frame.getHeight());
 		 game.start();
-		 
 		 
 	}
 
