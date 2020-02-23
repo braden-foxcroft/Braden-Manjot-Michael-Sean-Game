@@ -55,6 +55,7 @@ public abstract class GameObject {
 	
 	public void hit(GameObject other) {
 		System.out.println("collision");
+		TextGame.padding++;
 		if (other.anchored) {
 			if (!this.anchored) {
 				Vector vA = new Vector(this);
@@ -139,11 +140,12 @@ public abstract class GameObject {
 	
 	public void textRender(String[][] board) {
 		System.out.println("gameobject Render");
+		TextGame.padding++;
 		String t = "?";
 		if (this.id == ID.Player) {
-			t = "@";
+			t = "O";
 		} else if (this.id == ID.Enemy) {
-			t = "0";
+			t = "X";
 		} else if (this.id == ID.Ball) {
 			t = "O";
 		}
@@ -153,6 +155,7 @@ public abstract class GameObject {
 			board[x][y] = t;
 		} catch (Error e) {
 			System.out.println("Could not display: " + this.id);
+			TextGame.padding++;
 		}
 	}
 	

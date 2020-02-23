@@ -1,5 +1,6 @@
 package com.tutorial.main;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TextGame {
@@ -9,6 +10,7 @@ public class TextGame {
 	private String[][] board;
 	private Handler handler;
 	private Scanner scanner;
+	public static int padding = 0;
 	
 	public TextGame() {
 		setupBoard();
@@ -18,7 +20,7 @@ public class TextGame {
 		System.out.println("Use W to go up, A to go left, S to go down, D to go right,"
 				+ "and anything else to do nothing!");
 		System.out.println("Press enter after each character to update!");
-		System.out.println("(You are the '@' character)");
+		System.out.println("(You are the 'O' character)");
 	}
 	
 	public void setupBoard() {
@@ -29,10 +31,57 @@ public class TextGame {
 	public void cleanBoard() {
 		for (int x = 0; x < WIDTH; x++) {
 			for (int y = 0; y < HEIGHT; y++) {
-				board[x][y] = "�";
+				board[x][y] = contents(x,y);
 			}
 		}
 	}
+	
+	public String contents(int x, int y) {
+		String t = "";
+		if (right(x)) {
+			if (top(y)) {
+				t = "┐";
+			} else if (bottom(y)) {
+				t = "┘";
+			} else {
+				t = "│";
+			}
+		} else if (left(x)) {
+			if (top(y)) {
+				t = "┌";
+			} else if (bottom(y)) {
+				t = "└";
+			} else {
+				t = "│";
+			}
+		} else {
+			if (top(y)) {
+				t = "─";
+			} else if (bottom(y)) {
+				t = "─";
+			} else {
+				t = " ";
+			}
+		}
+		return t;
+	}
+	
+	public boolean left(int x) {
+		return x == 0;
+	}
+	
+	public boolean right(int x) {
+		return x == WIDTH - 1;
+	}
+	
+	public boolean top(int y) {
+		return y == 0;
+	}
+	
+	public boolean bottom(int y) {
+		return y == HEIGHT - 1;
+	}
+	
 	
 	public void setupScanner() {
 		scanner = new Scanner(System.in);
@@ -43,8 +92,7 @@ public class TextGame {
 		g.handler.addObject(new Player(320,300,ID.Player, g.handler));
 		g.handler.addObject(new Enemy(640,300,ID.Enemy, g.handler));
 		while (g.handler.player() != null) {
-			g.update();
-			g.showBoard();
+			g.showBoard(g);
 			g.getInput();
 		}
 		System.out.println("You have died!");
@@ -86,10 +134,25 @@ public class TextGame {
 			handler.tick();
 		}
 	}
+	
+	public void clearScreen() throws IOException, InterruptedException {
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+    }
 
-	public void showBoard() {
+	public void showBoard(TextGame g) {
 		cleanBoard();
+		try {
+			clearScreen();
+		} catch (Error | IOException | InterruptedException e) {
+			System.out.print("");
+		}
+		g.update();
 		handler.textRender(board);
+		while (TextGame.padding < 6) {
+			TextGame.padding++;
+			System.out.println();
+		}
+		padding = 0;
 		for (int a = 0; a < HEIGHT; a++) {
 			for (int b = 0; b < WIDTH; b++) {
 				System.out.print(board[b][a]);
