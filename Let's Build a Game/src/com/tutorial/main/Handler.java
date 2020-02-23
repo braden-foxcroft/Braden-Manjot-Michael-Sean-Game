@@ -53,6 +53,7 @@ public class Handler {
 				GameObject a = object.get(thing);
 				if (a.check_Death()) {
 					removeObject(a);
+					thing = 0;
 				}
 			}
 		}
@@ -63,6 +64,16 @@ public class Handler {
 		{
 			GameObject tempObject = object.get(i);
 			tempObject.render(g);
+		}
+	}
+	
+	public void textRender(String[][] board) {
+		System.out.println("hander Render");
+		TextGame.padding++;
+		for (int i = 0; i < object.size(); i++)
+		{
+			GameObject tempObject = object.get(i);
+			tempObject.textRender(board);
 		}
 	}
 	

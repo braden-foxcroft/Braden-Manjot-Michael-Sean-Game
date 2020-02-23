@@ -54,6 +54,8 @@ public abstract class GameObject {
 	}
 	
 	public void hit(GameObject other) {
+		System.out.println("collision");
+		TextGame.padding++;
 		if (other.anchored) {
 			if (!this.anchored) {
 				Vector vA = new Vector(this);
@@ -135,5 +137,29 @@ public abstract class GameObject {
 	public int getRadius() {
 		return this.radius;
 	}
+	
+	public void textRender(String[][] board) {
+		System.out.println("gameobject Render");
+		TextGame.padding++;
+		String t = "?";
+		if (this.id == ID.Player) {
+			t = "O";
+		} else if (this.id == ID.Enemy) {
+			t = "X";
+		} else if (this.id == ID.Ball) {
+			t = "O";
+		}
+		int x =  (int)(this.x * ((float)TextGame.WIDTH / Game.WIDTH));
+		int y =  (int)(this.y * ((float)TextGame.HEIGHT / Game.HEIGHT));
+		try {
+			board[x][y] = t;
+		} catch (Error e) {
+			System.out.println("Could not display: " + this.id);
+			TextGame.padding++;
+		}
+	}
+	
+	
+	
 	
 }

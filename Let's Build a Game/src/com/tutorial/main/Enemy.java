@@ -72,7 +72,7 @@ public class Enemy extends Character {
 	public void render(Graphics g) {
 		if (this.invincible) {
 			// g.setColor(new Color(100, 0, 0));
-			g.setColor(Color.green);
+			g.setColor(Color.yellow);
 		}
 		else
 		{
