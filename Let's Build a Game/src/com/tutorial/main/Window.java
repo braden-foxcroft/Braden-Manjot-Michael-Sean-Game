@@ -5,7 +5,9 @@ import java.awt.Component;
 
 import javax.swing.JFrame;
 
-
+// The class that implements the window.
+// Primarily copied/edited code.
+// That said, there aren't that many ways to implement a window class.
 
 public class Window extends Canvas {
 

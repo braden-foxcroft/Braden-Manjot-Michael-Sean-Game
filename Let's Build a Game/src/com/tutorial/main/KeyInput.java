@@ -3,6 +3,9 @@ package com.tutorial.main;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+// A class that manages keystroke events and updates the handler's keyStates
+// Contains copied code.
+
 public class KeyInput extends KeyAdapter {
 	
 	private Handler handler;
@@ -12,6 +15,7 @@ public class KeyInput extends KeyAdapter {
 		this.handler = handler;
 	}
 	
+//	Triggers when a key is depressed, and once every interval after.
 	public void keyPressed(KeyEvent e) {
 		boolean s = true; // so that copy-pasting code is easier
 		if (e.getKeyCode() == KeyEvent.VK_W) {
@@ -31,8 +35,9 @@ public class KeyInput extends KeyAdapter {
 		}
 	}
 	
+//	Triggers when a key is released, and typically only once.
 	public void keyReleased(KeyEvent e) {
-		boolean s = false;
+		boolean s = false; // so that copy-pasting is faster.
 		if (e.getKeyCode() == KeyEvent.VK_W) {
 			handler.setW_Down(s);
 		}
