@@ -5,33 +5,40 @@ import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.util.LinkedList;
 
+// This class contains every GameObject, and the boolean state of each key.
+// Its purpose is to handle interactions between objects.
+// It also handles render and tick methods
+// Contains copied code.
+
 public class Handler {
 	
 	LinkedList<GameObject> object = new LinkedList<GameObject>();
-	private int playerIndex = -1;
-	private Component canvas;
-	private boolean w_Down = false;
+	private int playerIndex = -1; // Used to track the index of the player. -1 means no player.
+	private Component canvas; // Required to accurately get the mouse position.
+	private boolean w_Down = false; // Key states. Stored for convenience.
 	private boolean a_Down = false;
 	private boolean s_Down = false;
 	private boolean d_Down = false;
 	private boolean space_Down = false;
-	private static boolean check_Death = false;
+	private static boolean check_Death = false; // a flag that means something is about to die.
 	
+//	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick() {
+//		Player actions
 		if (playerIndex != -1) {
 			if (this.w_Down) {this.player().accelY(-1);}
 			if (this.a_Down) {this.player().accelX(-1);}
 			if (this.s_Down) {this.player().accelY(1);}
 			if (this.d_Down) {this.player().accelX(1);}
-			// player actions
 		}
+//		update each object
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
 			if (tempObject.id == ID.Ball) {tempObject.anchored = this.space_Down;}
 			tempObject.tick(); // update all
 		}
-		// begin collision checks
+//		Begin collision checks
 		for (int first = 0; first < object.size(); first++) {
 			for (int second = first + 1; second < object.size(); second++) {
 				GameObject a = object.get(first);
@@ -59,6 +66,7 @@ public class Handler {
 		}
 	}
 	
+//	Render each object.
 	public void render(Graphics g) {
 		for (int i = 0; i < object.size(); i++)
 		{
@@ -67,6 +75,7 @@ public class Handler {
 		}
 	}
 	
+//	Render each object for the text version.
 	public void textRender(String[][] board) {
 		System.out.println("hander Render");
 		TextGame.padding++;
@@ -77,13 +86,15 @@ public class Handler {
 		}
 	}
 	
+//	Create a new object. Block extra players from being made.
 	public void addObject(GameObject o) {
 		boolean debug = false;
 		if (o.id == ID.Player) {
 			if (this.playerIndex == -1) {
 				this.object.add(o);
 				this.playerIndex = this.object.size() - 1;
-				// only one player permitted!
+//				Only one player permitted!
+//				Update the index of the player
 				if (debug) {System.out.println("New " + o.id);}
 			}
 			else
@@ -98,6 +109,8 @@ public class Handler {
 		}
 	}
 	
+	
+//	Removes an object from the game.
 	public void removeObject(GameObject o) {
 		this.object.remove(o);
 		if (o.id == ID.Player) {
@@ -105,6 +118,7 @@ public class Handler {
 		}
 	}
 	
+//	Returns the player object, or null if it doesn't exist. Convenient.
 	public GameObject player() {
 		if (this.playerIndex == -1) {
 			return null;
@@ -115,6 +129,7 @@ public class Handler {
 		}
 	}
 
+//	Getters and setters.
 	public boolean isW_Down() {
 		return w_Down;
 	}
@@ -147,6 +162,7 @@ public class Handler {
 		this.d_Down = d_down;
 	}
 	
+//	Get mouse info. Requires that canvas be properly set up.
 	public int getMouseX() {
 		return MouseInfo.getPointerInfo().getLocation().x
 				- canvas.getLocationOnScreen().x;
@@ -159,11 +175,13 @@ public class Handler {
 		// gets the mouse position.
 	}
 	
+//	Find the canvas. This should only be called once
 	public void setCanvas(Component canvas) {
 		this.canvas = canvas;
 		// gets the canvas. Needed to get the mouse position.
 	}
 
+//	More getters and setters
 	public boolean isSpace_Down() {
 		return space_Down;
 	}
@@ -172,6 +190,7 @@ public class Handler {
 		this.space_Down = space_Down;
 	}
 	
+//	Inform every handler that it is time to check for deaths. False positives are fine.
 	public static void time_To_Die() {
 		check_Death = true;
 	}

@@ -5,7 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-
+// a test for vector arithmetic
+// TODO make test mathematically complete!
 
 public class VectorTest {
 
