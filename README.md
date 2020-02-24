@@ -1,4 +1,4 @@
-#To get this program:
+# To get this program:
 
 1. Open **Eclipse IDE for Java**
 2. Click **File**, then **Import**
@@ -13,7 +13,7 @@
 You now have a copy of this program!
 
 
-#Creating a compiled version:
+# Creating a compiled version:
 
 1. Double-click on the following items in the left panel:  
 	1. **Braden-Manjot-Michael-Sean-Game**  
