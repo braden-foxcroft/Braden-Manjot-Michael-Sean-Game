@@ -3,62 +3,44 @@ package com.tutorial.main;
 import java.awt.Color;
 import java.awt.Graphics;
 
+// Creates a ball. This ball has friction, and can collide with stuff.
+// Exclusively original code.
+
 public class Ball extends GameObject {
 	
-	public Ball(int x, int y, ID id) {
-		super(x, y, id);
+//	creates a ball of radius 40. The handler should be the original handler you use.
+	public Ball(int x, int y, ID id, Handler handler) {
+		super(x, y, id, handler);
 		this.radius = 40;
 	}
-	
+//	A routine that acts once a tick.
 	public void tick() {
 		this.drag();
 		displace();
 		this.constrain();
 	}
-
+//	display the object
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		// g.fillRect(x, y, 50, 50);
+		// TODO move all rendering to a designated class
 		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
-
-	public void hit(GameObject other) {
-		super.hit(other);
-		// TODO Auto-generated method stub
-		// same as other hit methods
-	}
-	
+//	move the object according to its velocity
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
-
+//	slow the object proportional to its velocity
 	private void drag() {
-		this.setVelX(this.getVelX() * 0.99f);
-		this.setVelY(this.getVelY() * 0.99f);
+		if (!this.anchored) {
+			float drag = 0.99f;
+			this.setVelX(this.getVelX() * drag);
+			this.setVelY(this.getVelY() * drag);
+		}
 	}
-	
-	private void constrain() {
-		if (y > 690 - radius) {
-			this.setVelY(-Math.abs(this.getVelY()));
-			y = 690 - radius;
-		}
-		if (x > 960 + radius) {
-			x = - radius;
-		}
-		if (x < 0 - radius) {
-			x = 960 + radius;
-		}
-		/*
-		if (y - radius < 0) {
-			y = radius;
-			setVelY(0);
-		}
-		*/
-		if (y < radius) {
-			this.setVelY(Math.abs(this.getVelY()));
-			y = radius;
-		}
+//	does nothing, there because it's required.
+	public void hitWall() {
+		// do nothing
 	}
 	
 }
