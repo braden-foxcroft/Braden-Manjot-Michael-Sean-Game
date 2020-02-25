@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+//The main game class, run this to run the game.
+// Contains code seen in:
+// https://www.youtube.com/watch?v=0T1U0kbu1Sk&list=PLWms45O3n--6TvZmtFHaCWRZwEqnz2MHa&index=1
 // TODO implement other character classes,
 // implement skills and appropriate collision mechanics
 
@@ -13,6 +16,7 @@ public class Game extends Canvas implements Runnable {
 	/**
 	 * 
 	 */
+	// an arbitrary constant
 	private static final long serialVersionUID = 1550691097823471818L;
 	
 	private Window win;
@@ -22,6 +26,8 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private Handler handler;
 	private boolean running = false;
+	
+//	Create a new Game object. Primarily copied code.
 	public Game() {
 		this.handler = new Handler();
 		this.win = new Window(WIDTH, HEIGHT, "Our game", this);
@@ -32,13 +38,14 @@ public class Game extends Canvas implements Runnable {
 		handler.addObject(new Enemy(640,300,ID.Enemy, handler));
 	}
 	
-	
+//	This function causes the game loop to start. Copied code.
 	public synchronized void start() {
 		thread = new Thread(this);
 		thread.start();
 		running = true;
 	}
 	
+//	This function causes the game loop to stop. Copied code.
 	public synchronized void stop() {
 		try {
 			thread.join();
@@ -48,6 +55,7 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
+//	This is the main game loop. It is mainly copied code.
 	public void run() {
 		//The Game loop! (not original code)
 		this.requestFocus();
@@ -81,10 +89,12 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 	
-	
+//	This causes all objects to update one 'frame'.
 	private void tick() {
 		handler.tick();
 	}
+	
+//	This causes all objects to visually update.
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs==null) {
@@ -103,6 +113,8 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 		
 	}
+	
+//	When the program is run, it automatically creates a game.
 	public static void main(String args []) {
 		
 		new Game();

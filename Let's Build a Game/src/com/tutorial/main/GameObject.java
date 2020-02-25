@@ -2,6 +2,11 @@ package com.tutorial.main;
 
 import java.awt.Graphics;
 
+// This class is an abstract class that represents every on-screen object that
+// can be rendered. It consists of behaviors that every object needs, or
+// of attributes that must exist, to prevent errors.
+// Some of this code is copied (see the game file for sources)
+
 public abstract class GameObject {
 	protected float x;
 	protected float y;
@@ -10,8 +15,9 @@ public abstract class GameObject {
 	protected ID id;
 	protected boolean anchored = false;
 	protected int radius;
-	protected Handler handler;
+	protected Handler handler; // an instance of the handler is required.
 	
+//	This creates an object.
 	public GameObject(int x, int y, ID id, Handler handler) {
 		this.setX(x);
 		this.setY(y);
@@ -23,6 +29,8 @@ public abstract class GameObject {
 	public abstract void render(Graphics g);
 	public abstract void hitWall();
 	
+//	Constrain prevents objects from leaving the bounds of the arena
+//	TODO allow for a larger arena.
 	protected void constrain() {
 		int width = Game.WIDTH - 6;
 		int height = Game.HEIGHT - 30;
@@ -49,10 +57,13 @@ public abstract class GameObject {
 		}
 	}
 	
+//	Determines if an object should be removed. Meant to be overridden.
 	public boolean check_Death() {
 		return false;
 	}
 	
+//	The behavior when two objects collide.
+//	TODO remove TextGame behaviors
 	public void hit(GameObject other) {
 		System.out.println("collision");
 		TextGame.padding++;
@@ -77,15 +88,18 @@ public abstract class GameObject {
 		}
 	}
 	
+//	Returns the distance to the center of another object.
 	public float distance(GameObject other) {
 		return (float)Math.sqrt(Math.pow(x - other.x,2) + Math.pow(y - other.y,2));
 	}
 	
+//	Sets the velocity
 	public void setVelocity(Vector v) {
 		this.setVelX(v.x);
 		this.setVelY(v.y);
 	}
 	
+//	Getter and setter methods.
 	public float getX() {
 		return x;
 	}
@@ -138,6 +152,7 @@ public abstract class GameObject {
 		return this.radius;
 	}
 	
+//	A method for rendering an object for the text-based version.
 	public void textRender(String[][] board) {
 		System.out.println("gameobject Render");
 		TextGame.padding++;

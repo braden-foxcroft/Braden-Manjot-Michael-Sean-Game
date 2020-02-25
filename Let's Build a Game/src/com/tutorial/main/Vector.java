@@ -1,20 +1,27 @@
 package com.tutorial.main;
 
+// Contains vectors. These are developed based on linear algebra rules,
+// and applied based on mechanics rules.
+// A vector consists of an x and y. This describes a velocity, position, and path.
+
 public class Vector {
 	public float x;
 	public float y;
 	
+//	Create a vector from floating-point values
 	public Vector(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 	
+//	Extract a vector from a GameObject's velocity
 	public Vector(GameObject g) {
 		this.x = g.getVelX();
 		this.y = g.getVelY();
 		// creates a velocity vector from a GameObject
 	}
 	
+//	Extract a vector representing the path between two objects.
 	public Vector(GameObject a, GameObject b) {
 		this.x = b.getX() - a.getX();
 		this.y = b.getY() - a.getY();
@@ -22,15 +29,18 @@ public class Vector {
 		// to the position of B
 	}
 	
+//	Return the length of a vector.
 	public float length() {
 		return (float)Math.sqrt((x * x) + (y * y));
 	}
 	
+//	Copy a vector.
 	public Vector(Vector v) {
 		this.x = v.x;
 		this.y = v.y;
 	}
 	
+//	Switch two vectors around.
 	public void reverse(Vector other) {
 		float tempX = other.x;
 		float tempY = other.y;
@@ -40,6 +50,7 @@ public class Vector {
 		this.y = tempY;
 	}
 	
+//	Perform a collision, assuming identical inertia.
 	public void collide(Vector other, Vector collideDir) {
 		Vector vA = new Vector(this);
 		Vector vB = new Vector(other);
@@ -63,6 +74,7 @@ public class Vector {
 		other.set(vB);
 	}
 	
+//	Perform a collision, assuming 'other' has infinite inertia.
 	public void collideAnchored(Vector other, Vector collideDir) {
 		// 'Other' is the anchored vector.
 		Vector vA = new Vector(this);
@@ -87,33 +99,40 @@ public class Vector {
 		other.set(vB);
 	}
 	
+//	for debugging purposes. '[x,y]'
 	public String toString() {
 		return "[" + x + "," + y + "]";
 	}
 	
+//	Add two vectors, return the result
 	public Vector add(Vector other) {
 		return new Vector(x + other.x, y + other.y);
 	}
 	
+//	Set a vector.
 	public void set(Vector other) {
 		this.x = other.x;
 		this.y = other.y;
 	}
 	
+//	Negate a vector. A vector plus its negation has a length of zero.
 	public Vector negate() {
 		return new Vector(-x,-y);
 	}
 	
+//	Compare two vectors. Precise (no margin of error).
 	public boolean equals(Vector other) {
 		return (other.x == x && other.y == y);
 	}
 	
+//	Checks if a vector contains another vector. (Meaning v1 * (0 <= n < 1) = v2)
 	public boolean contains(Vector other) {
 		boolean a = this.aligns(other);
 		boolean b = Math.abs(other.x) < Math.abs(this.x);
 		return a && b;
 	}
 
+//	Checks if two vectors point the same way.
 	public boolean aligns(Vector other) {
 		float a = other.x * this.y;
 		float b = other.y * this.x;
@@ -122,15 +141,18 @@ public class Vector {
 		return c && d;
 	}
 	
+//	Create a scaled copy.
 	public Vector scaleAndCopy(float f) {
 		return new Vector(x * f,y * f);
 		// returns a multiple of the original vector.
 	}
 	
+//	Projection. Requires linear algebra knowledge to understand.
 	public Vector projection(Vector other) {
 		if (other.x == 0 && other.y == 0)
 		{
-			return new Vector(this); // error management. No good return value.
+			return new Vector(this);
+//			Error management. Useful for the current applications
 		}
 		float numerator = (this.x * other.x) + (this.y * other.y);
 		float denominator = (other.x * other.x) + (other.y * other.y);

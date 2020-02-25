@@ -3,10 +3,14 @@ package com.tutorial.main;
 import java.awt.Color;
 import java.awt.Graphics;
 
+// An enemy. Moves toward you, tries to hit you. That is all, so far.
+//Exclusively original code.
+
 public class Enemy extends Character {
 	
-	private float accel = 0.2f;
+	private float accel = 0.2f; // how fast can it accelerate?
 	
+//	Makes an enemy.
 	public Enemy(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.setVelX(0);
@@ -14,6 +18,7 @@ public class Enemy extends Character {
 		this.radius = 25;
 	}
 	
+//	Acts once every tick
 	public void tick() {
 		this.drag();
 		think();
@@ -22,34 +27,33 @@ public class Enemy extends Character {
 		this.skillUpdate();
 	}
 	
+//	The AI of the enemy
 	private void think() {
-		float playerX;
-		float playerY;
+		Vector v;
 		if (handler.player() == null) {
-			playerX = Game.WIDTH / 2;
-			playerY = Game.HEIGHT / 2;
+			float xA = (float) (Game.WIDTH / 2) - x; // the direction the player is in
+			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the player is in
+			v = new Vector(xA,yA);
 		}
 		else
 		{
-			playerX = handler.player().x;
-			playerY = handler.player().y;
+			v = new Vector(this,handler.player());
 		}
-		float xA = playerX - x;
-		float yA = playerY - y;
-		Vector v = new Vector(xA,yA);
 		v = v.scaleAndCopy(0.01f);
 		if (v.length() > 1) {
-			v = v.scaleAndCopy(1 / v.length());
+			v = v.scaleAndCopy(1 / v.length()); // limiting the acceleration.
 		}
-		this.accelX(v.x);
+		this.accelX(v.x); // actually accelerating.
 		this.accelY(v.y);
 	}
 	
+//	Moves it, based on its velocity
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
 	
+//	Slows it down proportional to its velocity
 	private void drag() {
 		if (!this.anchored) {
 			this.setVelX(this.getVelX() * 0.99f);
@@ -57,28 +61,31 @@ public class Enemy extends Character {
 		}
 	}
 	
+//	Accelerates in the x direction
 	public void accelX(float multiple) {
 		this.velX += multiple * this.getAccel();
 	}
-	
+
+//	Accelerates in the y direction
 	public void accelY(float multiple) {
 		this.velY += multiple * this.getAccel();
 	}
 	
+//	Get the acceleration constant
 	public float getAccel() {
 		return this.accel;
 	}
 	
+//	Render it
 	public void render(Graphics g) {
+		// TODO move all rendering to a designated class
 		if (this.invincible) {
-			// g.setColor(new Color(100, 0, 0));
 			g.setColor(Color.yellow);
 		}
 		else
 		{
 			g.setColor(Color.red);
 		}
-		// g.fillRect(x, y, 50, 50);
 		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 
