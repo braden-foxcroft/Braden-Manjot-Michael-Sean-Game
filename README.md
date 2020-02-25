@@ -44,3 +44,15 @@ and it makes animations more fluid. If your operating system supports it,
 I highly recommend it!
 
 **Have fun!**
+
+# Running the test file:
+
+From the beginning of *create a compiled version*:  
+1. Double-click on the following items in the left panel:  
+	1. **Braden-Manjot-Michael-Sean-Game**  
+	2. **Let's Build a Game/src**  
+	3. **com.tutorial.main**  
+	4. **VectorTest.java**  
+2. Click the green **play** button.
+
+*This is the Demo 1 project files*
