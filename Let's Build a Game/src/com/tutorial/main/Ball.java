@@ -1,7 +1,7 @@
 package com.tutorial.main;
 
-import java.awt.Color;
-import java.awt.Graphics;
+//import java.awt.Color;
+// import java.awt.Graphics;
 
 // Creates a ball. This ball has friction, and can collide with stuff.
 // Exclusively original code.
@@ -20,10 +20,8 @@ public class Ball extends GameObject {
 		this.constrain();
 	}
 //	display the object
-	public void render(Graphics g) {
-		g.setColor(Color.blue);
-		// TODO move all rendering to a designated class
-		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
+	public void render(Display d) {
+		d.displayObject(DisplayID.Enemy, x, y, radius);
 	}
 //	move the object according to its velocity
 	private void displace() {

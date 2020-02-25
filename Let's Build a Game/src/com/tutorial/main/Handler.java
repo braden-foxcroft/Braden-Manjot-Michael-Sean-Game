@@ -1,7 +1,7 @@
 package com.tutorial.main;
 
 import java.awt.Component;
-import java.awt.Graphics;
+// import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.util.LinkedList;
 
@@ -67,18 +67,20 @@ public class Handler {
 	}
 	
 //	Render each object.
-	public void render(Graphics g) {
+	public void render(Display d) {
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
-			tempObject.render(g);
+			tempObject.render(d);
 		}
 	}
 	
 //	Render each object for the text version.
 	public void textRender(String[][] board) {
-		System.out.println("hander Render");
-		TextGame.padding++;
+		if (TextGame.textGameActive) {
+			System.out.println("hander Render");
+			TextGame.padding++;
+		}
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
