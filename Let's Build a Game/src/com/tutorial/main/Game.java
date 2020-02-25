@@ -93,15 +93,12 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		Display d = new Display(g);
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		d.screenBackground();
 		
-		handler.render(g);
-		
-		g.dispose();
-		bs.show();
-		
+		handler.render(d);
+		d.update(bs);
 	}
 	public static void main(String args []) {
 		

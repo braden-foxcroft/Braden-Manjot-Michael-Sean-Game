@@ -1,6 +1,6 @@
 package com.tutorial.main;
 
-import java.awt.Graphics;
+// import java.awt.Graphics;
 
 public abstract class GameObject {
 	protected float x;
@@ -20,7 +20,7 @@ public abstract class GameObject {
 	}
 	
 	public abstract void tick();
-	public abstract void render(Graphics g);
+	public abstract void render(Display d);
 	public abstract void hitWall();
 	
 	protected void constrain() {
@@ -54,8 +54,10 @@ public abstract class GameObject {
 	}
 	
 	public void hit(GameObject other) {
-		System.out.println("collision");
-		TextGame.padding++;
+		if (TextGame.itsATextGameRightNow) {
+			System.out.println("collision");
+			TextGame.padding++;
+		}
 		if (other.anchored) {
 			if (!this.anchored) {
 				Vector vA = new Vector(this);
@@ -139,8 +141,10 @@ public abstract class GameObject {
 	}
 	
 	public void textRender(String[][] board) {
-		System.out.println("gameobject Render");
-		TextGame.padding++;
+		if (TextGame.itsATextGameRightNow) {
+			System.out.println("gameobject Render");
+			TextGame.padding++;
+		}
 		String t = "?";
 		if (this.id == ID.Player) {
 			t = "O";

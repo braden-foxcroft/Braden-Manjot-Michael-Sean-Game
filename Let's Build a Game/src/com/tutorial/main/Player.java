@@ -50,16 +50,12 @@ public class Player extends Character{
 		super.hitWall();
 	}
 
-	public void render(Graphics g) {
-		if (this.invincible) {
-			// g.setColor(new Color(100, 0, 0));
-			g.setColor(Color.green);
+	public void render(Display d) {
+		if (invincible) {
+			d.displayObject(DisplayID.PlayerInvincible, this.x, this.y, radius);
 		}
-		else
-		{
-			g.setColor(Color.blue);
+		else {
+			d.displayObject(DisplayID.Player, this.x, this.y, radius);
 		}
-		// g.fillRect(x, y, 50, 50);
-		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 }

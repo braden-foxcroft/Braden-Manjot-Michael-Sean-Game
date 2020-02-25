@@ -27,7 +27,10 @@ public abstract class Character extends GameObject {
 	
 	public void hitWall() {
 		if (!this.invincible) {
-			System.out.println("damage taken by:" + this.id);
+			if (TextGame.itsATextGameRightNow) {
+				System.out.println("damage taken by:" + this.id);
+				TextGame.padding++;
+			}
 			this.struck = System.currentTimeMillis() + 1000;
 			this.invincible = true;
 			this.health -= 1;

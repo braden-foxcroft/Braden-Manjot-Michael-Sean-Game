@@ -59,17 +59,19 @@ public class Handler {
 		}
 	}
 	
-	public void render(Graphics g) {
+	public void render(Display d) {
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
-			tempObject.render(g);
+			tempObject.render(d);
 		}
 	}
 	
 	public void textRender(String[][] board) {
-		System.out.println("hander Render");
-		TextGame.padding++;
+		if (TextGame.itsATextGameRightNow) {
+			System.out.println("handler Render");
+			TextGame.padding++;
+		}
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);

@@ -16,10 +16,8 @@ public class Ball extends GameObject {
 		this.constrain();
 	}
 
-	public void render(Graphics g) {
-		g.setColor(Color.blue);
-		// g.fillRect(x, y, 50, 50);
-		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
+	public void render(Display d) {
+		d.displayObject(DisplayID.Player, this.x, this.y, radius);
 	}
 	
 	private void displace() {

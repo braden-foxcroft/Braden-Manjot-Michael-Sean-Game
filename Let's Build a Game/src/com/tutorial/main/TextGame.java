@@ -11,8 +11,10 @@ public class TextGame {
 	private Handler handler;
 	private Scanner scanner;
 	public static int padding = 0;
+	public static boolean itsATextGameRightNow = false;
 	
 	public TextGame() {
+		itsATextGameRightNow = true;
 		setupBoard();
 		setupScanner();
 		handler = new Handler();
