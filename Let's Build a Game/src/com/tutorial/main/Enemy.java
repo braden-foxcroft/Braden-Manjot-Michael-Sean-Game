@@ -1,7 +1,7 @@
 package com.tutorial.main;
 
-import java.awt.Color;
-import java.awt.Graphics;
+// import java.awt.Color;
+// import java.awt.Graphics;
 
 // An enemy. Moves toward you, tries to hit you. That is all, so far.
 //Exclusively original code.
@@ -77,16 +77,12 @@ public class Enemy extends Character {
 	}
 	
 //	Render it
-	public void render(Graphics g) {
-		// TODO move all rendering to a designated class
+	public void render(Display d) {
 		if (this.invincible) {
-			g.setColor(Color.yellow);
+			d.displayObject(DisplayID.EnemyInvincible, x, y, radius);
+		} else {
+			d.displayObject(DisplayID.Enemy, x, y, radius);
 		}
-		else
-		{
-			g.setColor(Color.red);
-		}
-		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.tutorial.main;
 
 import java.awt.Canvas;
-import java.awt.Color;
+// import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -103,14 +103,13 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		Display d = new Display(g);
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		d.screenBackground();
 		
-		handler.render(g);
+		handler.render(d);
 		
-		g.dispose();
-		bs.show();
+		d.update(bs);
 		
 	}
 	
