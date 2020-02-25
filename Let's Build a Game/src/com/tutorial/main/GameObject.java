@@ -16,6 +16,7 @@ public abstract class GameObject {
 	protected boolean anchored = false;
 	protected int radius;
 	protected Handler handler; // an instance of the handler is required.
+	protected boolean damaging = false;
 	
 //	This creates an object.
 	public GameObject(int x, int y, ID id, Handler handler) {
@@ -85,6 +86,10 @@ public abstract class GameObject {
 			vA.collide(vB, dir);
 			this.setVelocity(vA);
 			other.setVelocity(vB);
+		}
+		if (this.damaging || other.damaging) {
+			this.hitWall();
+			other.hitWall();
 		}
 	}
 	
@@ -172,6 +177,10 @@ public abstract class GameObject {
 			System.out.println("Could not display: " + this.id);
 			TextGame.padding++;
 		}
+	}
+
+	public boolean isDamaging() {
+		return damaging;
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 //The main game class, run this to run the game.
 // Contains code seen in:
@@ -26,6 +27,7 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private Handler handler;
 	private boolean running = false;
+	private Random r;
 	
 //	Create a new Game object. Primarily copied code.
 	public Game() {
@@ -36,6 +38,16 @@ public class Game extends Canvas implements Runnable {
 		handler.addObject(new Player(320,300,ID.Player, handler));
 		// handler.addObject(new Ball(200,200,ID.Ball));
 		handler.addObject(new Enemy(640,300,ID.Enemy, handler));
+		
+		// adding the randomized ObstTrap objects to create the map. 
+		//TODO find out how to prevent objects from overlapping
+		//TODO find out how to prevent objects from spawning on player
+		r = new Random();
+		for(int i = 0 ; i < 8 ; i++) {
+			handler.addObject(new ObstTrap(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.ObstTrap, handler, r.nextInt(60)+5));
+		}
+		
+		
 	}
 	
 //	This function causes the game loop to start. Copied code.
