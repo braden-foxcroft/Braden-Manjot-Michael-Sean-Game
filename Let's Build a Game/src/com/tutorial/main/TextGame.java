@@ -15,9 +15,11 @@ public class TextGame {
 	private Scanner scanner;
 	public static int padding = 0;
 	public boolean clearScreen = false;
+	public static boolean textGameActive = false;
 	
 //	Create a textGame
 	public TextGame() {
+		textGameActive = true;
 		setupBoard();
 		setupScanner();
 		handler = new Handler();
