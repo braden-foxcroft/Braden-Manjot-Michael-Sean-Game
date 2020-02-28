@@ -1,6 +1,6 @@
 package com.tutorial.main;
 
-import java.awt.Graphics;
+// import java.awt.Graphics;
 
 // This class is an abstract class that represents every on-screen object that
 // can be rendered. It consists of behaviors that every object needs, or
@@ -26,7 +26,7 @@ public abstract class GameObject {
 	}
 	
 	public abstract void tick();
-	public abstract void render(Graphics g);
+	public abstract void render(Display d);
 	public abstract void hitWall();
 	
 //	Constrain prevents objects from leaving the bounds of the arena
@@ -65,8 +65,10 @@ public abstract class GameObject {
 //	The behavior when two objects collide.
 //	TODO remove TextGame behaviors
 	public void hit(GameObject other) {
-		System.out.println("collision");
-		TextGame.padding++;
+		if (TextGame.textGameActive) {
+			System.out.println("collision");
+			TextGame.padding++;
+		}
 		if (other.anchored) {
 			if (!this.anchored) {
 				Vector vA = new Vector(this);
@@ -154,8 +156,10 @@ public abstract class GameObject {
 	
 //	A method for rendering an object for the text-based version.
 	public void textRender(String[][] board) {
-		System.out.println("gameobject Render");
-		TextGame.padding++;
+		if (TextGame.textGameActive) {
+			System.out.println("gameobject Render");
+			TextGame.padding++;
+		}
 		String t = "?";
 		if (this.id == ID.Player) {
 			t = "O";

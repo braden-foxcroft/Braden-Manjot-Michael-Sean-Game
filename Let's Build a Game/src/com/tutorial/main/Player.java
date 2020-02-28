@@ -1,8 +1,8 @@
 package com.tutorial.main;
 
-import java.awt.Color;
-import java.awt.Graphics;
-//import java.util.Random;
+// import java.awt.Color;
+// import java.awt.Graphics;
+// import java.util.Random;
 
 // The player character.
 // Contains only original code.
@@ -62,17 +62,11 @@ public class Player extends Character{
 	}
 
 //	Should render the character
-//	TODO Move all rendering to a designated class.
-	public void render(Graphics g) {
+	public void render(Display d) {
 		if (this.invincible) {
-			// g.setColor(new Color(100, 0, 0));
-			g.setColor(Color.green);
+			d.displayObject(DisplayID.PlayerInvincible, x, y, radius);
+		} else {
+			d.displayObject(DisplayID.Player, x, y, radius);
 		}
-		else
-		{
-			g.setColor(Color.blue);
-		}
-		// g.fillRect(x, y, 50, 50);
-		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 }
