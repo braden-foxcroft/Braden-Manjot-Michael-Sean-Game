@@ -20,18 +20,55 @@ public class Handler {
 	private boolean a_Down = false;
 	private boolean s_Down = false;
 	private boolean d_Down = false;
+	private boolean shift_Down = false;
+	private boolean num1_Down = false;
+	private boolean q_Down = false;
+	private boolean num2_Down = false;
 	private boolean space_Down = false;
+	private boolean esc_Down = false;
+	public boolean ignore_Space = false;
 	private static boolean check_Death = false; // a flag that means something is about to die.
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
-	public void tick() {
+	public void tick(){
 //		Player actions
-		
 		if (playerIndex != -1) {
-			if (this.w_Down) {this.player().accelY(-1);}
-			if (this.a_Down) {this.player().accelX(-1);}
-			if (this.s_Down) {this.player().accelY(1);}
-			if (this.d_Down) {this.player().accelX(1);}
+			if (this.isW_Down()) {this.player().accelY(-1);}
+			if (this.isA_Down()) {this.player().accelX(-1);}
+			if (this.isS_Down()) {this.player().accelY(1);}
+			if (this.isD_Down()) {this.player().accelX(1);}
+			if (this.isShift_Down()) {
+				float cons = 15f;
+				Vector start = new Vector(player());
+				if (start.length() == 0) {
+					start.set(new Vector(1,0));
+				}
+				Vector result = start.scaleAndCopy(cons / start.length());
+				player().setVelocity(result);
+				this.setShift_Down(false);
+			}
+			if (this.isQ_Down()) {
+				for (GameObject o: this.object) {
+					if (o.id == ID.Enemy) {
+						Vector disp = new Vector(player(),o);
+						disp = disp.scaleAndCopy(1 / disp.length() / disp.length());
+						Vector push = disp.scaleAndCopy(3000f);
+						Vector now = new Vector(o);
+						now = now.add(push);
+						o.setVelocity(now);
+						
+					}
+				}
+				this.setQ_Down(false);
+			}
+		}
+		if (this.isSpace_Down() && !ignore_Space) {
+			this.removeByID(ID.ObstTrap);
+			this.setup();
+			this.ignore_Space = true;
+		}
+		if (this.isEsc_Down()) {
+			System.exit(1);
 		}
 //		update each object
 		for (int i = 0; i < object.size(); i++)
@@ -85,7 +122,7 @@ public class Handler {
 	
 	public void setup() {
 		this.addObject(new Player(320,300,ID.Player, this));
-		// handler.addObject(new Ball(200,200,ID.Ball));
+		// this.addObject(new Ball(200,200,ID.Ball, this));
 		this.addObject(new Enemy(640,300,ID.Enemy, this));
 		Random r = new Random();
 		for(int i = 0 ; i < 8 ; i++) {
@@ -97,6 +134,29 @@ public class Handler {
 			}
 		}
 	}
+	
+	public void removeAll() {
+		while (objectCount() > 0) {
+			this.removeObject(this.object.get(0));
+		}
+	}
+	
+	public int objectCount() {
+		return this.object.size();
+	}
+	
+	public void removeByID(ID id) {
+		GameObject o;
+		for (int i = 0; i<objectCount(); i++) {
+			o = this.object.get(i);
+			if (o.getId() == id) {
+				this.removeObject(o);
+				i--;
+			}
+		}
+	}
+	
+	
 	
 //	Render each object.
 	public void render(Display d) {
@@ -146,9 +206,20 @@ public class Handler {
 	
 //	Removes an object from the game.
 	public void removeObject(GameObject o) {
-		this.object.remove(o);
 		if (o.id == ID.Player) {
 			this.playerIndex = -1;
+		}
+		this.object.remove(o);
+		updatePlayerID();
+	}
+
+	private void updatePlayerID() {
+		this.playerIndex = -1;
+		for (int i = 0; i < this.objectCount(); i++) {
+			GameObject ob = this.object.get(i);
+			if (ob.id == ID.Player) {
+				this.playerIndex = i;
+			}
 		}
 	}
 	
@@ -227,6 +298,46 @@ public class Handler {
 //	Inform every handler that it is time to check for deaths. False positives are fine.
 	public static void time_To_Die() {
 		check_Death = true;
+	}
+
+	public boolean isShift_Down() {
+		return shift_Down;
+	}
+
+	public void setShift_Down(boolean shift_Down) {
+		this.shift_Down = shift_Down;
+	}
+
+	public boolean isNum1_Down() {
+		return num1_Down;
+	}
+
+	public void setNum1_Down(boolean num1_Down) {
+		this.num1_Down = num1_Down;
+	}
+
+	public boolean isNum2_Down() {
+		return num2_Down;
+	}
+
+	public void setNum2_Down(boolean num2_Down) {
+		this.num2_Down = num2_Down;
+	}
+
+	public boolean isEsc_Down() {
+		return esc_Down;
+	}
+
+	public void setEsc_Down(boolean esc_Down) {
+		this.esc_Down = esc_Down;
+	}
+
+	public boolean isQ_Down() {
+		return q_Down;
+	}
+
+	public void setQ_Down(boolean q_Down) {
+		this.q_Down = q_Down;
 	}
 	
 }
