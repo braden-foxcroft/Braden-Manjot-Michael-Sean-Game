@@ -19,6 +19,9 @@ public class Display {
 		else if(id == DisplayID.Enemy) {
 			g.setColor(Color.red);
 		}
+		else if(id == DisplayID.ObstTrapBasic) {
+			g.setColor(Color.white);
+		}
 		else if(id == DisplayID.EnemyInvincible) {
 			g.setColor(Color.green);
 		}

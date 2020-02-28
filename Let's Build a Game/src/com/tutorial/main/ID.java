@@ -7,5 +7,6 @@ public enum ID {
 	Enemy(),
 	Obstacle(),
 	Ball(),
+	ObstTrap(),
 	Item();
 }

@@ -4,6 +4,7 @@ import java.awt.Canvas;
 // import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 //The main game class, run this to run the game.
 // Contains code seen in:
@@ -33,9 +34,7 @@ public class Game extends Canvas implements Runnable {
 		this.win = new Window(WIDTH, HEIGHT, "Our game", this);
 		handler.setCanvas(win.canvas);
 		this.addKeyListener(new KeyInput(this.handler));
-		handler.addObject(new Player(320,300,ID.Player, handler));
-		// handler.addObject(new Ball(200,200,ID.Ball));
-		handler.addObject(new Enemy(640,300,ID.Enemy, handler));
+		handler.setup();
 	}
 	
 //	This function causes the game loop to start. Copied code.

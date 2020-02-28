@@ -4,6 +4,7 @@ import java.awt.Component;
 // import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.util.LinkedList;
+import java.util.Random;
 
 // This class contains every GameObject, and the boolean state of each key.
 // Its purpose is to handle interactions between objects.
@@ -25,6 +26,7 @@ public class Handler {
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick() {
 //		Player actions
+		
 		if (playerIndex != -1) {
 			if (this.w_Down) {this.player().accelY(-1);}
 			if (this.a_Down) {this.player().accelX(-1);}
@@ -43,7 +45,7 @@ public class Handler {
 			for (int second = first + 1; second < object.size(); second++) {
 				GameObject a = object.get(first);
 				GameObject b = object.get(second);
-				if (a.distance(b) < (a.getRadius() + b.getRadius()))
+				if (isHitting(a,b))
 				{
 					if (a.anchored) {
 						a = object.get(second);
@@ -62,6 +64,36 @@ public class Handler {
 					removeObject(a);
 					thing = 0;
 				}
+			}
+		}
+		
+	}
+
+	public boolean isHittingAnything(GameObject isThisOkay) {
+		for (GameObject a:this.object) {
+			if (isHitting(a, isThisOkay))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isHitting(GameObject me, GameObject you) {
+		return me.distance(you) < (me.getRadius() + you.getRadius());
+	}
+	
+	public void setup() {
+		this.addObject(new Player(320,300,ID.Player, this));
+		// handler.addObject(new Ball(200,200,ID.Ball));
+		this.addObject(new Enemy(640,300,ID.Enemy, this));
+		Random r = new Random();
+		for(int i = 0 ; i < 8 ; i++) {
+			ObstTrap o = new ObstTrap(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.ObstTrap, this, r.nextInt(60)+5);
+			if (!isHittingAnything(o)) {
+				this.addObject(o);
+			} else {
+				i--;
 			}
 		}
 	}
