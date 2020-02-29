@@ -33,6 +33,21 @@ public class KeyInput extends KeyAdapter {
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			handler.setSpace_Down(s);
 		}
+		else if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+			handler.setShift_Down(s);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_1) {
+			handler.setNum1_Down(s);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_2) {
+			handler.setNum2_Down(s);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			handler.setEsc_Down(s);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_Q) {
+			handler.setQ_Down(s);
+		}
 	}
 	
 //	Triggers when a key is released, and typically only once.
@@ -52,7 +67,19 @@ public class KeyInput extends KeyAdapter {
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			handler.setSpace_Down(s);
+			handler.ignore_Space = false;
 		}
-		
+		else if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+			handler.setShift_Down(s);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_1) {
+			handler.setNum1_Down(s);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_2) {
+			handler.setNum2_Down(s);
+		}
+		else if (e.getKeyCode() == KeyEvent.VK_Q) {
+			handler.setQ_Down(s);
+		}
 	}
 }
