@@ -1,44 +1,50 @@
 package com.tutorial.main;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class Display {
 	
 	private Graphics g;
+	private GraphicsContext gC;
 
 	public Display(Graphics g) {
 		this.g = g;
 	}
 	
+	public Display(GraphicsContext gC) {
+		this.gC = gC;
+	}
+	
 	public void displayObject(DisplayID id, float x, float y, int radius) {
 		if (id == DisplayID.Player) {
-			g.setColor(Color.blue);
+			gC.setFill(Color.BLUE);
 		}
 		else if(id == DisplayID.Enemy) {
-			g.setColor(Color.red);
+			gC.setFill(Color.RED);
 		}
 		else if(id == DisplayID.ObstTrapBasic) {
-			g.setColor(Color.white);
+			gC.setFill(Color.WHITE);
 		}
 		else if(id == DisplayID.EnemyInvincible) {
-			g.setColor(Color.green);
+			gC.setFill(Color.GREEN);
 		}
 		else if(id == DisplayID.PlayerInvincible) {
-			g.setColor(Color.yellow);
+			gC.setFill(Color.YELLOW);
 		}
-		g.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
+		gC.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 	
 	public void screenBackground() {
-		g.setColor(Color.black);
+		gC.setFill(Color.BLACK);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	}
 	
-	public void update(BufferStrategy bs) {
-		g.dispose();
-		bs.show();
+	public void setupNextFrame() {
+		gC.setFill(Color.BLACK);
+		gC.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	}
 
 }

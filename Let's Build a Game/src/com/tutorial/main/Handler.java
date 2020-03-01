@@ -1,10 +1,10 @@
 package com.tutorial.main;
 
-import java.awt.Component;
 // import java.awt.Graphics;
-import java.awt.MouseInfo;
 import java.util.LinkedList;
 import java.util.Random;
+
+import javafx.scene.input.KeyCode;
 
 // This class contains every GameObject, and the boolean state of each key.
 // Its purpose is to handle interactions between objects.
@@ -15,29 +15,18 @@ public class Handler {
 	
 	LinkedList<GameObject> object = new LinkedList<GameObject>();
 	private int playerIndex = -1; // Used to track the index of the player. -1 means no player.
-	private Component canvas; // Required to accurately get the mouse position.
-	private boolean w_Down = false; // Key states. Stored for convenience.
-	private boolean a_Down = false;
-	private boolean s_Down = false;
-	private boolean d_Down = false;
-	private boolean shift_Down = false;
-	private boolean num1_Down = false;
-	private boolean q_Down = false;
-	private boolean num2_Down = false;
-	private boolean space_Down = false;
-	private boolean esc_Down = false;
-	public boolean ignore_Space = false;
+	private Keylist kL;
 	private static boolean check_Death = false; // a flag that means something is about to die.
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
 //		Player actions
 		if (playerIndex != -1) {
-			if (this.isW_Down()) {this.player().accelY(-1);}
-			if (this.isA_Down()) {this.player().accelX(-1);}
-			if (this.isS_Down()) {this.player().accelY(1);}
-			if (this.isD_Down()) {this.player().accelX(1);}
-			if (this.isShift_Down()) {
+			if (kL.isPressed(KeyCode.W)) {this.player().accelY(-1);}
+			if (kL.isPressed(KeyCode.A)) {this.player().accelX(-1);}
+			if (kL.isPressed(KeyCode.S)) {this.player().accelY(1);}
+			if (kL.isPressed(KeyCode.D)) {this.player().accelX(1);}
+			if (kL.justPressed(KeyCode.SHIFT)) {
 				float cons = 15f;
 				Vector start = new Vector(player());
 				if (start.length() == 0) {
@@ -45,9 +34,8 @@ public class Handler {
 				}
 				Vector result = start.scaleAndCopy(cons / start.length());
 				player().setVelocity(result);
-				this.setShift_Down(false);
 			}
-			if (this.isQ_Down()) {
+			if (kL.justPressed(KeyCode.Q)) {
 				for (GameObject o: this.object) {
 					if (o.id == ID.Enemy) {
 						Vector disp = new Vector(player(),o);
@@ -59,22 +47,20 @@ public class Handler {
 						
 					}
 				}
-				this.setQ_Down(false);
 			}
 		}
-		if (this.isSpace_Down() && !ignore_Space) {
+		if (kL.justPressed(KeyCode.SPACE)) {
 			this.removeByID(ID.ObstTrap);
 			this.setup();
-			this.ignore_Space = true;
 		}
-		if (this.isEsc_Down()) {
+		if (kL.isPressed(KeyCode.ESCAPE)) {
 			System.exit(1);
 		}
 //		update each object
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
-			if (tempObject.id == ID.Ball) {tempObject.anchored = this.space_Down;}
+			if (tempObject.id == ID.Ball) {tempObject.anchored = kL.isPressed(KeyCode.SPACE);}
 			tempObject.tick(); // update all
 		}
 //		Begin collision checks
@@ -122,7 +108,7 @@ public class Handler {
 	
 	public void setup() {
 		this.addObject(new Player(320,300,ID.Player, this));
-		// this.addObject(new Ball(200,200,ID.Ball, this));
+//		this.addObject(new Ball(200,200,ID.Ball, this));
 		this.addObject(new Enemy(640,300,ID.Enemy, this));
 		Random r = new Random();
 		for(int i = 0 ; i < 8 ; i++) {
@@ -160,6 +146,7 @@ public class Handler {
 	
 //	Render each object.
 	public void render(Display d) {
+		d.setupNextFrame();
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
@@ -233,111 +220,21 @@ public class Handler {
 			return this.object.get(playerIndex);
 		}
 	}
-
-//	Getters and setters.
-	public boolean isW_Down() {
-		return w_Down;
-	}
-
-	public void setW_Down(boolean w_down) {
-		this.w_Down = w_down;
-	}
-
-	public boolean isA_Down() {
-		return a_Down;
-	}
-
-	public void setA_Down(boolean a_down) {
-		this.a_Down = a_down;
-	}
-
-	public boolean isS_Down() {
-		return s_Down;
-	}
-
-	public void setS_Down(boolean s_down) {
-		this.s_Down = s_down;
-	}
-
-	public boolean isD_Down() {
-		return d_Down;
-	}
-
-	public void setD_Down(boolean d_down) {
-		this.d_Down = d_down;
+	
+//	Add a keyList object
+	public void addKeyboard(Keylist kL) {
+		this.kL = kL;
 	}
 	
-//	Get mouse info. Requires that canvas be properly set up.
-	public int getMouseX() {
-		return MouseInfo.getPointerInfo().getLocation().x
-				- canvas.getLocationOnScreen().x;
-		// gets the mouse position.
+//	Get the keyBoard object
+	public Keylist keys() {
+		return this.kL;
 	}
 	
-	public int getMouseY() {
-		return MouseInfo.getPointerInfo().getLocation().y
-				- canvas.getLocationOnScreen().y;
-		// gets the mouse position.
-	}
-	
-//	Find the canvas. This should only be called once
-	public void setCanvas(Component canvas) {
-		this.canvas = canvas;
-		// gets the canvas. Needed to get the mouse position.
-	}
-
-//	More getters and setters
-	public boolean isSpace_Down() {
-		return space_Down;
-	}
-
-	public void setSpace_Down(boolean space_Down) {
-		this.space_Down = space_Down;
-	}
 	
 //	Inform every handler that it is time to check for deaths. False positives are fine.
 	public static void time_To_Die() {
 		check_Death = true;
 	}
 
-	public boolean isShift_Down() {
-		return shift_Down;
-	}
-
-	public void setShift_Down(boolean shift_Down) {
-		this.shift_Down = shift_Down;
-	}
-
-	public boolean isNum1_Down() {
-		return num1_Down;
-	}
-
-	public void setNum1_Down(boolean num1_Down) {
-		this.num1_Down = num1_Down;
-	}
-
-	public boolean isNum2_Down() {
-		return num2_Down;
-	}
-
-	public void setNum2_Down(boolean num2_Down) {
-		this.num2_Down = num2_Down;
-	}
-
-	public boolean isEsc_Down() {
-		return esc_Down;
-	}
-
-	public void setEsc_Down(boolean esc_Down) {
-		this.esc_Down = esc_Down;
-	}
-
-	public boolean isQ_Down() {
-		return q_Down;
-	}
-
-	public void setQ_Down(boolean q_Down) {
-		this.q_Down = q_Down;
-	}
-	
 }
