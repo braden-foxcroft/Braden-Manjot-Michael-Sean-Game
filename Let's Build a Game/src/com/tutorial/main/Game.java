@@ -1,123 +1,63 @@
 package com.tutorial.main;
 
-import java.awt.Canvas;
-// import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
-import java.util.Random;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
-//The main game class, run this to run the game.
-// Contains code seen in:
-// https://www.youtube.com/watch?v=0T1U0kbu1Sk&list=PLWms45O3n--6TvZmtFHaCWRZwEqnz2MHa&index=1
-// TODO implement other character classes,
-// implement skills and appropriate collision mechanics
-
-public class Game extends Canvas implements Runnable {
+public class Game extends Application {
 	
-	/**
-	 * 
-	 */
-	// an arbitrary constant
-	private static final long serialVersionUID = 1550691097823471818L;
+	public static final int WIDTH = 960;
+	public static final int HEIGHT = WIDTH / 12 * 9; // 720;
+	private Canvas mainCanvas;
+	private Keylist kL;
 	
-	private Window win;
-	public static final int WIDTH = 960, HEIGHT = WIDTH / 12 * 9; // 720
-	// this will be a single threaded game, generally not
-	// recommended but for the simplicity of this game it will be fine
-	private Thread thread;
-	private Handler handler;
-	private boolean running = false;
-	
-//	Create a new Game object. Primarily copied code.
-	public Game() {
-		this.handler = new Handler();
-		this.win = new Window(WIDTH, HEIGHT, "Our game", this);
-		handler.setCanvas(win.canvas);
-		this.addKeyListener(new KeyInput(this.handler));
-		handler.setup();
+	public void start(Stage mainStage) throws Exception {
+		Handler handler = new Handler();
+		
+		setupWindow(mainStage);
+		
+		handler.addKeyboard(kL);
+		
+		Display display = setupDisplay();
+		
+		AnimationController aC = new AnimationController(handler, display);
+		
+		aC.start();
+		mainStage.show();
+		mainStage.centerOnScreen();
 	}
 	
-//	This function causes the game loop to start. Copied code.
-	public synchronized void start() {
-		thread = new Thread(this);
-		thread.start();
-		running = true;
+	public void setupKeylist(Scene gameScene) {
+		kL = new Keylist();
+		gameScene.addEventHandler(KeyEvent.KEY_PRESSED, kL);
+		gameScene.addEventHandler(KeyEvent.KEY_RELEASED, kL);
 	}
 	
-//	This function causes the game loop to stop. Copied code.
-	public synchronized void stop() {
-		try {
-			thread.join();
-			running = false;
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+	public Display setupDisplay() {
+		GraphicsContext gC = mainCanvas.getGraphicsContext2D();
+		return new Display(gC);
 	}
 	
-//	This is the main game loop. It is mainly copied code.
-	public void run() {
-		//The Game loop! (not original code)
-		this.requestFocus();
-		long lastTime = System.nanoTime();
-		double amountOfTicks = 60.0;
-		double ns = 1000000000 / amountOfTicks;
-		double delta = 0.0;
-		long timer = System.currentTimeMillis();
-		int frames = 0;
-		while(running) {
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
-			while(delta >=1) {
-				tick();
-				delta--;
-			}
-			if(running)
-				render();
-			frames++;
-			
-			if(System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				if (frames > 1000) {
-					System.out.println("FPS: " + frames);
-				}
-				frames = 0;
-			}
-		}
-		stop();
+	public void setupWindow(Stage mainStage) {
+		Group root = new Group();
+		mainCanvas = new Canvas(WIDTH,HEIGHT);
+		root.getChildren().add(mainCanvas);
 		
+		
+		Scene gameScene = new Scene(root, 0, 0);
+		setupKeylist(gameScene);
+		
+		mainStage.setTitle("Bumper cars");
+		mainStage.setScene(gameScene);
 	}
 	
-//	This causes all objects to update one 'frame'.
-	private void tick() {
-		handler.tick();
+	public static void main(String[] args) {
+		System.out.println("start");
+		launch(args);
+		System.out.println("done");
 	}
-	
-//	This causes all objects to visually update.
-	private void render() {
-		BufferStrategy bs = this.getBufferStrategy();
-		if(bs==null) {
-			this.createBufferStrategy(3);
-				return;
-		}
-		
-		Graphics g = bs.getDrawGraphics();
-		Display d = new Display(g);
-		
-		d.screenBackground();
-		
-		handler.render(d);
-		
-		d.update(bs);
-		
-	}
-	
-//	When the program is run, it automatically creates a game.
-	public static void main(String args []) {
-		
-		new Game();
-		
-		
-	}
-
 }

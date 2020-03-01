@@ -63,7 +63,6 @@ public abstract class GameObject {
 	}
 	
 //	The behavior when two objects collide.
-//	TODO remove TextGame behaviors
 	public void hit(GameObject other) {
 		if (TextGame.textGameActive) {
 			System.out.println("collision");

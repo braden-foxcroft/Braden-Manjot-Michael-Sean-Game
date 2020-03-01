@@ -1,4 +1,16 @@
-# To get this program:
+# JavaFX version
+
+Now with new controls:  
+- WASD to move
+- Q to explode
+- Shift to dash in current direction
+- Space to reset map. Creates new enemies, and revives you when dead.
+- Escape to quit
+
+
+
+
+### To get this program:
 
 1. Open **Eclipse IDE for Java**
 2. Click **File**, then **Import**
@@ -13,7 +25,7 @@
 You now have a copy of this program!
 
 
-# Creating a compiled version:
+### Creating a compiled version:
 
 1. Double-click on the following items in the left panel:  
 	1. **Braden-Manjot-Michael-Sean-Game**  
@@ -45,7 +57,7 @@ I highly recommend it!
 
 **Have fun!**
 
-# Running the test file:
+### Running the test file:
 
 From the beginning of *create a compiled version*:  
 1. Double-click on the following items in the left panel:  

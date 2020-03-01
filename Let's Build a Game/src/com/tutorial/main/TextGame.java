@@ -3,6 +3,8 @@ package com.tutorial.main;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.scene.input.KeyCode;
+
 // The executable class that manages the text-based version of the game.
 // May not be compatible with all devices.
 
@@ -135,24 +137,24 @@ public class TextGame {
 //	Updates key states
 	public void updateKeys(String output) {
 		if (output.contains("w")) {
-			handler.setW_Down(true);
+			handler.keys().press(KeyCode.W);
 		} else {
-			handler.setW_Down(false);
+			handler.keys().release(KeyCode.W);
 		}
 		if (output.contains("a")) {
-			handler.setA_Down(true);
+			handler.keys().press(KeyCode.A);
 		} else {
-			handler.setA_Down(false);
+			handler.keys().release(KeyCode.A);
 		}
 		if (output.contains("s")) {
-			handler.setS_Down(true);
+			handler.keys().press(KeyCode.S);
 		} else {
-			handler.setS_Down(false);
+			handler.keys().release(KeyCode.S);
 		}
 		if (output.contains("d")) {
-			handler.setD_Down(true);
+			handler.keys().press(KeyCode.D);
 		} else {
-			handler.setD_Down(false);
+			handler.keys().release(KeyCode.D);
 		}
 	}
 	
