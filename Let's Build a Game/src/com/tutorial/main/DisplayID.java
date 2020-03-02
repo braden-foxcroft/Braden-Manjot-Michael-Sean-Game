@@ -4,5 +4,6 @@ public enum DisplayID {
 	Player(),
 	PlayerInvincible(),
 	Enemy(),
-	EnemyInvincible();
+	EnemyInvincible(),
+	ObstTrapBasic();
 }

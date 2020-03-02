@@ -36,6 +36,11 @@ public class Ball extends GameObject {
 			this.setVelY(this.getVelY() * drag);
 		}
 	}
+	
+	public void onCollision(GameObject other) {
+		
+	}
+	
 //	does nothing, there because it's required.
 	public void hitWall() {
 		// do nothing
