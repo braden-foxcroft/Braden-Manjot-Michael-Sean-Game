@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class Game extends Application {
 	
 	public static final int WIDTH = 960;
-	public static final int HEIGHT = WIDTH / 12 * 9; // 720;
+ public static final int HEIGHT = WIDTH / 12 * 9; // 720;
 	private Canvas mainCanvas;
 	private Keylist kL;
 	
@@ -50,6 +50,9 @@ public class Game extends Application {
 		
 		Scene gameScene = new Scene(root, 0, 0);
 		setupKeylist(gameScene);
+		
+		mainStage.setWidth(Game.WIDTH);
+		mainStage.setHeight(Game.HEIGHT);
 		
 		mainStage.setTitle("Bumper cars");
 		mainStage.setScene(gameScene);
