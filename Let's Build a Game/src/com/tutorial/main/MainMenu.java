@@ -4,34 +4,43 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 
 public class MainMenu {
+	private MenuState state;
 
-	protected void initMainMenu() {
-		Font font = Font.font(72);
-		Button newGameMenu = new Button("Start Game");
-		newGameMenu.setFont(font);
-		newGameMenu.setOnAction(event -> newGameSettings());
-		
-		Button loadGameMenu = new Button("Load game");
-		loadGameMenu.setFont(font);
-		loadGameMenu.setOnAction(event -> loadGameSettings());
-		
-		Button settingsMenu = new Button("Settings");
-		settingsMenu.setFont(font);
-		settingsMenu.setOnAction(event_-> loadSettingsSettings());
-		
-		Button exitTime = new Button("Exit Game");
-		exitTime.setFont(font);
-		exitTime.setOnAction(event -> System.exit(1));
+	public void render(Display d,GameState p) {
+		if (state == MenuState.mainmenu) {
+			renderMainMenu(d);
+		}
+		else if (state == MenuState.loadMenu) {
+			renderLoadMenu(d);
+		}
+		else if (state == MenuState.optionsMenu) {
+			renderOptionsMenu(d);
+		}
+		else if (state == MenuState.saveMenu) {
+			renderSaveMenu(d);
+		}
+		else if (state == MenuState.pauseMenu) {
+			renderPauseMenu(d);
+		}
+	}
+	private void renderPauseMenu(Display d) {
+		// TODO Auto-generated method stub
 		
 	}
-	protected void newGameSettings() {
+	private void renderSaveMenu(Display d) {
+		// TODO Auto-generated method stub
 		
 	}
-	protected void loadGameSettings() {
+	private void renderOptionsMenu(Display d) {
+		// TODO Auto-generated method stub
 		
 	}
-	protected void loadSettingsSettings() {
+	private void renderLoadMenu(Display d) {
+		// TODO Auto-generated method stub
 		
 	}
-	
+	private void renderMainMenu(Display d) {
+		// TODO Auto-generated method stub
+		
+	}
 }
