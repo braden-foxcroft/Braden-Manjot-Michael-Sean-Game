@@ -16,6 +16,7 @@ public abstract class GameObject {
 	protected boolean anchored = false;
 	protected int radius;
 	protected Handler handler; // an instance of the handler is required.
+	protected boolean damaging = false;
 	
 //	This creates an object.
 	public GameObject(int x, int y, ID id, Handler handler) {
@@ -34,7 +35,6 @@ public abstract class GameObject {
 	protected void constrain() {
 		int width = Game.WIDTH - 6;
 		int height = Game.HEIGHT - 30;
-		
 		if (y > height - radius) {
 			this.setVelY(-Math.abs(this.getVelY()));
 			y = height - radius;
@@ -63,7 +63,6 @@ public abstract class GameObject {
 	}
 	
 //	The behavior when two objects collide.
-//	TODO remove TextGame behaviors
 	public void hit(GameObject other) {
 		if (TextGame.textGameActive) {
 			System.out.println("collision");
@@ -88,7 +87,17 @@ public abstract class GameObject {
 			this.setVelocity(vA);
 			other.setVelocity(vB);
 		}
+		if (other.damaging) {
+			this.hitWall();
+		}
+		if (this.damaging) {
+			other.hitWall();
+		}
+		this.onCollision(other);
+		other.onCollision(this);
 	}
+	
+	public abstract void onCollision(GameObject other);
 	
 //	Returns the distance to the center of another object.
 	public float distance(GameObject other) {

@@ -33,6 +33,11 @@ public abstract class Character extends GameObject {
 		
 	}
 	
+
+	public void onCollision(GameObject other) {
+		
+	}
+	
 //	For when it hits something damaging
 	public void hitWall() {
 		if (!this.invincible) {
@@ -44,6 +49,7 @@ public abstract class Character extends GameObject {
 			this.invincible = true;
 			this.health -= 1;
 		}
+		this.onCollision(null);
 	}
 	
 //	Returns a boolean saying if the object should be removed this frame.
