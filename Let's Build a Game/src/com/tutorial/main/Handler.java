@@ -46,6 +46,7 @@ public class Handler {
 				Vector result = start.scaleAndCopy(cons / start.length());
 				player().setVelocity(result);
 			}
+			this.player().anchored = kL.isPressed(KeyCode.E);
 			if (kL.justPressed(KeyCode.Q)) {
 				for (GameObject o: this.object) {
 					if (o.id == ID.Enemy) {
