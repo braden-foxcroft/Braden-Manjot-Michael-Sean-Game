@@ -51,6 +51,9 @@ public class Game extends Application {
 		Scene gameScene = new Scene(root, 0, 0);
 		setupKeylist(gameScene);
 		
+		mainStage.setWidth(Game.WIDTH);
+		mainStage.setHeight(Game.HEIGHT);
+		
 		mainStage.setTitle("Bumper cars");
 		mainStage.setScene(gameScene);
 	}
