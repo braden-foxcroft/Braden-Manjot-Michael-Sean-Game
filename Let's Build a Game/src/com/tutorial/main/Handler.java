@@ -22,12 +22,16 @@ public class Handler {
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
 		if (state == GameState.MainMenu) {
+			MainMenu menu = new MainMenu();
+			menu.renderMainMenu(null);
 			//implement soon
 		}
 		else if (kL.justPressed(KeyCode.ESCAPE) && state == GameState.Pause) {
 			System.exit(1);;
 		}
 		else if (state == GameState.Pause) {
+			PauseMenu pauseMenu = new PauseMenu();
+			pauseMenu.renderMainPause(null);
 			//more to implement
 		}
 		else if (state == GameState.Play) {
@@ -38,7 +42,7 @@ public class Handler {
 			if (kL.isPressed(KeyCode.S)) {this.player().accelY(1);}
 			if (kL.isPressed(KeyCode.D)) {this.player().accelX(1);}
 			if (kL.isPressed(KeyCode.SHIFT)) {
-				float cons = 15f;
+				float cons = 20f;
 				Vector start = new Vector(player());
 				if (start.length() == 0) {
 					start.set(new Vector(1,0));
@@ -101,8 +105,8 @@ public class Handler {
 					thing = 0;
 				}
 			}
-		}
-		}
+		}}
+
 		
 	}
 
