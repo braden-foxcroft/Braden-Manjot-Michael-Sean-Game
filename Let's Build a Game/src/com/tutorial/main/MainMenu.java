@@ -7,29 +7,29 @@ public class MainMenu {
 		if (state == MenuState.mainmenu) {
 			renderMainMenu(d);
 		}
-		else if (state == MenuState.loadMenu) {
+		else if (state == MenuState.loadmenu) {
 			renderLoadMenu(d);
 		}
-		else if (state == MenuState.optionsMenu) {
+		else if (state == MenuState.optionsmenu) {
 			renderOptionsMenu(d);
 		}
-		else if (state == MenuState.saveMenu) {
+		else if (state == MenuState.savemenu) {
 			renderSaveMenu(d);
 		}
 	}
-	private void renderSaveMenu(Display d) {
+	public void renderSaveMenu(Display d) {
 		// TODO Auto-generated method stub
 		
 	}
-	private void renderOptionsMenu(Display d) {
+	public void renderOptionsMenu(Display d) {
 		// TODO Auto-generated method stub
 		
 	}
-	private void renderLoadMenu(Display d) {
+	public void renderLoadMenu(Display d) {
 		// TODO Auto-generated method stub
 		
 	}
-	private void renderMainMenu(Display d) {
+	public void renderMainMenu(Display d) {
 		// TODO Auto-generated method stub
 		
 	}
