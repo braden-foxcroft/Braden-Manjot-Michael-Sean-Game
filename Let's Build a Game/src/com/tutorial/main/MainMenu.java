@@ -1,8 +1,5 @@
 package com.tutorial.main;
 
-import javafx.scene.control.Button;
-import javafx.scene.text.Font;
-
 public class MainMenu {
 	private MenuState state;
 
@@ -19,13 +16,6 @@ public class MainMenu {
 		else if (state == MenuState.saveMenu) {
 			renderSaveMenu(d);
 		}
-		else if (state == MenuState.pauseMenu) {
-			renderPauseMenu(d);
-		}
-	}
-	private void renderPauseMenu(Display d) {
-		// TODO Auto-generated method stub
-		
 	}
 	private void renderSaveMenu(Display d) {
 		// TODO Auto-generated method stub

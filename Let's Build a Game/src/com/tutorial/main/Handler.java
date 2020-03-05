@@ -17,16 +17,27 @@ public class Handler {
 	private int playerIndex = -1; // Used to track the index of the player. -1 means no player.
 	private Keylist kL;
 	private static boolean check_Death = false; // a flag that means something is about to die.
+	GameState state = GameState.Play;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
+		if (state == GameState.MainMenu) {
+			//implement soon
+		}
+		else if (kL.justPressed(KeyCode.ESCAPE) && state == GameState.Pause) {
+			System.exit(1);;
+		}
+		else if (state == GameState.Pause) {
+			//more to implement
+		}
+		else if (state == GameState.Play) {
 //		Player actions
 		if (playerIndex != -1) {
 			if (kL.isPressed(KeyCode.W)) {this.player().accelY(-1);}
 			if (kL.isPressed(KeyCode.A)) {this.player().accelX(-1);}
 			if (kL.isPressed(KeyCode.S)) {this.player().accelY(1);}
 			if (kL.isPressed(KeyCode.D)) {this.player().accelX(1);}
-			if (kL.justPressed(KeyCode.SHIFT)) {
+			if (kL.isPressed(KeyCode.SHIFT)) {
 				float cons = 15f;
 				Vector start = new Vector(player());
 				if (start.length() == 0) {
@@ -54,7 +65,8 @@ public class Handler {
 			this.setup();
 		}
 		if (kL.isPressed(KeyCode.ESCAPE)) {
-			System.exit(1);
+			state = GameState.Pause;
+			//System.exit(1);
 		}
 //		update each object
 		for (int i = 0; i < object.size(); i++)
@@ -88,6 +100,7 @@ public class Handler {
 					thing = 0;
 				}
 			}
+		}
 		}
 		
 	}
