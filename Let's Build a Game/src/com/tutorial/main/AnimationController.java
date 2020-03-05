@@ -38,6 +38,12 @@ public class AnimationController extends AnimationTimer{
 			timer += 1000;
 			if (frames > 100) {
 				System.out.println("FPS: " + frames);
+			} else if (frames < 2) {
+				System.err.println("Framerate dropped to 1 per second.");
+				System.err.println("Process killed.");
+				System.err.println("To see where this was decided, go to");
+				System.err.println("the AnimationController.java file.");
+				System.exit(0);
 			}
 			frames = 0;
 		}

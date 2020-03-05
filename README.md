@@ -3,6 +3,7 @@
 Now with new controls:  
 - WASD to move
 - Q to explode
+- hold E to become 'anchored' (infinite mass)
 - Shift to dash in current direction
 - Space to reset map. Creates new enemies, and revives you when dead.
 - Escape to quit
