@@ -17,7 +17,8 @@ public class Handler {
 	private int playerIndex = -1; // Used to track the index of the player. -1 means no player.
 	private Keylist kL;
 	private static boolean check_Death = false; // a flag that means something is about to die.
-	private GameState gState = GameState.Play;
+	private GameState gState = GameState.MainMenu;
+	private MainMenu menu = null;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -154,20 +155,22 @@ public class Handler {
 	
 //	Render each object.
 	public void render(Display d) {
+		d.setupNextFrame();
 		if (gState == GameState.MainMenu) {
-			MainMenu menu = new MainMenu();
+			if (menu == null) {
+				menu = new MainMenu();
+			}
 			menu.update();
 			menu.render(d);
 			//implement soon
 		}
 		else if (gState == GameState.Pause) {
-			PauseMenu pauseMenu = new PauseMenu();
-			pauseMenu.renderMainPause(null);
+//			PauseMenu pauseMenu = new PauseMenu();
+//			pauseMenu.renderMainPause(null);
 			//more to implement
 		}
 		else if (gState == GameState.Play)
 		{
-			d.setupNextFrame();
 			for (int i = 0; i < object.size(); i++)
 			{
 				GameObject tempObject = object.get(i);

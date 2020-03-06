@@ -7,7 +7,11 @@ import javafx.scene.paint.Color;
 public class MainMenu extends Handler {
 	private static MenuState state = MenuState.mainmenu;
 	private static LinkedList<OurButton> buttonList;
-
+	
+	public MainMenu() {
+		buttonList = new LinkedList<OurButton>();
+	}
+	
 	public void render(Display d) {
 		for (OurButton b:buttonList) {
 			b.render(d);
@@ -56,8 +60,8 @@ public class MainMenu extends Handler {
 	}
 	
 	public void renderMainMenu() {
-		// TODO Add buttons to the list
+		Color c = Color.WHITE; // cuz why not
+		// TODO Michael, add buttons to the list
 //		addButton(new OurButton(x, y, width, height, Color.ANTIQUEWHITE, text));
-		
 	}
 }
