@@ -37,6 +37,16 @@ public class Display {
 		gC.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 	
+	// TODO MANJOT, IMPLEMENT THIS!
+	public void displayButton(int x, int y, int width, int height, Color color, String text) {
+		
+	}
+	
+	// TODO MANJOT, IMPLEMENT THIS!
+	public void displayRectangle(int x, int y, int width, int height, Color color) {
+		
+	}
+	
 	public void screenBackground() {
 		gC.setFill(Color.BLACK);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);

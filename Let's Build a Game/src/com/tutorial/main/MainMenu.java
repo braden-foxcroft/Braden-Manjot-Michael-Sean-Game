@@ -1,55 +1,63 @@
 package com.tutorial.main;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import java.util.LinkedList;
+
+import javafx.scene.paint.Color;
 
 public class MainMenu extends Handler {
-	private static MenuState state = MenuState.playmenu;
+	private static MenuState state = MenuState.mainmenu;
+	private static LinkedList<OurButton> buttonList;
 
-	public void render(Display d,MenuState p) {
-		if (state == MenuState.mainmenu) {
-			renderMainMenu(d);
-		}
-		else if (state == MenuState.loadmenu) {
-			renderLoadMenu(d);
-		}
-		else if (state == MenuState.optionsmenu) {
-			renderOptionsMenu(d);
-		}
-		else if (state == MenuState.playmenu) {
-			renderPlayMenu(d);
+	public void render(Display d) {
+		for (OurButton b:buttonList) {
+			b.render(d);
 		}
 	}
-	public void renderPlayMenu(Display d) {
+	
+	public void update() {
+		reset();
+		if (state == MenuState.mainmenu) {
+			renderMainMenu();
+		}
+		else if (state == MenuState.loadmenu) {
+			renderLoadMenu();
+		}
+		else if (state == MenuState.optionsmenu) {
+			renderOptionsMenu();
+		}
+		else if (state == MenuState.playmenu) {
+			renderPlayMenu();
+		}
+	}
+	
+	public void reset() {
+		while (buttonList.size() > 0) {
+			buttonList.remove();
+		}
+	}
+	
+	public void addButton(OurButton b) {
+		buttonList.add(b);
+	}
+	
+	public void renderPlayMenu() {
 		setGameStatePlay();
 		
 	}
-	public void renderOptionsMenu(Display d) {
+	
+	public void renderOptionsMenu() {
 		// TODO Auto-generated method stub
 		
 	}
-	public void renderLoadMenu(Display d) {
+	
+	public void renderLoadMenu() {
 		// TODO Auto-generated method stub
 		
 	}
-	public void renderMainMenu(Display d) {
-		HandleButtonClick buttonForPlay = new HandleButtonClick("buttonForPlay");
-		Button playSetUp = new Button("Play Game");
-		playSetUp.setOnAction(buttonForPlay);
-		
-		HandleButtonClick buttonForLoad = new HandleButtonClick("buttonForLoad");
-		Button loadGame = new Button("Load Game");
-		loadGame.setOnAction(buttonForLoad);
-		
-		HandleButtonClick buttonForOptions = new HandleButtonClick("buttonForOptions");
-		Button options = new Button("Options");
-		options.setOnAction(buttonForOptions);
-		
-		HandleButtonClick buttonForQuit = new HandleButtonClick("quit");
-		Button quit = new Button("Quit Game");
-		quit.setOnAction(buttonForQuit);
-		
+	
+	public void renderMainMenu() {
+		// TODO Add buttons to the list
+//		addButton(new OurButton(x, y, width, height, Color.ANTIQUEWHITE, text));
 		
 	}
 }

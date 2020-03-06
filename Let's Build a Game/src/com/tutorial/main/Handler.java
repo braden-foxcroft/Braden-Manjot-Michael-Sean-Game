@@ -21,20 +21,10 @@ public class Handler {
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
-		if (gState == GameState.MainMenu) {
-			MainMenu menu = new MainMenu();
-			menu.render(null, MenuState.mainmenu);
-			//implement soon
-		}
-		else if (kL.justPressed(KeyCode.ESCAPE) && gState == GameState.Pause) {
+		if (kL.justPressed(KeyCode.ESCAPE) && gState == GameState.Pause) {
 			System.exit(1);;
 		}
-		else if (gState == GameState.Pause) {
-			PauseMenu pauseMenu = new PauseMenu();
-			pauseMenu.renderMainPause(null);
-			//more to implement
-		}
-		else if (gState == GameState.Play) {
+		if (gState == GameState.Play) {
 //		Player actions
 		if (playerIndex != -1) {
 			if (kL.isPressed(KeyCode.W)) {this.player().accelY(-1);}
@@ -164,11 +154,25 @@ public class Handler {
 	
 //	Render each object.
 	public void render(Display d) {
-		d.setupNextFrame();
-		for (int i = 0; i < object.size(); i++)
+		if (gState == GameState.MainMenu) {
+			MainMenu menu = new MainMenu();
+			menu.update();
+			menu.render(d);
+			//implement soon
+		}
+		else if (gState == GameState.Pause) {
+			PauseMenu pauseMenu = new PauseMenu();
+			pauseMenu.renderMainPause(null);
+			//more to implement
+		}
+		else if (gState == GameState.Play)
 		{
-			GameObject tempObject = object.get(i);
-			tempObject.render(d);
+			d.setupNextFrame();
+			for (int i = 0; i < object.size(); i++)
+			{
+				GameObject tempObject = object.get(i);
+				tempObject.render(d);
+			}
 		}
 	}
 	
