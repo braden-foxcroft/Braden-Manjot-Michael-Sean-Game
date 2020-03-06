@@ -3,7 +3,7 @@ package com.tutorial.main;
 public enum MenuState {
 	mainmenu(),
 	optionsmenu(),
-	savemenu(),
+	playmenu(),
 	loadmenu(),
-	pausemenu();
+	Quit();
 }

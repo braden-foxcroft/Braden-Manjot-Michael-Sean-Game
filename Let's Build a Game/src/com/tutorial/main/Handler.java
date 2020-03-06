@@ -17,24 +17,15 @@ public class Handler {
 	private int playerIndex = -1; // Used to track the index of the player. -1 means no player.
 	private Keylist kL;
 	private static boolean check_Death = false; // a flag that means something is about to die.
-	GameState state = GameState.Play;
+	private GameState gState = GameState.MainMenu;
+	private MainMenu menu = null;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
-		if (state == GameState.MainMenu) {
-			MainMenu menu = new MainMenu();
-			menu.renderMainMenu(null);
-			//implement soon
-		}
-		else if (kL.justPressed(KeyCode.ESCAPE) && state == GameState.Pause) {
+		if (kL.justPressed(KeyCode.ESCAPE) && gState == GameState.Pause) {
 			System.exit(1);;
 		}
-		else if (state == GameState.Pause) {
-			PauseMenu pauseMenu = new PauseMenu();
-			pauseMenu.renderMainPause(null);
-			//more to implement
-		}
-		else if (state == GameState.Play) {
+		if (gState == GameState.Play) {
 //		Player actions
 		if (playerIndex != -1) {
 			if (kL.isPressed(KeyCode.W)) {this.player().accelY(-1);}
@@ -42,7 +33,7 @@ public class Handler {
 			if (kL.isPressed(KeyCode.S)) {this.player().accelY(1);}
 			if (kL.isPressed(KeyCode.D)) {this.player().accelX(1);}
 			if (kL.isPressed(KeyCode.SHIFT)) {
-				float cons = 20f;
+				float cons = 15f;
 				Vector start = new Vector(player());
 				if (start.length() == 0) {
 					start.set(new Vector(1,0));
@@ -70,7 +61,7 @@ public class Handler {
 			this.setup();
 		}
 		if (kL.isPressed(KeyCode.ESCAPE)) {
-			state = GameState.Pause;
+			gState = GameState.Pause;
 			//System.exit(1);
 		}
 //		update each object
@@ -165,10 +156,26 @@ public class Handler {
 //	Render each object.
 	public void render(Display d) {
 		d.setupNextFrame();
-		for (int i = 0; i < object.size(); i++)
+		if (gState == GameState.MainMenu) {
+			if (menu == null) {
+				menu = new MainMenu();
+			}
+			menu.update();
+			menu.render(d);
+			//implement soon
+		}
+		else if (gState == GameState.Pause) {
+//			PauseMenu pauseMenu = new PauseMenu();
+//			pauseMenu.renderMainPause(null);
+			//more to implement
+		}
+		else if (gState == GameState.Play)
 		{
-			GameObject tempObject = object.get(i);
-			tempObject.render(d);
+			for (int i = 0; i < object.size(); i++)
+			{
+				GameObject tempObject = object.get(i);
+				tempObject.render(d);
+			}
 		}
 	}
 	
@@ -249,6 +256,16 @@ public class Handler {
 		return this.kL;
 	}
 	
+	// Setter for gameStates
+	public void setGameStatePlay() {
+		gState = GameState.Play;
+	}
+	public void setGameStateMainMenu() {
+		gState = GameState.MainMenu;
+	}
+	public void setGameStatePause() {
+		gState = GameState.Pause;
+	}
 	
 //	Inform every handler that it is time to check for deaths. False positives are fine.
 	public static void time_To_Die() {
