@@ -1,36 +1,67 @@
 package com.tutorial.main;
 
-public class MainMenu {
-	private MenuState state;
+import java.util.LinkedList;
 
-	public void render(Display d,GameState p) {
+import javafx.scene.paint.Color;
+
+public class MainMenu extends Handler {
+	private static MenuState state = MenuState.mainmenu;
+	private static LinkedList<OurButton> buttonList;
+	
+	public MainMenu() {
+		buttonList = new LinkedList<OurButton>();
+	}
+	
+	public void render(Display d) {
+		for (OurButton b:buttonList) {
+			b.render(d);
+		}
+	}
+	
+	public void update() {
+		reset();
 		if (state == MenuState.mainmenu) {
-			renderMainMenu(d);
+			renderMainMenu();
 		}
-		else if (state == MenuState.loadMenu) {
-			renderLoadMenu(d);
+		else if (state == MenuState.loadmenu) {
+			renderLoadMenu();
 		}
-		else if (state == MenuState.optionsMenu) {
-			renderOptionsMenu(d);
+		else if (state == MenuState.optionsmenu) {
+			renderOptionsMenu();
 		}
-		else if (state == MenuState.saveMenu) {
-			renderSaveMenu(d);
+		else if (state == MenuState.playmenu) {
+			renderPlayMenu();
 		}
 	}
-	private void renderSaveMenu(Display d) {
+	
+	public void reset() {
+		while (buttonList.size() > 0) {
+			buttonList.remove();
+		}
+	}
+	
+	public void addButton(OurButton b) {
+		buttonList.add(b);
+	}
+	
+	public void renderPlayMenu() {
+		setGameStatePlay();
+		
+	}
+	
+	public void renderOptionsMenu() {
 		// TODO Auto-generated method stub
 		
 	}
-	private void renderOptionsMenu(Display d) {
+	
+	public void renderLoadMenu() {
 		// TODO Auto-generated method stub
 		
 	}
-	private void renderLoadMenu(Display d) {
-		// TODO Auto-generated method stub
-		
-	}
-	private void renderMainMenu(Display d) {
-		// TODO Auto-generated method stub
-		
+	
+	public void renderMainMenu() {
+		Color c = Color.WHITE; // cuz why not
+		// TODO Michael, add buttons to the list
+//		addButton(new OurButton(x, y, width, height, Color.ANTIQUEWHITE, text));
 	}
 }

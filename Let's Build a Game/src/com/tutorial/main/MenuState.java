@@ -2,8 +2,8 @@ package com.tutorial.main;
 
 public enum MenuState {
 	mainmenu(),
-	optionsMenu(),
-	saveMenu(),
-	loadMenu(),
-	pauseMenu();
+	optionsmenu(),
+	playmenu(),
+	loadmenu(),
+	Quit();
 }
