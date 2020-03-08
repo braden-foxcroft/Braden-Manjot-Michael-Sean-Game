@@ -25,8 +25,14 @@ public class Display {
 		else if(id == DisplayID.Enemy) {
 			gC.setFill(Color.RED);
 		}
-		else if(id == DisplayID.ObstTrapBasic) {
+		else if(id == DisplayID.Obstacle) {
 			gC.setFill(Color.WHITE);
+		}
+		else if(id == DisplayID.Trap) {
+			gC.setFill(Color.GREY);
+		}
+		else if(id == DisplayID.Ball) {
+			gC.setFill(Color.GREY);
 		}
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
@@ -37,21 +43,20 @@ public class Display {
 		gC.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 	
-	// TODO MANJOT, IMPLEMENT THIS!
+//	Draws a button
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
-		gC.setFill(Color.BLACK);
-		gC.fillRect(x, y, x + width, y + height);
+		gC.setFill(Color.GREY);
+		gC.fillRect(x, y, width, height);
 		gC.setFill(Color.WHITE);
-		gC.fillText(text, x - (width/2), y - (height/2));
-		// draw a rectangle
-		// draw text
+		gC.fillText(text, x + (width/2), y + (height/2));
+//		TODO Manjot, implement this
+//		Make it so that the text changes color to make sure that it contrasts
 	}
-	
-	// TODO MANJOT, IMPLEMENT THIS!
+
+	// draw a rectangle
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
 		gC.setFill(color);
-		gC.fillRect(x, y, x + width, y + height);
-		// draw a rectangle
+		gC.fillRect(x, y, width, height);
 	}
 	
 	public void screenBackground() {

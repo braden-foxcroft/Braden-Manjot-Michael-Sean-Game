@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class Game extends Application {
@@ -14,6 +15,8 @@ public class Game extends Application {
  public static final int HEIGHT = WIDTH / 12 * 9; // 720;
 	private Canvas mainCanvas;
 	private Keylist kL;
+	private MouseClickHandler mCH;
+	private Scene gameScene;
 	
 	public void start(Stage mainStage) throws Exception {
 		Handler handler = new Handler();
@@ -21,6 +24,8 @@ public class Game extends Application {
 		setupWindow(mainStage);
 		
 		handler.addKeyboard(kL);
+		mCH = handler.setupClickHandler();
+		gameScene.addEventHandler(MouseEvent.ANY, mCH);
 		
 		Display display = setupDisplay();
 		
@@ -48,8 +53,9 @@ public class Game extends Application {
 		root.getChildren().add(mainCanvas);
 		
 		
-		Scene gameScene = new Scene(root, 0, 0);
+		gameScene = new Scene(root, 0, 0);
 		setupKeylist(gameScene);
+		
 		
 		mainStage.setWidth(Game.WIDTH);
 		mainStage.setHeight(Game.HEIGHT);

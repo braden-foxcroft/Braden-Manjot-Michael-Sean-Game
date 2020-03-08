@@ -9,6 +9,7 @@ public class OurButtonTest {
 	@Test
 	public void testInside() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testInside()");
 		if (b.coordinatesAreInside(33, 62)) {
 			assertTrue(true); // success!
 		} else {
@@ -19,6 +20,7 @@ public class OurButtonTest {
 	@Test
 	public void testToLeft() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testToLeft()");
 		if (!b.coordinatesAreInside(29, 61)) {
 			assertTrue(true); // success!
 		} else {
@@ -29,6 +31,7 @@ public class OurButtonTest {
 	@Test
 	public void testToRight() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testToRight()");
 		if (!b.coordinatesAreInside(37, 62)) {
 			assertTrue(true); // success!
 		} else {
@@ -39,6 +42,7 @@ public class OurButtonTest {
 	@Test
 	public void testAbove() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testAbove()");
 		if (!b.coordinatesAreInside(33, 59)) {
 			assertTrue(true); // success!
 		} else {
@@ -49,6 +53,7 @@ public class OurButtonTest {
 	@Test
 	public void testUpRight() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testUpRight()");
 		if (!b.coordinatesAreInside(45, 45)) {
 			assertTrue(true); // success!
 		} else {
@@ -59,6 +64,7 @@ public class OurButtonTest {
 	@Test
 	public void testDownRight() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testDownRight()");
 		if (!b.coordinatesAreInside(40, 69)) {
 			assertTrue(true); // success!
 		} else {
@@ -69,6 +75,7 @@ public class OurButtonTest {
 	@Test
 	public void testUpLeft() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testUpLeft()");
 		if (!b.coordinatesAreInside(20, 40)) {
 			assertTrue(true); // success!
 		} else {
@@ -79,6 +86,7 @@ public class OurButtonTest {
 	@Test
 	public void testDownLeft() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testDownLeft()");
 		if (!b.coordinatesAreInside(20, 90)) {
 			assertTrue(true); // success!
 		} else {
@@ -89,6 +97,7 @@ public class OurButtonTest {
 	@Test
 	public void testCorner() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testCorner()");
 		if (b.coordinatesAreInside(30, 60)) {
 			assertTrue(true); // success!
 		} else {
@@ -99,6 +108,7 @@ public class OurButtonTest {
 	@Test
 	public void testOtherCorner() {
 		OurButton b = new OurButton(30, 60, 5, 3, null, "Sup");
+		System.out.println("testOtherCorner()");
 		if (b.coordinatesAreInside(35, 63)) {
 			assertTrue(true); // success!
 		} else {
