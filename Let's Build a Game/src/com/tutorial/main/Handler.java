@@ -17,7 +17,7 @@ public class Handler {
 	private int playerIndex = -1; // Used to track the index of the player. -1 means no player.
 	private Keylist kL;
 	private static boolean check_Death = false; // a flag that means something is about to die.
-	private GameState gState = GameState.MainMenu;
+	private GameState gState = GameState.Play;
 	private MainMenu menu = null;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
@@ -57,7 +57,9 @@ public class Handler {
 			}
 		}
 		if (kL.justPressed(KeyCode.SPACE)) {
-			this.removeByID(ID.ObstTrap);
+			this.removeByID(ID.Obstacle);
+			this.removeByID(ID.Trap);
+			this.removeByID(ID.Ball);
 			this.setup();
 		}
 		if (kL.isPressed(KeyCode.ESCAPE)) {
@@ -85,6 +87,32 @@ public class Handler {
 					a.hit(b);
 					// collision checker.
 				}
+				
+				// ------------------------ Sean's work on activating traps ---------------------------------------
+				// TODO See about optimizing this code and implement explosion 
+				
+				if (isHitting(a,b)&&((a.getId()==ID.Trap)||(b.getId()==ID.Trap))){
+					if (a.getId()==ID.Trap){
+						int tempX = (int)a.getX();
+						int tempY = (int)a.getY();
+						this.removeObject(a);
+						Random r = new Random();
+						int trapType = r.nextInt(3);
+						if (trapType == 0) {this.addObject(new Ball(tempX, tempY, ID.Ball, this));}
+						else if (trapType == 1) {this.addObject(new Enemy(640,300,ID.Enemy, this));}
+						else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
+					} else {
+						int tempX = (int)b.getX();
+						int tempY = (int)b.getY();
+						this.removeObject(b);
+						Random r = new Random();
+						int trapType = r.nextInt(3);
+						if (trapType == 0) {this.addObject(new Ball(tempX, tempY, ID.Ball, this));}
+						else if (trapType == 1) {this.addObject(new Enemy(640,300,ID.Enemy, this));}
+						else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
+					}
+				}
+			//------------------------------------------------------------------------------------------------------
 			}
 		}
 		// check for death, when needed
@@ -120,8 +148,16 @@ public class Handler {
 //		this.addObject(new Ball(200,200,ID.Ball, this));
 		this.addObject(new Enemy(640,300,ID.Enemy, this));
 		Random r = new Random();
-		for(int i = 0 ; i < 8 ; i++) {
-			ObstTrap o = new ObstTrap(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.ObstTrap, this, r.nextInt(60)+5);
+		for(int i = 0 ; i < 4 ; i++) {
+			Obstacle o = new Obstacle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Obstacle, this, r.nextInt(60)+5);
+			if (!isHittingAnything(o)) {
+				this.addObject(o);
+			} else {
+				i--;
+			}
+		}
+		for(int i = 0 ; i < 4 ; i++) {
+			Trap o = new Trap(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Trap, this, r.nextInt(60)+5);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
 			} else {

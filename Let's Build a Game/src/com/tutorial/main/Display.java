@@ -25,8 +25,14 @@ public class Display {
 		else if(id == DisplayID.Enemy) {
 			gC.setFill(Color.RED);
 		}
-		else if(id == DisplayID.ObstTrapBasic) {
+		else if(id == DisplayID.Obstacle) {
 			gC.setFill(Color.WHITE);
+		}
+		else if(id == DisplayID.Trap) {
+			gC.setFill(Color.GREY);
+		}
+		else if(id == DisplayID.Ball) {
+			gC.setFill(Color.GREY);
 		}
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
