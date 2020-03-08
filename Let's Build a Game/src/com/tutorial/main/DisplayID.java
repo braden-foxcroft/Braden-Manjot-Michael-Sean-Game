@@ -1,9 +1,11 @@
-package com.tutorial.main;
+ package com.tutorial.main;
 
 public enum DisplayID {
 	Player(),
 	PlayerInvincible(),
 	Enemy(),
 	EnemyInvincible(),
-	ObstTrapBasic();
+	Obstacle(),
+	Trap(),
+	Ball();
 }
