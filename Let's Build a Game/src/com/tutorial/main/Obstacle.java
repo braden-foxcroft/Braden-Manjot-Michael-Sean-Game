@@ -2,12 +2,12 @@ package com.tutorial.main;
 
 import java.util.Random;
 
-public class ObstTrap extends GameObject {
+public class Obstacle extends GameObject {
 	
 	Random r = new Random();
 	Handler handler;
 
-	public ObstTrap(int x, int y, ID id, Handler handler, int aRadius) {
+	public Obstacle(int x, int y, ID id, Handler handler, int aRadius) {
 		super(x, y, id, handler);
 		this.anchored = true;
 		this.radius = aRadius;
@@ -37,9 +37,10 @@ public class ObstTrap extends GameObject {
 	
 	@Override
 	public void render(Display d) {
-		d.displayObject(DisplayID.ObstTrapBasic, this.x, this.y, radius);
+		d.displayObject(DisplayID.Obstacle, this.x, this.y, radius);
 	}
 
 
 
 }
+
