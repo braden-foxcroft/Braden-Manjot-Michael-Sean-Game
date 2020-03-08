@@ -39,8 +39,9 @@ public class Display {
 	
 	// TODO MANJOT, IMPLEMENT THIS!
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
-		gC.setFill(Color.ORANGE);
+		gC.setFill(Color.BLACK);
 		gC.fillRect(x, y, x + width, y + height);
+		gC.setFill(Color.WHITE);
 		gC.fillText(text, x - (width/2), y - (height/2));
 		// draw a rectangle
 		// draw text
@@ -48,7 +49,7 @@ public class Display {
 	
 	// TODO MANJOT, IMPLEMENT THIS!
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
-		gC.setFill(Color.WHITE);
+		gC.setFill(color);
 		gC.fillRect(x, y, x + width, y + height);
 		// draw a rectangle
 	}
