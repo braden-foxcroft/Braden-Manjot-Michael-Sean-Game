@@ -19,6 +19,7 @@ public class Handler {
 	private static boolean check_Death = false; // a flag that means something is about to die.
 	private GameState gState = GameState.MainMenu;
 	private MainMenu menu = null;
+	private MouseClickHandler clickHandler = null;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -158,7 +159,7 @@ public class Handler {
 		d.setupNextFrame();
 		if (gState == GameState.MainMenu) {
 			if (menu == null) {
-				menu = new MainMenu();
+				menu = new MainMenu(this);
 			}
 			menu.update();
 			menu.render(d);
@@ -254,6 +255,20 @@ public class Handler {
 //	Get the keyBoard object
 	public Keylist keys() {
 		return this.kL;
+	}
+	
+	public void clickEvent(double x, double y) {
+		if (this.gState == GameState.MainMenu)
+		{
+			menu.recieveClick(x, y);
+		} else {
+//			TODO implement clicks when playing the game
+		}
+	}
+	
+	public MouseClickHandler setupClickHandler() {
+		this.clickHandler = new MouseClickHandler(this);
+		return this.clickHandler;
 	}
 	
 	// Setter for gameStates

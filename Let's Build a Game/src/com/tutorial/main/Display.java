@@ -37,21 +37,20 @@ public class Display {
 		gC.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 	
-	// TODO MANJOT, IMPLEMENT THIS!
+//	Draws a button
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
 		gC.setFill(Color.GREY);
 		gC.fillRect(x, y, width, height);
 		gC.setFill(Color.WHITE);
 		gC.fillText(text, x + (width/2), y + (height/2));
-		// draw a rectangle
-		// draw text
+//		TODO Manjot, implement this
+//		Make it so that the text changes color to make sure that it contrasts
 	}
-	
-	// TODO MANJOT, IMPLEMENT THIS!
+
+	// draw a rectangle
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
 		gC.setFill(color);
 		gC.fillRect(x, y, width, height);
-		// draw a rectangle
 	}
 	
 	public void screenBackground() {
