@@ -39,15 +39,18 @@ public class Display {
 	
 	// TODO MANJOT, IMPLEMENT THIS!
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
-//		gC.setFill(color);
-//		gC.fillRect(arg0, arg1, arg2, arg3);
-//		gC.fillText(arg0, arg1, arg2);
+		gC.setFill(Color.GREY);
+		gC.fillRect(x, y, width, height);
+		gC.setFill(Color.WHITE);
+		gC.fillText(text, x + (width/2), y + (height/2));
 		// draw a rectangle
 		// draw text
 	}
 	
 	// TODO MANJOT, IMPLEMENT THIS!
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
+		gC.setFill(color);
+		gC.fillRect(x, y, width, height);
 		// draw a rectangle
 	}
 	

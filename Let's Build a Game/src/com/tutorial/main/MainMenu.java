@@ -60,8 +60,15 @@ public class MainMenu extends Handler {
 	}
 	
 	public void renderMainMenu() {
-		Color c = Color.WHITE; // cuz why not
-		// TODO Michael, add buttons to the list
-//		addButton(new OurButton(x, y, width, height, Color.ANTIQUEWHITE, text));
+		Color c = Color.GREY; // cuz why not
+		buttonList.add(new OurButton(50,20,400,100,c,"Play game"));
+		
+		buttonList.add(new OurButton(50,130,400,100,c,"Load game"));
+		
+		buttonList.add( new OurButton(50,240,400,100,c,"Options"));
+		
+		buttonList.add(new OurButton(50,350,400,100,c,"Quit"));
+		
+		
 	}
 }
