@@ -23,7 +23,25 @@ public class Handler {
 	private static boolean check_Death = false; // a flag that means something is about to die.
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
+<<<<<<< Updated upstream
 	public void tick() {
+=======
+	public void tick(){
+		if (state == GameState.MainMenu) {
+			MainMenu menu = new MainMenu();
+			menu.renderMainMenu(null);
+			//implement soon
+		}
+		else if (kL.justPressed(KeyCode.ESCAPE) && state == GameState.Pause) {
+			System.exit(1);;
+		}
+		/*else if (state == GameState.Pause) {
+			PauseMenu pauseMenu = new PauseMenu();
+			pauseMenu.renderMainPause(null);
+			//more to implement
+		}*/
+		else if (state == GameState.Play) {
+>>>>>>> Stashed changes
 //		Player actions
 		if (playerIndex != -1) {
 			if (this.w_Down) {this.player().accelY(-1);}
