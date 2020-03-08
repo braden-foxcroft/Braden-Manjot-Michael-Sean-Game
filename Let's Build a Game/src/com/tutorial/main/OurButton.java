@@ -17,6 +17,14 @@ public class OurButton {
 		this.text = text;
 	}
 	
+	public void setMenu(MainMenu menu) {
+		this.menu = menu;
+	}
+	
+	public void triggerClick() {
+		menu.menuClickHandler(this.text);
+	}
+	
 //	Check to see if the x and y are in the area of the button.
 	public boolean coordinatesAreInside(int aX, int aY) {
 		if (this.x + this.width >= aX && this.x <= aX && this.y + this.height >= aY && this.y <= aY ) {
