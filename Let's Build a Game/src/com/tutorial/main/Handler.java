@@ -23,7 +23,7 @@ public class Handler {
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
 		if (kL.justPressed(KeyCode.ESCAPE) && gState == GameState.Pause) {
-			System.exit(1);;
+			System.exit(1);
 		}
 		if (gState == GameState.Play) {
 //		Player actions

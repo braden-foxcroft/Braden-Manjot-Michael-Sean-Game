@@ -39,10 +39,10 @@ public class Display {
 	
 	// TODO MANJOT, IMPLEMENT THIS!
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
-		gC.setFill(Color.BLACK);
-		gC.fillRect(x, y, x + width, y + height);
+		gC.setFill(Color.GREY);
+		gC.fillRect(x, y, width, height);
 		gC.setFill(Color.WHITE);
-		gC.fillText(text, x - (width/2), y - (height/2));
+		gC.fillText(text, x + (width/2), y + (height/2));
 		// draw a rectangle
 		// draw text
 	}
@@ -50,7 +50,7 @@ public class Display {
 	// TODO MANJOT, IMPLEMENT THIS!
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
 		gC.setFill(color);
-		gC.fillRect(x, y, x + width, y + height);
+		gC.fillRect(x, y, width, height);
 		// draw a rectangle
 	}
 	
