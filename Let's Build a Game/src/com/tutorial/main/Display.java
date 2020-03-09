@@ -53,7 +53,14 @@ public class Display {
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
 		gC.setFill(color);
 		gC.fillRect(x, y, width, height);
-		gC.setFill(color);
+		if (color.getBrightness() < Color.DARKGREY.getBrightness())
+		{
+			gC.setFill(Color.WHITE);
+		}
+		else
+		{
+			gC.setFill(Color.BLACK);
+		}
 		gC.fillText(text, x + (width/2), y + (height/2));
 //		TODO Manjot, implement this
 //		Make it so that the text changes color to make sure that it contrasts
