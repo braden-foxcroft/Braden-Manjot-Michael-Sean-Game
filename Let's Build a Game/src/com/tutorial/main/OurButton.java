@@ -28,7 +28,6 @@ public class OurButton {
 //	Check to see if the x and y are in the area of the button.
 	public boolean coordinatesAreInside(int aX, int aY) {
 		if (this.x + this.width >= aX && this.x <= aX && this.y + this.height >= aY && this.y <= aY ) {
-			//System.out.println("x is " + this.x + " width is " + this.width + " y is " + this.y + " height is " + this.height );
 			return true;
 		}
 		else {

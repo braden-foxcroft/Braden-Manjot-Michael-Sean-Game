@@ -17,7 +17,7 @@ public class Handler {
 	private int playerIndex = -1; // Used to track the index of the player. -1 means no player.
 	private Keylist kL;
 	private static boolean check_Death = false; // a flag that means something is about to die.
-	private GameState gState = GameState.Play;
+	private GameState gState = GameState.MainMenu;
 	private MainMenu menu = null;
 	private MouseClickHandler clickHandler = null;
 	
