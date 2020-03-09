@@ -40,14 +40,27 @@ public class Display {
 		else if(id == DisplayID.PlayerInvincible) {
 			gC.setFill(Color.YELLOW);
 		}
+		else if(id == DisplayID.DamagedEnemy){
+			gC.setFill(Color.DARKRED);
+		}
+		else if(id == DisplayID.DamagedPlayer){
+			gC.setFill(Color.DARKBLUE);
+		}
 		gC.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 	
 //	Draws a button
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
-		gC.setFill(Color.GREY);
+		gC.setFill(color);
 		gC.fillRect(x, y, width, height);
-		gC.setFill(Color.WHITE);
+		if (color.getBrightness() < Color.DARKGREY.getBrightness())
+		{
+			gC.setFill(Color.WHITE);
+		}
+		else
+		{
+			gC.setFill(Color.BLACK);
+		}
 		gC.fillText(text, x + (width/2), y + (height/2));
 //		TODO Manjot, implement this
 //		Make it so that the text changes color to make sure that it contrasts

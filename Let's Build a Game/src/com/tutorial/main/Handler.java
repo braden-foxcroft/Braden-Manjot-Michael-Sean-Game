@@ -19,6 +19,7 @@ public class Handler {
 	private static boolean check_Death = false; // a flag that means something is about to die.
 	private GameState gState = GameState.MainMenu;
 	private MainMenu menu = null;
+	private PauseMenu pause = null;
 	private MouseClickHandler clickHandler = null;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
@@ -60,7 +61,7 @@ public class Handler {
 		if (kL.justPressed(KeyCode.SPACE)) {
 			this.removeByID(ID.Obstacle);
 			this.removeByID(ID.Trap);
-			this.removeByID(ID.Ball);
+//			this.removeByID(ID.Ball);
 			this.setup();
 		}
 		if (kL.isPressed(KeyCode.ESCAPE)) {
@@ -71,7 +72,6 @@ public class Handler {
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
-			if (tempObject.id == ID.Ball) {tempObject.anchored = kL.isPressed(KeyCode.SPACE);}
 			tempObject.tick(); // update all
 		}
 //		Begin collision checks
@@ -89,31 +89,6 @@ public class Handler {
 					// collision checker.
 				}
 				
-				// ------------------------ Sean's work on activating traps ---------------------------------------
-				// TODO See about optimizing this code and implement explosion 
-				
-				if (isHitting(a,b)&&((a.getId()==ID.Trap)||(b.getId()==ID.Trap))){
-					if (a.getId()==ID.Trap){
-						int tempX = (int)a.getX();
-						int tempY = (int)a.getY();
-						this.removeObject(a);
-						Random r = new Random();
-						int trapType = r.nextInt(3);
-						if (trapType == 0) {this.addObject(new Ball(tempX, tempY, ID.Ball, this));}
-						else if (trapType == 1) {this.addObject(new Enemy(640,300,ID.Enemy, this));}
-						else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
-					} else {
-						int tempX = (int)b.getX();
-						int tempY = (int)b.getY();
-						this.removeObject(b);
-						Random r = new Random();
-						int trapType = r.nextInt(3);
-						if (trapType == 0) {this.addObject(new Ball(tempX, tempY, ID.Ball, this));}
-						else if (trapType == 1) {this.addObject(new Enemy(640,300,ID.Enemy, this));}
-						else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
-					}
-				}
-			//------------------------------------------------------------------------------------------------------
 			}
 		}
 		// check for death, when needed
@@ -125,6 +100,7 @@ public class Handler {
 					thing = 0;
 				}
 			}
+			Handler.check_Death = false;
 		}}
 
 		
@@ -202,8 +178,13 @@ public class Handler {
 			//implement soon
 		}
 		else if (gState == GameState.Pause) {
-//			PauseMenu pauseMenu = new PauseMenu();
-//			pauseMenu.renderMainPause(null);
+			if (pause == null) {
+				pause = new PauseMenu(this);
+			}
+			pause.update();
+			pause.render(d);
+			//PauseMenu pauseMenu = new PauseMenu();
+			//pauseMenu.renderMainPause(null);
 			//more to implement
 		}
 		else if (gState == GameState.Play)
@@ -297,6 +278,9 @@ public class Handler {
 		if (this.gState == GameState.MainMenu)
 		{
 			menu.recieveClick(x, y);
+		} else if(this.gState == GameState.Pause)
+		{
+			pause.recieveClick(x, y);
 		} else {
 //			TODO implement clicks when playing the game
 		}

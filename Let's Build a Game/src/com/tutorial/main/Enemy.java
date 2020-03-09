@@ -80,7 +80,9 @@ public class Enemy extends Character {
 	public void render(Display d) {
 		if (this.invincible) {
 			d.displayObject(DisplayID.EnemyInvincible, x, y, radius);
-		} else {
+		}else if (this.health == 1) {
+			d.displayObject(DisplayID.DamagedEnemy, x, y, radius);
+		}else {
 			d.displayObject(DisplayID.Enemy, x, y, radius);
 		}
 	}
