@@ -41,7 +41,11 @@ public class Trap extends Character {
 			
 			Random r = new Random();
 			int trapType = r.nextInt(3);
-			if (trapType == 0) {handler.addObject(new Ball(tempX, tempY, ID.Ball, handler));}
+			if (trapType == 0) {
+				Ball bTemp = new Ball(tempX, tempY, ID.Ball, handler);
+				handler.addObject(bTemp);
+				bTemp.launchAround();
+			}
 			else if (trapType == 1) {handler.addObject(new Enemy(tempX,tempY,ID.Enemy, handler));}
 			else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
 		}
