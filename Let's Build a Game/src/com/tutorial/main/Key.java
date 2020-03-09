@@ -34,6 +34,7 @@ public class Key {
 	
 //	Presses it
 	public void press() {
+		//FIXME
 		this.justPressed = true;
 		this.pressed = true;
 	}
