@@ -5,7 +5,6 @@ import java.util.Random;
 public class Obstacle extends GameObject {
 	
 	Random r = new Random();
-	Handler handler;
 
 	public Obstacle(int x, int y, ID id, Handler handler, int aRadius) {
 		super(x, y, id, handler);
