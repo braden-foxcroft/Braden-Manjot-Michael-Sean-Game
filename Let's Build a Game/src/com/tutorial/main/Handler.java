@@ -90,31 +90,6 @@ public class Handler {
 					// collision checker.
 				}
 				
-				// ------------------------ Sean's work on activating traps ---------------------------------------
-				// TODO See about optimizing this code and implement explosion 
-				
-				if (isHitting(a,b)&&((a.getId()==ID.Trap)||(b.getId()==ID.Trap))){
-					if (a.getId()==ID.Trap){
-						int tempX = (int)a.getX();
-						int tempY = (int)a.getY();
-						this.removeObject(a);
-						Random r = new Random();
-						int trapType = r.nextInt(3);
-						if (trapType == 0) {this.addObject(new Ball(tempX, tempY, ID.Ball, this));}
-						else if (trapType == 1) {this.addObject(new Enemy(640,300,ID.Enemy, this));}
-						else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
-					} else {
-						int tempX = (int)b.getX();
-						int tempY = (int)b.getY();
-						this.removeObject(b);
-						Random r = new Random();
-						int trapType = r.nextInt(3);
-						if (trapType == 0) {this.addObject(new Ball(tempX, tempY, ID.Ball, this));}
-						else if (trapType == 1) {this.addObject(new Enemy(640,300,ID.Enemy, this));}
-						else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
-					}
-				}
-			//------------------------------------------------------------------------------------------------------
 			}
 		}
 		// check for death, when needed
