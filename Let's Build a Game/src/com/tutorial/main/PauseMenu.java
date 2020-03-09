@@ -69,7 +69,7 @@ public class PauseMenu extends Handler{
 		Color c = Color.BLUE;
 		addButton(new OurButton(50,20,400,100,c,"Resume"));
 		
-		addButton(new OurButton(50,130,400,100,c,"Save \n COMMING SOON"));
+		addButton(new OurButton(50,130,400,100,c,"Save \n COMING SOON"));
 		
 		addButton(new OurButton(50,240,400,100,c,"Quit"));
 		
