@@ -7,6 +7,7 @@ public class OurButton {
 	private Color color;
 	private String text;
 	private MainMenu menu;
+	private PauseMenu pause;
 	
 	public OurButton(int x, int y, int width, int height, Color color, String text) {
 		this.x = x;
@@ -20,9 +21,15 @@ public class OurButton {
 	public void setMenu(MainMenu menu) {
 		this.menu = menu;
 	}
+	public void setPauseMenu(PauseMenu pause) {
+		this.pause = pause;
+	}
 	
-	public void triggerClick() {
+	public void menuTriggerClick() {
 		menu.menuClickHandler(this.text);
+	}
+	public void pauseTriggerClick() {
+		pause.menuClickHandler(this.text);
 	}
 	
 //	Check to see if the x and y are in the area of the button.
