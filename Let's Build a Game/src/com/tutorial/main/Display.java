@@ -45,7 +45,7 @@ public class Display {
 	
 //	Draws a button
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
-		gC.setFill(Color.GREY);
+		gC.setFill(color);
 		gC.fillRect(x, y, width, height);
 		gC.setFill(Color.WHITE);
 		gC.fillText(text, x + (width/2), y + (height/2));

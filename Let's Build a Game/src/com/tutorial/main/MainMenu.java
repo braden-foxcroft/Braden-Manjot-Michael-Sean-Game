@@ -24,18 +24,13 @@ public class MainMenu extends Handler {
 	public void recieveClick(double x, double y) {
 		for (OurButton b:buttonList) {
 			if (b.coordinatesAreInside((int)x, (int)y)) {
-				b.triggerClick();
+				b.menuTriggerClick();
 			}
 		}
 	}
 	
 	public void menuClickHandler(String text) {
-//		 Michael, use the text and the MenuState to make buttons do stuff
-//		You are given the text of the pressed button, and you can use the gamestate.
-//		All of the button clicks are handled by this one function,
-//		So make sure there's an 'if, else if, else' for deciding what to do.
-//		handler.doWhatever();
-		//System.out.println("'" + text + "' was pressed");
+
 		if(text == "Play game") {
 			state = MenuState.playmenu;
 		}

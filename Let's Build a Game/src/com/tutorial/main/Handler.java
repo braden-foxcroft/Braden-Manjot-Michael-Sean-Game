@@ -19,6 +19,7 @@ public class Handler {
 	private static boolean check_Death = false; // a flag that means something is about to die.
 	private GameState gState = GameState.MainMenu;
 	private MainMenu menu = null;
+	private PauseMenu pause = null;
 	private MouseClickHandler clickHandler = null;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
@@ -202,8 +203,13 @@ public class Handler {
 			//implement soon
 		}
 		else if (gState == GameState.Pause) {
-//			PauseMenu pauseMenu = new PauseMenu();
-//			pauseMenu.renderMainPause(null);
+			if (pause == null) {
+				pause = new PauseMenu(this);
+			}
+			pause.update();
+			pause.render(d);
+			//PauseMenu pauseMenu = new PauseMenu();
+			//pauseMenu.renderMainPause(null);
 			//more to implement
 		}
 		else if (gState == GameState.Play)
@@ -297,6 +303,9 @@ public class Handler {
 		if (this.gState == GameState.MainMenu)
 		{
 			menu.recieveClick(x, y);
+		} else if(this.gState == GameState.Pause)
+		{
+			pause.recieveClick(x, y);
 		} else {
 //			TODO implement clicks when playing the game
 		}
