@@ -30,12 +30,25 @@ public class MainMenu extends Handler {
 	}
 	
 	public void menuClickHandler(String text) {
-//		TODO Michael, use the text and the MenuState to make buttons do stuff
+//		 Michael, use the text and the MenuState to make buttons do stuff
 //		You are given the text of the pressed button, and you can use the gamestate.
 //		All of the button clicks are handled by this one function,
 //		So make sure there's an 'if, else if, else' for deciding what to do.
 //		handler.doWhatever();
-		System.out.println("'" + text + "' was pressed");
+		//System.out.println("'" + text + "' was pressed");
+		if(text == "Play game") {
+			state = MenuState.playmenu;
+		}
+		else if (text == "Load game") {
+			state = MenuState.loadmenu;
+		}
+		else if (text == "Options") {
+			state = MenuState.optionsmenu;
+		}
+		else if (text == "Quit") {
+			System.exit(1);
+		}
+		//else if (text == "")
 	}
 	
 	public void update() {
@@ -66,7 +79,7 @@ public class MainMenu extends Handler {
 	}
 	
 	public void renderPlayMenu() {
-		setGameStatePlay();
+		handler.setGameStatePlay();
 		
 	}
 	
@@ -84,9 +97,9 @@ public class MainMenu extends Handler {
 		Color c = Color.BLUE; // cuz why not
 		addButton(new OurButton(50,20,400,100,c,"Play game"));
 		
-		addButton(new OurButton(50,130,400,100,c,"Load game"));
+		addButton(new OurButton(50,130,400,100,c,"Load game \n COMING SOON"));
 		
-		addButton(new OurButton(50,240,400,100,c,"Options"));
+		addButton(new OurButton(50,240,400,100,c,"Options \n COMING SOON"));
 		
 		addButton(new OurButton(50,350,400,100,c,"Quit"));
 		
