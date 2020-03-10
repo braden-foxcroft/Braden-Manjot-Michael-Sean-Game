@@ -61,7 +61,7 @@ public class Handler {
 		if (kL.justPressed(KeyCode.SPACE)) {
 			this.removeByID(ID.Obstacle);
 			this.removeByID(ID.Trap);
-			this.removeByID(ID.Ball);
+//			this.removeByID(ID.Ball);
 			this.setup();
 		}
 		if (kL.isPressed(KeyCode.ESCAPE)) {
@@ -72,7 +72,6 @@ public class Handler {
 		for (int i = 0; i < object.size(); i++)
 		{
 			GameObject tempObject = object.get(i);
-			if (tempObject.id == ID.Ball) {tempObject.anchored = kL.isPressed(KeyCode.SPACE);}
 			tempObject.tick(); // update all
 		}
 //		Begin collision checks
@@ -101,6 +100,7 @@ public class Handler {
 					thing = 0;
 				}
 			}
+			Handler.check_Death = false;
 		}}
 
 		
