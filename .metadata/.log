@@ -1,0 +1,26 @@
+!SESSION 2020-03-10 12:16:38.714 -----------------------------------------------
+eclipse.buildId=4.14.0.I20191210-0610
+java.version=1.8.0_241
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_CA
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/seanmccreary/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/seanmccreary/.eclipse_keyring
+
+!ENTRY org.eclipse.egit.core 4 0 2020-03-10 12:19:15.205
+!MESSAGE Pulling 1 repository
+!SUBENTRY 1 org.eclipse.egit.core 4 0 2020-03-10 12:19:15.205
+!MESSAGE Exception caught during execution of merge command. org.eclipse.jgit.errors.MissingObjectException: Missing unknown 583da7af2c40573d9a823011176424c26e317d32
+!STACK 0
+org.eclipse.jgit.api.errors.JGitInternalException: Exception caught during execution of merge command. org.eclipse.jgit.errors.MissingObjectException: Missing unknown 583da7af2c40573d9a823011176424c26e317d32
+	at org.eclipse.jgit.api.MergeCommand.call(MergeCommand.java:436)
+	at org.eclipse.jgit.api.PullCommand.call(PullCommand.java:400)
+	at org.eclipse.egit.core.op.PullOperation$PullJob.run(PullOperation.java:256)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.eclipse.jgit.errors.MissingObjectException: Missing unknown 583da7af2c40573d9a823011176424c26e317d32
+	at org.eclipse.jgit.internal.storage.file.WindowCursor.open(WindowCursor.java:168)
+	at org.eclipse.jgit.lib.ObjectReader.open(ObjectReader.java:236)
+	at org.eclipse.jgit.revwalk.RevWalk.parseAny(RevWalk.java:941)
+	at org.eclipse.jgit.internal.storage.file.RefDirectory.doPeel(RefDirectory.java:593)
+	at org.eclipse.jgit.internal.storage.file.RefDirectory.peel(RefDirectory.java:573)
+	at org.eclipse.jgit.api.MergeCommand.call(MergeCommand.java:258)
+	... 3 more
