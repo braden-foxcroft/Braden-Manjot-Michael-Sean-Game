@@ -50,6 +50,9 @@ You now have a copy of this program!
 
 This should get the game running!
 
+*To play the graphical version, follow the same instructions, but selecting* **Game**,   
+*instead of* **TextGame**
+
 Follow the in-game prompts to play.
 
 Animation mode is a mode that may be OS specific,  
@@ -57,6 +60,16 @@ and it makes animations more fluid. If your operating system supports it,
 I highly recommend it!
 
 **Have fun!**
+
+### Controls for the graphical game:
+
+- Use WASD to move around
+- Press Q to explode
+- Press E to become 'anchored' (unstoppable)
+- Press Shift to dash
+- Press Space to reset
+
+Don't hit the walls or the obstacles! Hitting grey traps will cause strange effects!
 
 ### Running the test file:
 
