@@ -40,21 +40,36 @@ public class Display {
 		else if(id == DisplayID.PlayerInvincible) {
 			gC.setFill(Color.YELLOW);
 		}
+		else if(id == DisplayID.DamagedEnemy){
+			gC.setFill(Color.DARKRED);
+		}
+		else if(id == DisplayID.DamagedPlayer){
+			gC.setFill(Color.DARKBLUE);
+		}
 		gC.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 	
-	// TODO MANJOT, IMPLEMENT THIS!
+//	Draws a button
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
-//		gC.setFill(color);
-//		gC.fillRect(arg0, arg1, arg2, arg3);
-//		gC.fillText(arg0, arg1, arg2);
-		// draw a rectangle
-		// draw text
+		gC.setFill(color);
+		gC.fillRect(x, y, width, height);
+		if (color.getBrightness() < Color.DARKGREY.getBrightness())
+		{
+			gC.setFill(Color.WHITE);
+		}
+		else
+		{
+			gC.setFill(Color.BLACK);
+		}
+		gC.fillText(text, x + (width/2), y + (height/2));
+//		TODO Manjot, implement this
+//		Make it so that the text changes color to make sure that it contrasts
 	}
-	
-	// TODO MANJOT, IMPLEMENT THIS!
+
+	// draw a rectangle
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
-		// draw a rectangle
+		gC.setFill(color);
+		gC.fillRect(x, y, width, height);
 	}
 	
 	public void screenBackground() {

@@ -2,10 +2,9 @@ package com.tutorial.main;
 
 import java.util.Random;
 
-public class Trap extends GameObject {
+public class Trap extends Character {
 	
 	Random r = new Random();
-	Handler handler;
 	
 
 	public Trap(int x, int y, ID id, Handler handler, int aRadius) {
@@ -33,14 +32,25 @@ public class Trap extends GameObject {
 
 
 	public void onCollision(GameObject other) {
-		
-		//this.hit(other);
-		//handler.removeObject(this);
-		//handler.addObject(new Ball((int) this.x,(int) this.y, ID.Ball, handler));
-		
+		if (this.health != 0) {
+			int tempX = (int)this.getX();
+			int tempY = (int)this.getY();
+			
+			this.health = 0;
+			Handler.time_To_Die();
+			
+			Random r = new Random();
+			int trapType = r.nextInt(3);
+			if (trapType == 0) {
+				Ball bTemp = new Ball(tempX, tempY, ID.Ball, handler);
+				handler.addObject(bTemp);
+				bTemp.launchAround();
+			}
+			else if (trapType == 1) {handler.addObject(new Enemy(tempX,tempY,ID.Enemy, handler));}
+			else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
+		}
 	}
 	
-	@Override
 	public void render(Display d) {
 		d.displayObject(DisplayID.Trap, this.x, this.y, radius);
 	}
