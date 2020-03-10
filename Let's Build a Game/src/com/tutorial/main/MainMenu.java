@@ -92,13 +92,13 @@ public class MainMenu extends Handler {
 	public void renderMainMenu() {
 		Color c = Color.color(0, 0.5, 0.5);
 		
-		addButton(new OurButton(50,20,400,100,c,"Play game"));
+		addButton(new OurButton(280,30,400,100,c,"Play game"));
 		
-		addButton(new OurButton(50,130,400,100,c,"Load game \n COMING SOON"));
+		addButton(new OurButton(280,210,400,100,c,"Load game \n COMING SOON"));
 		
-		addButton(new OurButton(50,240,400,100,c,"Options \n COMING SOON"));
+		addButton(new OurButton(280,390,400,100,c,"Options \n COMING SOON"));
 		
-		addButton(new OurButton(50,350,400,100,c,"Quit"));
+		addButton(new OurButton(280,570,400,100,c,"Quit"));
 		
 		
 	}
