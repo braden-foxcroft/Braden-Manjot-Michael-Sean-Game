@@ -7,6 +7,8 @@ package com.tutorial.main;
 
 public abstract class Character extends GameObject {
 	
+	public static final int MAXHEALTH = 5;
+	
 //	Implement a character.
 	public Character(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
@@ -14,7 +16,7 @@ public abstract class Character extends GameObject {
 
 	protected long struck = 0; // The point in time when being invincible wears off
 	protected boolean invincible = false; // whether you are invincible after taking damage
-	protected int health = 2; // your health. 0=death.
+	protected int health = Character.MAXHEALTH; // your health. 0=death.
 	
 //	Checks if you should stop being invincible.
 	public void invincibleUpdate() {

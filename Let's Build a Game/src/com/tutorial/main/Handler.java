@@ -189,6 +189,12 @@ public class Handler {
 		}
 		else if (gState == GameState.Play)
 		{
+			if (this.player() != null) {
+				d.updateCamera(this.player());
+			} else {
+				d.updateCamera(this.object.get(0));
+			}
+			d.drawBorders();
 			for (int i = 0; i < object.size(); i++)
 			{
 				GameObject tempObject = object.get(i);

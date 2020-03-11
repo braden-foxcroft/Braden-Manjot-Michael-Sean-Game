@@ -12,7 +12,9 @@ import javafx.stage.Stage;
 public class Game extends Application {
 	
 	public static final int WIDTH = 960;
- public static final int HEIGHT = WIDTH / 12 * 9; // 720;
+	public static final int HEIGHT = WIDTH / 12 * 9; // 720;
+	public static int arenaWidth = 2000;
+	public static int arenaHeight = 1500;
 	private Canvas mainCanvas;
 	private Keylist kL;
 	private MouseClickHandler mCH;
