@@ -1,10 +1,12 @@
 package com.tutorial.main;
 
 import java.util.LinkedList;
-import java.util.Random;
 
 import javafx.scene.paint.Color;
 
+// TODO Michael, do this
+// Make all menus
+// (In PauseMenu, too)
 public class MainMenu extends Handler {
 	private static MenuState state = MenuState.mainmenu;
 	private static LinkedList<OurButton> buttonList;
@@ -80,12 +82,12 @@ public class MainMenu extends Handler {
 	}
 	
 	public void renderOptionsMenu() {
-		// TODO make this work
+		
 		
 	}
 	
 	public void renderLoadMenu() {
-		// TODO make this work
+		
 		
 	}
 	

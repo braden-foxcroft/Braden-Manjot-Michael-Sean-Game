@@ -34,9 +34,10 @@ public class Key {
 	
 //	Presses it
 	public void press() {
-		//FIXME
-		this.justPressed = true;
-		this.pressed = true;
+		if (!this.pressed) {
+			this.justPressed = true;
+			this.pressed = true;
+		}
 	}
 	
 //	Gets its code

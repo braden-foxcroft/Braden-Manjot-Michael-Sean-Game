@@ -65,10 +65,9 @@ public class Player extends Character{
 	public void render(Display d) {
 		if (this.invincible) {
 			d.displayObject(DisplayID.PlayerInvincible, x, y, radius);
-		} else if (this.health == 1) {
-			d.displayObject(DisplayID.DamagedPlayer, x, y, radius);
 		}else {
 			d.displayObject(DisplayID.Player, x, y, radius);
 		}
+		d.drawHealthBar(x, y, radius, health, Character.MAXHEALTH);
 	}
 }

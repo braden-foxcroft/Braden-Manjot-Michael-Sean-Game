@@ -80,11 +80,10 @@ public class Enemy extends Character {
 	public void render(Display d) {
 		if (this.invincible) {
 			d.displayObject(DisplayID.EnemyInvincible, x, y, radius);
-		}else if (this.health == 1) {
-			d.displayObject(DisplayID.DamagedEnemy, x, y, radius);
-		}else {
+		} else {
 			d.displayObject(DisplayID.Enemy, x, y, radius);
 		}
+		d.drawHealthBar(x, y, radius, health, Character.MAXHEALTH);
 	}
 
 }

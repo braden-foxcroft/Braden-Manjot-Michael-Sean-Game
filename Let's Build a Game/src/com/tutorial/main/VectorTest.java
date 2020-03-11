@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 // a test for vector arithmetic
-// TODO make test mathematically complete!
 
 public class VectorTest {
 
@@ -70,6 +69,7 @@ public class VectorTest {
 		assertTrue(v.equals(q));
 		assertTrue(v.length() * 2 == n.length());
 		assertTrue(v != q);
+		// Yeah, this is right. I'm checking pointers.
 	}
 	
 	@Test

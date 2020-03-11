@@ -1,21 +1,17 @@
 package com.tutorial.main;
 
-import java.awt.Graphics;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Display {
 	
-	private Graphics g;
 	private GraphicsContext gC;
-
-	public Display(Graphics g) {
-		this.g = g;
-	}
+	private Camera cam;
 	
 	public Display(GraphicsContext gC) {
 		this.gC = gC;
+		this.cam = new Camera();
 	}
 	
 	public void displayObject(DisplayID id, float x, float y, int radius) {
@@ -40,12 +36,8 @@ public class Display {
 		else if(id == DisplayID.PlayerInvincible) {
 			gC.setFill(Color.YELLOW);
 		}
-		else if(id == DisplayID.DamagedEnemy){
-			gC.setFill(Color.DARKRED);
-		}
-		else if(id == DisplayID.DamagedPlayer){
-			gC.setFill(Color.DARKBLUE);
-		}
+		x = cam.placeXOnScreen(x);
+		y = cam.placeYOnScreen(y);
 		gC.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 	
@@ -62,19 +54,36 @@ public class Display {
 			gC.setFill(Color.BLACK);
 		}
 		gC.fillText(text, x + (width/2), y + (height/2));
-//		TODO Manjot, implement this
-//		Make it so that the text changes color to make sure that it contrasts
 	}
 
-	// draw a rectangle
+	public void drawBorders() {
+//		TODO Manjot, make this
+//		Using the camera position, work out where to properly display the borders
+//		Display them however you like, so long as you can see that you hit them
+//		when you reach the edge of the map.
+	}
+	
+	public void drawHealthBar(float x, float y, int radius, int health, int maxHealth) {
+//		TODO Manjot, make this
+//		Draw the health bar below the corresponding character
+//		Use the x and y, and radius to place the bar below the character.
+//		Leave a pixel or two between the bottom of the character and the health bar
+//		Make the health bar have the same width as the character.
+//		Display the bar as a series of segments, where you can clearly see
+//		How much damage has been taken, and how much health remains.
+		Color barBackgroundColor = Color.WHEAT;
+		Color barColor = Color.LAWNGREEN;
+		
+	}
+	
+	public void updateCamera(GameObject thing) {
+		cam.centerCameraOn(thing);
+	}
+	
+//	Draw a rectangle
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
 		gC.setFill(color);
 		gC.fillRect(x, y, width, height);
-	}
-	
-	public void screenBackground() {
-		gC.setFill(Color.BLACK);
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	}
 	
 	public void setupNextFrame() {
