@@ -219,6 +219,13 @@ public class Handler {
 //	Create a new object. Block extra players from being made.
 	public void addObject(GameObject o) {
 		boolean debug = false;
+		// -----------------------
+//		TODO Remove this to re-enable enemies
+		if (o.id == ID.Enemy)
+		{
+			return;
+		}
+		// --------------------------
 		if (o.id == ID.Player) {
 			if (this.playerIndex == -1) {
 				this.object.add(o);
