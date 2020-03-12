@@ -7,7 +7,5 @@ public enum DisplayID {
 	EnemyInvincible(),
 	Obstacle(),
 	Trap(),
-	Ball(),
-	DamagedPlayer,
-	DamagedEnemy;
+	Ball();
 }
