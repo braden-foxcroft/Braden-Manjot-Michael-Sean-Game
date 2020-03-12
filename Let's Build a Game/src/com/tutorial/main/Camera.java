@@ -17,25 +17,23 @@ public class Camera {
 	}
 	
 	public float placeXOnScreen(float x) {
-//		TODO Manjot, make this.
 //		This function should take the x position of the object in the arena,
 //		and return the x position of the object on the screen.
+		x -= this.getXPos();
 		return x;
 	}
 	
 	public float placeYOnScreen(float y) {
-//		TODO Manjot, make this.
 //		This function should take the y position of the object in the arena,
 //		and return the y position of the object on the screen.
+		y -= this.getYPos();
 		return y;
 	}
 	
 	public void centerCameraOn(GameObject thing) {
-//		TODO Manjot, make this.
 //		This should center the camera on the object that is passed in.
-		this.cameraX = 0;
-		this.cameraY = 0;
-		
+		this.cameraX = (int)(thing.getX() - Game.WIDTH / 2);
+		this.cameraY = (int) (thing.getY() - Game.HEIGHT / 2);
 	}
 	
 }
