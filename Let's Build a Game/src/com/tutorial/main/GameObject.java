@@ -33,8 +33,8 @@ public abstract class GameObject {
 //	Constrain prevents objects from leaving the bounds of the arena
 //	TODO allow for a larger arena.
 	protected void constrain() {
-		int width = Game.WIDTH - 6;
-		int height = Game.HEIGHT - 30;
+		int width = Game.arenaWidth - 6;
+		int height = Game.arenaHeight - 30;
 		if (y > height - radius) {
 			this.setVelY(-Math.abs(this.getVelY()));
 			y = height - radius;
