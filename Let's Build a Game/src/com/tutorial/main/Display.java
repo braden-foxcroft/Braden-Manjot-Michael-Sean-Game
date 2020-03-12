@@ -61,6 +61,7 @@ public class Display {
 //		Using the camera position, work out where to properly display the borders
 //		Display them however you like, so long as you can see that you hit them
 //		when you reach the edge of the map.
+		
 	}
 	
 	public void drawHealthBar(float x, float y, int radius, int health, int maxHealth) {
@@ -73,6 +74,7 @@ public class Display {
 //		How much damage has been taken, and how much health remains.
 		Color barBackgroundColor = Color.WHEAT;
 		Color barColor = Color.LAWNGREEN;
+		
 		
 	}
 	
