@@ -61,6 +61,22 @@ public class Display {
 //		Using the camera position, work out where to properly display the borders
 //		Display them however you like, so long as you can see that you hit them
 //		when you reach the edge of the map.
+		Camera c = cam;
+		int tlx = (int) c.placeXOnScreen(0);
+		int tly = (int) c.placeYOnScreen(0);
+		int width = Game.arenaWidth;
+		int height = Game.arenaHeight;
+		int brx = (int) c.placeXOnScreen(width);
+		int bry = (int) c.placeYOnScreen(height);
+		gC.setFill(Color.WHITE);
+		//Top border
+		gC.fillRect(tlx, tly - 5, width, 5);
+		//Left border
+		gC.fillRect(tlx - 5, tly - 5, 5, height + 10);
+		//Bottom border
+		gC.fillRect(tlx - 5, bry, width + 5, 5);
+		//Right border
+		gC.fillRect(brx, tly - 5, 5, height + 10);
 		
 	}
 	
@@ -74,6 +90,7 @@ public class Display {
 //		How much damage has been taken, and how much health remains.
 		Color barBackgroundColor = Color.WHEAT;
 		Color barColor = Color.LAWNGREEN;
+		Color secondBarColor = Color.DARKGRAY;
 		
 		
 	}
