@@ -1,3 +1,10 @@
+# What is this?
+
+This is a game created by four first-year students at U of C. It was created as part of a group assignment.   
+The game is a variation on bumper cars, incorporating real-world physics and fluid controls to make a pleasant,
+albiet simple, user experience.
+This game is still a work in progress.
+
 # JavaFX version
 
 Now with new controls:  
