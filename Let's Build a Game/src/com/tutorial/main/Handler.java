@@ -314,6 +314,9 @@ public class Handler {
 	public void setGameStatePause() {
 		gState = GameState.Pause;
 	}
+	public LinkedList<GameObject> getObjects(){
+		return object;
+	}
 	
 //	Inform every handler that it is time to check for deaths. False positives are fine.
 	public static void time_To_Die() {
