@@ -1,5 +1,8 @@
 package com.tutorial.main;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 import javafx.scene.paint.Color;
@@ -61,7 +64,7 @@ public class PauseMenu extends Handler{
 	}
 	
 	private void renderSaveMenu() {
-		
+		saveGame();
 		
 	}
 
@@ -69,9 +72,29 @@ public class PauseMenu extends Handler{
 		Color c = Color.BLUE;
 		addButton(new OurButton(280,30,400,100,c,"Resume"));
 		
-		addButton(new OurButton(280,210,400,100,c,"Save \n COMING SOON"));
+		addButton(new OurButton(280,210,400,100,c,"Save"));
 		
 		addButton(new OurButton(280,390,400,100,c,"Quit"));
+		
+	}
+	public void saveGame() {
+		object = getObjects();
+		//String stringOfObjects;
+		Calendar rightNow = Calendar.getInstance();
+		try {
+			FileWriter newSave = new FileWriter("C:\\Users\\mdbuc\\Desktop\\" + "test" + ".txt");
+			//FileWriter test = new FileWriter("C:\\Users\\mdbuc\\Desktop\\File.txt");
+			//for (int i = 0; i < object.size(); i++)
+			//{
+			//	GameObject tempObject = object.get(i);
+			//}
+			newSave.append(object.toString());
+			newSave.close();
+		} catch (IOException e) {
+			System.out.println("An error made you die");
+			e.printStackTrace();
+		}
+		
 		
 	}
 }
