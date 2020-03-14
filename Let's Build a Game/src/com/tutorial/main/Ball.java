@@ -39,7 +39,7 @@ public class Ball extends GameObject {
 		d.displayObject(DisplayID.Enemy, x, y, radius);
 	}
 //	Fly around hitting stuff
-	public void launchAround() {
+	public void slowerLaunchAround() {
 		this.anchored = true;
 		int max = 10;
 		Random r = new Random();

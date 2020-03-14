@@ -30,6 +30,9 @@ public class Display {
 		else if(id == DisplayID.Ball) {
 			gC.setFill(Color.GREY);
 		}
+		else if(id == DisplayID.Bullet) {
+			gC.setFill(Color.YELLOW);
+		}
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
 		}
