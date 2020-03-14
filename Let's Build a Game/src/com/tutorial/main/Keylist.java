@@ -69,8 +69,14 @@ public class Keylist implements EventHandler<KeyEvent> {
 		}
 		return null;
 	}
+	// Makes a new key and adds it to the list.
 	
-//	Makes a new key and adds it to the list.
+	/**
+	 * Creates a new key, adds it to the list,
+	 * and returns a pointer to it
+	 * @param code Contains the code of the key to add
+	 * @return The key that was created
+	 */
 	public Key newKey(KeyCode code) {
 		Key k = new Key(code);
 		keys.add(k);
