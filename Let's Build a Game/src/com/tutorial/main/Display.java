@@ -28,7 +28,7 @@ public class Display {
 			gC.setFill(Color.GREY);
 		}
 		else if(id == DisplayID.Ball) {
-			gC.setFill(Color.GREY);
+			gC.setFill(Color.DARKGOLDENROD.darker());
 		}
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);

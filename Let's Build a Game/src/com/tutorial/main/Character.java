@@ -35,6 +35,12 @@ public abstract class Character extends GameObject {
 		
 	}
 	
+//	Performs skills, as needed
+	public void doSkill(String skillname, float x, float y) {
+		// TODO Braden, do this.
+		
+	}
+	
 
 	public void onCollision(GameObject other) {
 		

@@ -16,7 +16,8 @@ public class Ball extends GameObject {
 	public Ball(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.radius = 40;
-		this.lifeSpan = 60 * 10;
+		int lifeSpan = 30; // LifeSpan in seconds
+		this.lifeSpan = 60 * lifeSpan;
 	}
 //	A routine that acts once a tick.
 	public void tick() {
@@ -33,10 +34,13 @@ public class Ball extends GameObject {
 		return this.lifeSpan < 0;
 	}
 	
+	public void inheritRadius(GameObject other) {
+		this.radius = other.radius;
+	}
 	
 //	display the object
 	public void render(Display d) {
-		d.displayObject(DisplayID.Enemy, x, y, radius);
+		d.displayObject(DisplayID.Ball, x, y, radius);
 	}
 //	Fly around hitting stuff
 	public void launchAround() {
@@ -64,7 +68,7 @@ public class Ball extends GameObject {
 		
 	}
 	
-//	does nothing, there because it's required.
+//	does nothing; there because it's required.
 	public void hitWall() {
 		// do nothing
 	}
