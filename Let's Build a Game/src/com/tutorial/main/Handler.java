@@ -304,7 +304,32 @@ public class Handler {
 		return this.clickHandler;
 	}
 	
-	// Setter for gameStates
+	public String toString() {
+		String result = "";
+//		TODO Michael do this
+//		Make sure that every variable of significance in the program
+//		is being stored in this string.
+//		Store it in the way that you would want a program to read it.
+//		You'll have to be able to turn it back into data afterwards.
+		
+		result += "<Game properties go here>"; // Replace this with relevant code
+		
+		result += "\n";
+		for (GameObject i: object) {
+			result += i.toString(); // Append GameObject descriptor
+			result += "\n"; // Add a linebreak.
+		}
+		
+		result += "--------------LastLine---------";
+//		Just a marker. Remove this if you want.
+		
+		return result;
+	}
+	
+	
+	
+	
+	// Setters for gameStates
 	public void setGameStatePlay() {
 		gState = GameState.Play;
 	}

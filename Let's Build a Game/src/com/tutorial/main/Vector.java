@@ -23,10 +23,17 @@ public class Vector {
 	
 //	Extract a vector representing the path between two objects.
 	public Vector(GameObject a, GameObject b) {
-		this.x = b.getX() - a.getX();
-		this.y = b.getY() - a.getY();
+		if (b == null) {
+			this.x = a.getX();
+			this.y = a.getY();
+		} else {
+			this.x = b.getX() - a.getX();
+			this.y = b.getY() - a.getY();
+		}
 		// Creates a vector from the position of A
-		// to the position of B
+		// to the position of B.
+		// When given a null second value, it returns a coordinate.
+		
 	}
 	
 //	Return the length of a vector.
@@ -145,6 +152,11 @@ public class Vector {
 	public Vector scaleAndCopy(float f) {
 		return new Vector(x * f,y * f);
 		// returns a multiple of the original vector.
+	}
+	
+//	Creates a unit vector
+	public Vector unitVector() {
+		return this.scaleAndCopy(1 / this.length());
 	}
 	
 //	Projection. Requires linear algebra knowledge to understand.
