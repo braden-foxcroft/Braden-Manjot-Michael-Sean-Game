@@ -95,12 +95,14 @@ public class Player extends Character{
 			h.object.add(this);
 			h.allies.add(this);
 			h.player = this;
+			h.movingStuff.remove(this);
 		}
 	}
 	
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.allies.remove(this);
+		h.movingStuff.remove(this);
 		h.player = null;
 	}
 

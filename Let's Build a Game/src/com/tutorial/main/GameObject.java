@@ -17,6 +17,7 @@ public abstract class GameObject {
 	protected int radius;
 	protected Handler handler; // an instance of the handler is required.
 	protected boolean damaging = false;
+	protected boolean canTouch = true;
 	
 //	This creates an object.
 	public GameObject(int x, int y, ID id, Handler handler) {
@@ -63,6 +64,10 @@ public abstract class GameObject {
 	
 //	The behavior when two objects collide.
 	public void hit(GameObject other) {
+		if (!this.canTouch || !other.canTouch)
+		{
+			return;
+		}
 		this.onCollision(other);
 		other.onCollision(this);
 		if (TextGame.textGameActive) {
