@@ -21,19 +21,27 @@ public class Vector {
 		// creates a velocity vector from a GameObject
 	}
 	
+	
+//	Extract a vector representing the path between two objects.
+	public Vector(GameObject a, int b) {
+		this.x = a.getX();
+		this.y = a.getY();
+//		Creates a coordinate
+	}
+	
 //	Extract a vector representing the path between two objects.
 	public Vector(GameObject a, GameObject b) {
-		if (b == null) {
-			this.x = a.getX();
-			this.y = a.getY();
-		} else {
-			this.x = b.getX() - a.getX();
-			this.y = b.getY() - a.getY();
-		}
+		this.x = b.getX() - a.getX();
+		this.y = b.getY() - a.getY();
 		// Creates a vector from the position of A
 		// to the position of B.
-		// When given a null second value, it returns a coordinate.
-		
+	}
+	
+	public Vector(GameObject a, Vector b) {
+		this.x = b.x - a.getX();
+		this.y = b.y - a.getY();
+		// Creates a vector from the position of A
+		// to the position of B.
 	}
 	
 //	Return the length of a vector.
@@ -129,7 +137,10 @@ public class Vector {
 	
 //	Compare two vectors. Precise (no margin of error).
 	public boolean equals(Vector other) {
-		return (other.x == x && other.y == y);
+		float a = Math.abs(other.x - x);
+		float b = Math.abs(other.y - y);
+		float e = 0.001f; // Very small
+		return (a < e && b < e);
 	}
 	
 //	Checks if a vector contains another vector. (Meaning v1 * (0 <= n < 1) = v2)
