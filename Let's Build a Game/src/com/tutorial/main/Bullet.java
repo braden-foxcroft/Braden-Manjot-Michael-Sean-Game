@@ -28,6 +28,7 @@ public class Bullet extends GameObject {
 			Handler.time_To_Die();
 		}
 	}
+	
 //	Overwrite the default behavior
 	public boolean check_Death() {
 		return this.lifeSpan < 0;

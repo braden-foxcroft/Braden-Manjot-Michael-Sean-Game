@@ -41,17 +41,26 @@ public class Trap extends Character {
 			
 			Random r = new Random();
 			int trapType = r.nextInt(3); // change this range to enable later traps
+			
+//			TODO initialize trap type on creation
+//			TODO Have multiple trap display types
+			
 			if (trapType == 0) {
+//				Create an ball
 				Ball bTemp = new Ball(tempX, tempY, ID.Ball, handler);
 				handler.addObject(bTemp);
-				bTemp.slowerLaunchAround();
+				bTemp.launchAround();
 
 				bTemp.inheritRadius(this);
 
 			}
-			else if (trapType == 1) {handler.addObject(new Enemy(tempX,tempY,ID.Enemy, handler));}
+			else if (trapType == 1) {
+//				Create an enemy
+				handler.addObject(new Enemy(tempX,tempY,ID.Enemy, handler));
+			}
 			
 			else if (trapType == 2) {
+//				Create bullets
 				for (int i = 0;i<5;i++) {
 					Bullet bulletBill = new Bullet(tempX,tempY,ID.Bullet, handler);
 					handler.addObject(bulletBill);
@@ -59,11 +68,8 @@ public class Trap extends Character {
 				}
 			}
 			else if ((trapType == 3)||(trapType == 4)) {
-				Vector Vtemp = new Vector(this,other);
-				if ((Vtemp.length() < 10.0)&&(other.getId()==ID.Player)||(other.getId()==ID.Enemy)) { 
-					// TODO find out the appropriate AOE for heal
-					// TODO get the right object healed
-				}
+//				Heal something
+				
 			}
 			
 		}

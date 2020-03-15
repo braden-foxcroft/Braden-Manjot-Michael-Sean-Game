@@ -102,6 +102,10 @@ public class Display {
 		cam.centerCameraOn(thing);
 	}
 	
+	public Camera getCamera() {
+		return this.cam;
+	}
+	
 //	Draw a rectangle
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
 		gC.setFill(color);

@@ -19,6 +19,7 @@ public class Ball extends GameObject {
 		int lifeSpan = 30; // LifeSpan in seconds
 		this.lifeSpan = 60 * lifeSpan;
 	}
+	
 //	A routine that acts once a tick.
 	public void tick() {
 		this.drag();
@@ -29,6 +30,7 @@ public class Ball extends GameObject {
 			Handler.time_To_Die();
 		}
 	}
+	
 //	Overwrite the default behavior
 	public boolean check_Death() {
 		return this.lifeSpan < 0;
@@ -42,19 +44,22 @@ public class Ball extends GameObject {
 	public void render(Display d) {
 		d.displayObject(DisplayID.Ball, x, y, radius);
 	}
+	
 //	Fly around hitting stuff
-	public void slowerLaunchAround() {
+	public void launchAround() {
 		this.anchored = true;
 		int max = 10;
 		Random r = new Random();
 		Vector v = new Vector(r.nextInt(max * 2) - max, r.nextInt(max * 2) - max);
 		this.setVelocity(v);
 	}
+	
 //	move the object according to its velocity
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
+	
 //	slow the object proportional to its velocity
 	private void drag() {
 		if (!this.anchored) {
