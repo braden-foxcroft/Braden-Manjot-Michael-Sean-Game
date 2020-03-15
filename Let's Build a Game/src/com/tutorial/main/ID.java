@@ -7,7 +7,7 @@ public enum ID {
 	Enemy(),
 	Obstacle(),
 	Ball(),
-	//Obstacle(),
+	Bullet(),
 	Item(),
 	Trap();
 }
