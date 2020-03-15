@@ -45,6 +45,9 @@ public class Trap extends Character {
 				Ball bTemp = new Ball(tempX, tempY, ID.Ball, handler);
 				handler.addObject(bTemp);
 				bTemp.slowerLaunchAround();
+
+				bTemp.inheritRadius(this);
+
 			}
 			else if (trapType == 1) {handler.addObject(new Enemy(tempX,tempY,ID.Enemy, handler));}
 			

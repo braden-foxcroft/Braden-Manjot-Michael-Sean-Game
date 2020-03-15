@@ -31,10 +31,9 @@ public abstract class GameObject {
 	public abstract void hitWall();
 	
 //	Constrain prevents objects from leaving the bounds of the arena
-//	TODO allow for a larger arena.
 	protected void constrain() {
-		int width = Game.arenaWidth - 6;
-		int height = Game.arenaHeight - 30;
+		int width = Game.arenaWidth;
+		int height = Game.arenaHeight;
 		if (y > height - radius) {
 			this.setVelY(-Math.abs(this.getVelY()));
 			y = height - radius;
@@ -163,6 +162,15 @@ public abstract class GameObject {
 		return this.radius;
 	}
 	
+//	This does nothing. It's there for the sake of brevity.
+	public void doSkill(String skillname, float x, float y) {
+		
+	}
+	
+	public void doSkill(String skillName, Vector v) {
+		doSkill(skillName, (int)v.x, (int)v.y);
+	}
+	
 //	A method for rendering an object for the text-based version.
 	public void textRender(String[][] board) {
 		if (TextGame.textGameActive) {
@@ -187,7 +195,18 @@ public abstract class GameObject {
 		}
 	}
 	
-	
-	
-	
+	public String toString() {
+		String result = "";
+//		TODO Michael, make this.
+//		This method should produce a list of properties of the object
+//		For example, it might return "Player,500.98,320.1,3.6,-4.2,30,5"
+//		You decide how it structures the result. However it does it, make sure it's readable.
+//		At the end, you will have to parse the data back into an object,
+//		so consider how to arrange the data to make it as readable as possible
+		
+		
+		result += this.id + ",position"; // Just an example. Do whatever
+		
+		return result;
+	}
 }

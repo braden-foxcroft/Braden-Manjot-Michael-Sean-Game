@@ -23,9 +23,8 @@ public class AnimationController extends AnimationTimer{
 		this.display = d;
 	}
 	
-//	The game loop. Called every time the screen updates
+//	The game loop. Called every time the screen updates.
 	public void handle(long now) {
-		
 		delta += (now - lastTime) / ns;
 		lastTime = now;
 		while(delta >=1) {
@@ -38,11 +37,12 @@ public class AnimationController extends AnimationTimer{
 			timer += 1000;
 			if (frames > 100) {
 				System.out.println("FPS: " + frames);
-			} else if (frames < 2) {
-				System.err.println("Framerate dropped to 1 per second.");
+			} else if (frames < 3) {
+				System.err.println("Framerate dropped below 3 per second.");
 				System.err.println("Process killed.");
-				System.err.println("To see where this was decided, go to");
-				System.err.println("the AnimationController.java file.");
+				System.err.println("This means you are probably doing something very");
+				System.err.println("intense. Consult with Braden to make sure you aren't");
+				System.err.println("causing an issue.");
 				System.exit(0);
 			}
 			frames = 0;
