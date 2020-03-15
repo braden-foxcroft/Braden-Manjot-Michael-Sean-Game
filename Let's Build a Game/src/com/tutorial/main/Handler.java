@@ -13,8 +13,16 @@ import javafx.scene.input.KeyCode;
 
 public class Handler {
 	
-	LinkedList<GameObject> object = new LinkedList<GameObject>();
-	private int playerIndex = -1; // Used to track the index of the player. -1 means no player.
+//	A list of every game object
+	public LinkedList<GameObject> object = new LinkedList<GameObject>();
+//	A list of every ally
+	public LinkedList<Character> allies = new LinkedList<Character>();
+//	A list of every enemy
+	public LinkedList<Character> enemies = new LinkedList<Character>();
+//	A list of every character
+	public LinkedList<GameObject> movingStuff = new LinkedList<GameObject>();
+//	The player
+	public Player player = null;
 	private Keylist kL;
 	private static boolean check_Death = false; // a flag that means something is about to die.
 	private GameState gState = GameState.MainMenu;
@@ -29,25 +37,13 @@ public class Handler {
 		}
 		if (gState == GameState.Play) {
 //		Player actions
-		if (playerIndex != -1) {
-			if (kL.isPressed(KeyCode.W)) {this.player().accelY(-1);}
-			if (kL.isPressed(KeyCode.A)) {this.player().accelX(-1);}
-			if (kL.isPressed(KeyCode.S)) {this.player().accelY(1);}
-			if (kL.isPressed(KeyCode.D)) {this.player().accelX(1);}
-			if (kL.isPressed(KeyCode.SHIFT)) {
-				float cons = 15f;
-				Vector start = new Vector(player());
-				if (start.length() == 0) {
-					start.set(new Vector(1,0));
-				}
-				Vector result = start.scaleAndCopy(cons / start.length());
-				player().setVelocity(result);
-			}
-			this.player().anchored = kL.isPressed(KeyCode.E);
+		if (player != null) {
+			player.processInput(kL);
+			this.player.anchored = kL.isPressed(KeyCode.E);
 			if (kL.justPressed(KeyCode.Q)) {
 				for (GameObject o: this.object) {
 					if (o.id == ID.Enemy) {
-						Vector disp = new Vector(player(),o);
+						Vector disp = new Vector(player,o);
 						disp = disp.scaleAndCopy(1 / disp.length() / disp.length());
 						Vector push = disp.scaleAndCopy(3000f);
 						Vector now = new Vector(o);
@@ -125,16 +121,16 @@ public class Handler {
 //		this.addObject(new Ball(200,200,ID.Ball, this));
 		this.addObject(new Enemy(640,300,ID.Enemy, this));
 		Random r = new Random();
-		for(int i = 0 ; i < 4 ; i++) {
-			Obstacle o = new Obstacle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Obstacle, this, r.nextInt(60)+5);
+		for(int i = 0 ; i < 10 ; i++) {
+			Obstacle o = new Obstacle(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Obstacle, this, r.nextInt(200)+50);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
 			} else {
 				i--;
 			}
 		}
-		for(int i = 0 ; i < 4 ; i++) {
-			Trap o = new Trap(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Trap, this, r.nextInt(60)+5);
+		for(int i = 0 ; i < 20 ; i++) {
+			Trap o = new Trap(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Trap, this, r.nextInt(60)+5);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
 			} else {
@@ -189,10 +185,13 @@ public class Handler {
 		}
 		else if (gState == GameState.Play)
 		{
-			if (this.player() != null) {
-				d.updateCamera(this.player());
+			if (this.player != null) {
+				d.updateCamera(this.player);
 			} else {
-				d.updateCamera(this.object.get(0));
+				if (this.movingStuff.size() > 0)
+				{
+					d.updateCamera(this.movingStuff.get(0));
+				}
 			}
 			d.drawBorders();
 			for (int i = 0; i < object.size(); i++)
@@ -218,63 +217,13 @@ public class Handler {
 	
 //	Create a new object. Block extra players from being made.
 	public void addObject(GameObject o) {
-		boolean debug = false;
-		// -----------------------
-//		TODO Remove this to re-enable enemies
-		if (o.id == ID.Enemy)
-		{
-			return;
-		}
-		// --------------------------
-		if (o.id == ID.Player) {
-			if (this.playerIndex == -1) {
-				this.object.add(o);
-				this.playerIndex = this.object.size() - 1;
-//				Only one player permitted!
-//				Update the index of the player
-				if (debug) {System.out.println("New " + o.id);}
-			}
-			else
-			{
-				if (debug) {System.out.println("Could not make new " + o.id);}
-			}
-		}
-		else
-		{
-			this.object.add(o);
-			if (debug) {System.out.println("New " + o.id);}
-		}
+		o.addTo(this);
 	}
 	
 	
 //	Removes an object from the game.
 	public void removeObject(GameObject o) {
-		if (o.id == ID.Player) {
-			this.playerIndex = -1;
-		}
-		this.object.remove(o);
-		updatePlayerID();
-	}
-
-	private void updatePlayerID() {
-		this.playerIndex = -1;
-		for (int i = 0; i < this.objectCount(); i++) {
-			GameObject ob = this.object.get(i);
-			if (ob.id == ID.Player) {
-				this.playerIndex = i;
-			}
-		}
-	}
-	
-//	Returns the player object, or null if it doesn't exist. Convenient.
-	public GameObject player() {
-		if (this.playerIndex == -1) {
-			return null;
-		}
-		else
-		{
-			return this.object.get(playerIndex);
-		}
+		o.removeFrom(this);
 	}
 	
 //	Add a keyList object
@@ -295,16 +244,44 @@ public class Handler {
 		{
 			pause.recieveClick(x, y);
 		} else {
-//			TODO implement clicks when playing the game
+			if (player != null) {
+				player.doClick(x,y);
+			}
 		}
 	}
 	
-	public MouseClickHandler setupClickHandler() {
+	public MouseClickHandler setupClickHandler(Camera cam) {
 		this.clickHandler = new MouseClickHandler(this);
+		this.clickHandler.setCam(cam); //TODO fix this
 		return this.clickHandler;
 	}
 	
-	// Setter for gameStates
+	public String toString() {
+		String result = "";
+//		TODO Michael do this
+//		Make sure that every variable of significance in the program
+//		is being stored in this string.
+//		Store it in the way that you would want a program to read it.
+//		You'll have to be able to turn it back into data afterwards.
+		
+		result += "<Game properties go here>"; // Replace this with relevant code
+		
+		result += "\n";
+		for (GameObject i: object) {
+			result += i.toString(); // Append GameObject descriptor
+			result += "\n"; // Add a linebreak.
+		}
+		
+		result += "--------------LastLine---------";
+//		Just a marker. Remove this if you want.
+		
+		return result;
+	}
+	
+	
+	
+	
+	// Setters for gameStates
 	public void setGameStatePlay() {
 		gState = GameState.Play;
 	}

@@ -30,14 +30,14 @@ public class Enemy extends Character {
 //	The AI of the enemy
 	private void think() {
 		Vector v;
-		if (handler.player() == null) {
+		if (handler.player == null) {
 			float xA = (float) (Game.WIDTH / 2) - x; // the direction the player is in
 			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the player is in
 			v = new Vector(xA,yA);
 		}
 		else
 		{
-			v = new Vector(this,handler.player());
+			v = new Vector(this,handler.player);
 		}
 		v = v.scaleAndCopy(0.01f);
 		if (v.length() > 1) {
@@ -74,6 +74,19 @@ public class Enemy extends Character {
 //	Get the acceleration constant
 	public float getAccel() {
 		return this.accel;
+	}
+	
+	public void addTo(Handler h) {
+//		TODO uncomment this to add enemies back in
+//		h.object.add(this);
+//		h.enemies.add(this);
+//		h.movingStuff.add(this);
+	}
+	
+	public void removeFrom(Handler h) {
+		h.object.remove(this);
+		h.enemies.remove(this);
+		h.movingStuff.remove(this);
 	}
 	
 //	Render it

@@ -1,7 +1,5 @@
 package com.tutorial.main;
 
-import java.util.Random;
-
 //import java.awt.Color;
 // import java.awt.Graphics;
 
@@ -16,8 +14,10 @@ public class Ball extends GameObject {
 	public Ball(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.radius = 40;
-		this.lifeSpan = 60 * 10;
+		int lifeSpan = 30; // LifeSpan in seconds
+		this.lifeSpan = 60 * lifeSpan;
 	}
+	
 //	A routine that acts once a tick.
 	public void tick() {
 		this.drag();
@@ -28,29 +28,33 @@ public class Ball extends GameObject {
 			Handler.time_To_Die();
 		}
 	}
+	
 //	Overwrite the default behavior
 	public boolean check_Death() {
 		return this.lifeSpan < 0;
 	}
 	
+	public void inheritRadius(GameObject other) {
+		this.radius = other.radius;
+	}
 	
 //	display the object
 	public void render(Display d) {
-		d.displayObject(DisplayID.Enemy, x, y, radius);
+		d.displayObject(DisplayID.Ball, x, y, radius);
 	}
+	
 //	Fly around hitting stuff
-	public void launchAround() {
+	public void launchAround(Vector dir) {
 		this.anchored = true;
-		int max = 10;
-		Random r = new Random();
-		Vector v = new Vector(r.nextInt(max * 2) - max, r.nextInt(max * 2) - max);
-		this.setVelocity(v);
+		this.setVelocity(dir);
 	}
+	
 //	move the object according to its velocity
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
+	
 //	slow the object proportional to its velocity
 	private void drag() {
 		if (!this.anchored) {
@@ -60,11 +64,22 @@ public class Ball extends GameObject {
 		}
 	}
 	
+	public void addTo(Handler h) {
+		h.object.add(this);
+		h.movingStuff.add(this);
+	}
+	
+	public void removeFrom(Handler h) {
+		h.object.remove(this);
+		h.movingStuff.remove(this);
+	}
+	
+	
 	public void onCollision(GameObject other) {
 		
 	}
 	
-//	does nothing, there because it's required.
+//	does nothing; there because it's required.
 	public void hitWall() {
 		// do nothing
 	}

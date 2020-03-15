@@ -30,24 +30,61 @@ public class Trap extends Character {
 		
 	}
 
+	public void planDeath() {
+		this.health = 0;
+		Handler.time_To_Die();
+	}
 
-	public void onCollision(GameObject other) {
-		if (this.health != 0) {
+	public void onCollision(GameObject other) { // need to change this from GameObject to Character
+		if (this.health != 0) {					// in order to use Heal?
 			int tempX = (int)this.getX();
 			int tempY = (int)this.getY();
 			
-			this.health = 0;
-			Handler.time_To_Die();
-			
 			Random r = new Random();
-			int trapType = r.nextInt(3);
+			int trapType = r.nextInt(3); // change this range to enable later traps
+			
+//			TODO initialize trap type on creation
+//			TODO Have multiple trap display types
+			
 			if (trapType == 0) {
+//				Create an ball
 				Ball bTemp = new Ball(tempX, tempY, ID.Ball, handler);
 				handler.addObject(bTemp);
-				bTemp.launchAround();
+				Vector dir = new Vector(other,this);
+				float speed = r.nextFloat() * 8;
+				dir = dir.unitVector(speed);
+				bTemp.launchAround(dir);
+				bTemp.inheritRadius(this);
+				this.planDeath();
 			}
-			else if (trapType == 1) {handler.addObject(new Enemy(tempX,tempY,ID.Enemy, handler));}
-			else if (trapType == 2) {/* I want this to set off an explosion as though it were the player using the skill */}
+			else if (trapType == 1) {
+//				Create an enemy
+				handler.addObject(new Enemy(tempX,tempY,ID.Enemy, handler));
+				this.planDeath();
+			}
+			
+			else if (trapType == 2) {
+//				Create bullets
+				float speed = r.nextFloat() * 12;
+				for (int i = -1; i <= 1 ; i++) {
+					for (int j = -1; j <= 1; j++)
+					{
+						if (i != 0 || j != 0) {
+							Bullet bulletBill = new Bullet(tempX + i,tempY + j,ID.Bullet, handler);
+							handler.addObject(bulletBill);
+							Vector dir = new Vector(i,j);
+							dir = dir.unitVector(speed);
+							bulletBill.launchAround(dir);
+						}
+					}
+				}
+				this.planDeath();
+			}
+			else if ((trapType == 3)||(trapType == 4)) {
+//				Heal something
+				
+			}
+			
 		}
 	}
 	
