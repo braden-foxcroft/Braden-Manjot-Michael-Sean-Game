@@ -1,7 +1,5 @@
 package com.tutorial.main;
 
-import java.util.Random;
-
 //import java.awt.Color;
 // import java.awt.Graphics;
 
@@ -46,12 +44,9 @@ public class Ball extends GameObject {
 	}
 	
 //	Fly around hitting stuff
-	public void launchAround() {
+	public void launchAround(Vector dir) {
 		this.anchored = true;
-		int max = 10;
-		Random r = new Random();
-		Vector v = new Vector(r.nextInt(max * 2) - max, r.nextInt(max * 2) - max);
-		this.setVelocity(v);
+		this.setVelocity(dir);
 	}
 	
 //	move the object according to its velocity
@@ -68,6 +63,17 @@ public class Ball extends GameObject {
 			this.setVelY(this.getVelY() * drag);
 		}
 	}
+	
+	public void addTo(Handler h) {
+		h.object.add(this);
+		h.movingStuff.add(this);
+	}
+	
+	public void removeFrom(Handler h) {
+		h.object.remove(this);
+		h.movingStuff.remove(this);
+	}
+	
 	
 	public void onCollision(GameObject other) {
 		
