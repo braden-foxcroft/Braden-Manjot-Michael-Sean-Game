@@ -31,7 +31,6 @@ public abstract class GameObject {
 	public abstract void hitWall();
 	
 //	Constrain prevents objects from leaving the bounds of the arena
-//	TODO allow for a larger arena.
 	protected void constrain() {
 		int width = Game.arenaWidth;
 		int height = Game.arenaHeight;
@@ -64,6 +63,8 @@ public abstract class GameObject {
 	
 //	The behavior when two objects collide.
 	public void hit(GameObject other) {
+		this.onCollision(other);
+		other.onCollision(this);
 		if (TextGame.textGameActive) {
 			System.out.println("collision");
 			TextGame.padding++;
@@ -93,8 +94,6 @@ public abstract class GameObject {
 		if (this.damaging) {
 			other.hitWall();
 		}
-		this.onCollision(other);
-		other.onCollision(this);
 	}
 	
 	public abstract void onCollision(GameObject other);
@@ -163,6 +162,26 @@ public abstract class GameObject {
 		return this.radius;
 	}
 	
+//	Wrapper that takes a vector
+	public void doSkill(String skillName, Vector v) {
+		doSkill(skillName, v.x, v.y);
+	}
+	
+//	Wrapper that takes no parameters
+	public void doSkill(String skillName) {
+		doSkill(skillName, 0);
+	}
+	
+//	Wrapper that takes 1 parameter
+	public void doSkill(String skillName, float param1) {
+		doSkill(skillName, param1, 0);
+	}
+	
+//	This does nothing. It's there for the sake of brevity.
+	public void doSkill(String skillname, float x, float y) {
+		// Do nothing. It's really just here to be overridden.
+	}
+	
 //	A method for rendering an object for the text-based version.
 	public void textRender(String[][] board) {
 		if (TextGame.textGameActive) {
@@ -187,7 +206,26 @@ public abstract class GameObject {
 		}
 	}
 	
+	public void addTo(Handler h) {
+		h.object.add(this);
+	}
 	
+	public void removeFrom(Handler h) {
+		h.object.remove(this);
+	}
 	
-	
+	public String toString() {
+		String result = "";
+//		TODO Michael, make this.
+//		This method should produce a list of properties of the object
+//		For example, it might return "Player,500.98,320.1,3.6,-4.2,30,5"
+//		You decide how it structures the result. However it does it, make sure it's readable.
+//		At the end, you will have to parse the data back into an object,
+//		so consider how to arrange the data to make it as readable as possible
+		
+		
+		result += this.id + ",position"; // Just an example. Do whatever
+		
+		return result;
+	}
 }

@@ -25,11 +25,12 @@ public class Game extends Application {
 		
 		setupWindow(mainStage);
 		
+		Display display = setupDisplay();
+		
 		handler.addKeyboard(kL);
-		mCH = handler.setupClickHandler();
+		mCH = handler.setupClickHandler(display.getCamera());
 		gameScene.addEventHandler(MouseEvent.ANY, mCH);
 		
-		Display display = setupDisplay();
 		
 		AnimationController aC = new AnimationController(handler, display);
 		

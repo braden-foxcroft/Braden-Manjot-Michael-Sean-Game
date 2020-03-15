@@ -28,7 +28,10 @@ public class Display {
 			gC.setFill(Color.GREY);
 		}
 		else if(id == DisplayID.Ball) {
-			gC.setFill(Color.GREY);
+			gC.setFill(Color.DARKGOLDENROD.darker());
+		}
+		else if(id == DisplayID.Bullet) {
+			gC.setFill(Color.YELLOW);
 		}
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
@@ -97,6 +100,10 @@ public class Display {
 	
 	public void updateCamera(GameObject thing) {
 		cam.centerCameraOn(thing);
+	}
+	
+	public Camera getCamera() {
+		return this.cam;
 	}
 	
 //	Draw a rectangle

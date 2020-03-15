@@ -30,6 +30,14 @@ public class Camera {
 		return y;
 	}
 	
+	public float reverseEngineerX(float x) {
+		return x + this.getXPos();
+	}
+	
+	public float reverseEngineerY(float y) {
+		return y + this.getYPos();
+	}
+	
 	public void centerCameraOn(GameObject thing) {
 //		This should center the camera on the object that is passed in.
 		this.cameraX = (int)(thing.getX() - Game.WIDTH / 2);

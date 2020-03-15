@@ -1,5 +1,7 @@
 package com.tutorial.main;
 
+import javafx.scene.input.KeyCode;
+
 // import java.awt.Color;
 // import java.awt.Graphics;
 // import java.util.Random;
@@ -21,10 +23,10 @@ public class Player extends Character{
 
 //	Update the player's state
 	public void tick() {
-		this.drag();
-		displace();
-		this.constrain();
 		this.skillUpdate();
+		displace();
+		this.drag();
+		this.constrain();
 	}
 	
 //	Move the player, based on its current velocity
@@ -59,6 +61,47 @@ public class Player extends Character{
 //	For when you hit a wall, and take damage.
 	public void hitWall() {
 		super.hitWall();
+	}
+	
+	public void processInput(Keylist kL) {
+		if (kL.isPressed(KeyCode.W)) {accelY(-1);}
+		if (kL.isPressed(KeyCode.A)) {accelX(-1);}
+		if (kL.isPressed(KeyCode.S)) {accelY(1);}
+		if (kL.isPressed(KeyCode.D)) {accelX(1);}
+		if (kL.justPressed(KeyCode.SHIFT)) {
+			if (handler.enemies.size() > 0) {
+				float x = handler.enemies.get(0).x;
+				float y = handler.enemies.get(0).y;
+				this.startSkill("dash", x, y);
+			}
+		}
+	}
+	
+	public void doClick(double x, double y) {
+		this.startSkill("dash", (float)x, (float)y);
+	}
+	
+	public void dash(float x, float y) {
+		this.anchored = true;
+		Vector v = new Vector(x, y);
+		Vector move = new Vector(this,v);
+		move = move.unitVector().scaleAndCopy(20);
+		this.setVelocity(move);
+	}
+	
+	public void addTo(Handler h) {
+		if (h.player == null)
+		{
+			h.object.add(this);
+			h.allies.add(this);
+			h.player = this;
+		}
+	}
+	
+	public void removeFrom(Handler h) {
+		h.object.remove(this);
+		h.allies.remove(this);
+		h.player = null;
 	}
 
 //	Should render the character

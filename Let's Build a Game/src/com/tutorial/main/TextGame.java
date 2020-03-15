@@ -118,7 +118,7 @@ public class TextGame {
 		TextGame g = new TextGame();
 		g.handler.addObject(new Player(320,300,ID.Player, g.handler));
 		g.handler.addObject(new Enemy(640,300,ID.Enemy, g.handler));
-		while (g.handler.player() != null) {
+		while (g.handler.player != null) {
 			g.showBoard(g);
 			g.getInput();
 		}
