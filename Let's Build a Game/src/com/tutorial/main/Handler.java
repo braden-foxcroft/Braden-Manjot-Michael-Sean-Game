@@ -125,16 +125,16 @@ public class Handler {
 //		this.addObject(new Ball(200,200,ID.Ball, this));
 		this.addObject(new Enemy(640,300,ID.Enemy, this));
 		Random r = new Random();
-		for(int i = 0 ; i < 4 ; i++) {
-			Obstacle o = new Obstacle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Obstacle, this, r.nextInt(60)+5);
+		for(int i = 0 ; i < 10 ; i++) {
+			Obstacle o = new Obstacle(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Obstacle, this, r.nextInt(200)+50);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
 			} else {
 				i--;
 			}
 		}
-		for(int i = 0 ; i < 4 ; i++) {
-			Trap o = new Trap(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Trap, this, r.nextInt(60)+5);
+		for(int i = 0 ; i < 20 ; i++) {
+			Trap o = new Trap(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Trap, this, r.nextInt(60)+5);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
 			} else {
