@@ -7,7 +7,10 @@ public enum DisplayID {
 	EnemyInvincible(),
 	Obstacle(),
 	Trap(),
+	DasherTrap(),
 	Bullet(),
 	BulletUntouchable(),
+	PrisonBullet(),
+	PrisonBulletUntouchable(),
 	Ball();
 }

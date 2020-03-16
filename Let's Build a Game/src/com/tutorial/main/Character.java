@@ -9,25 +9,24 @@ public abstract class Character extends GameObject {
 	
 	public static final int MAXHEALTH = 5;
 	public int explodeRadius = 30; // The radius of explosions
-	private String currentSkill = "";
-	private float currentParam1 = 0f;
-	private float currentParam2 = 0f;
-	
+	public float dashSpeed = 20; // The speed of dashing
+	protected String currentSkill = "";
+	protected float currentParam1 = 0f;
+	protected float currentParam2 = 0f;
+	protected long invulnTime = 0; // The point in time when being invincible wears off
+	protected boolean invincible = false; // whether you are invincible after taking damage
+	protected int health = Character.MAXHEALTH; // your health. 0=death.
 	
 //	Implement a character.
 	public Character(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 	}
-
-	protected long struck = 0; // The point in time when being invincible wears off
-	protected boolean invincible = false; // whether you are invincible after taking damage
-	protected int health = Character.MAXHEALTH; // your health. 0=death.
 	
 //	Checks if you should stop being invincible.
 	public void invincibleUpdate() {
 		if (this.invincible) {
-			if (System.currentTimeMillis() >= this.struck) {
-				this.struck = 0;
+			if (System.currentTimeMillis() >= this.invulnTime) {
+				this.invulnTime = 0;
 				this.invincible = false;
 				if (this.check_Death()) {Handler.time_To_Die();}
 			}
@@ -75,7 +74,6 @@ public abstract class Character extends GameObject {
 //	Performs skills, as needed
 //	Can be overridden, but overrides must call this.
 	public void doSkill(String skillName, float param1, float param2) {
-		// TODO Braden, do this.
 		if (skillName.equals("heal")) {
 			this.heal((int)param1);
 		}
@@ -88,25 +86,21 @@ public abstract class Character extends GameObject {
 		else if (skillName.equals("explode")) {
 			this.explode();
 		}
+		else if (skillName.equals("hurt")) {
+			this.hurt((int)param1);
+		}
+		else if (skillName.equals("invuln")) {
+			this.invuln(param1);
+		}
 		
 		
 	}
 
 	public void onCollision(GameObject other) {
-		if (this.currentSkill.equals("dash")) {
-			this.skillReset();
-			Vector o = new Vector(other);
-			o = o.add(new Vector(this));
-			other.setVelocity(o);
-			this.setVelocity(new Vector(0,0));
-		}
 		
 	}
 	
 	public void anyCollision() {
-		if (this.currentSkill.equals("dash")) {
-			this.skillReset();
-		}
 		
 	}
 	
@@ -120,13 +114,38 @@ public abstract class Character extends GameObject {
 		return false;
 	}
 	
-//	
+	public void hurt(int damage) {
+		if (this.invincible)
+		{
+			return;
+		}
+		this.health -= damage;
+		if (this.health <= 0)
+		{
+			Handler.time_To_Die();
+		}
+		return;
+	}
+	
+	public void invuln(float time) {
+		if (invincible) {
+			return;
+		}
+		this.invulnTime = (long) System.currentTimeMillis() + (long)time * 1000;
+		this.invincible = true;
+	}
+	
+//	full heal
 	public void maxHeal() {
 		this.health = Character.MAXHEALTH;
 	}
 	
 	public void dash(float x, float y) {
-		
+		this.anchored = true;
+		Vector v = new Vector(x, y);
+		Vector move = new Vector(this,v);
+		move = move.unitVector(this.getDashSpeed());
+		this.setVelocity(move);
 	}
 	
 	public void explode() {
@@ -140,16 +159,22 @@ public abstract class Character extends GameObject {
 				System.out.println("damage taken by:" + this.id);
 				TextGame.padding++;
 			}
-			this.struck = System.currentTimeMillis() + 1000;
-			this.invincible = true;
-			this.health -= 1;
+			this.hurt(1);
+			this.invuln(1.0f);
 		}
 		this.anyCollision();
+		if (this.currentSkill.equals("dash")) {
+			this.skillReset();
+		}
 	}
 	
 //	Returns a boolean saying if the object should be removed this frame.
 	public boolean check_Death() {
 		return (this.health <= 0) && !this.invincible;
+	}
+	
+	public float getDashSpeed() {
+		return this.dashSpeed;
 	}
 	
 	
