@@ -28,7 +28,8 @@ public class Game extends Application {
 		Display display = setupDisplay();
 		
 		handler.addKeyboard(kL);
-		mCH = handler.setupClickHandler(display.getCamera());
+		mCH = handler.setupClickHandler();
+		handler.setCam(display.getCamera());
 		gameScene.addEventHandler(MouseEvent.ANY, mCH);
 		
 		
