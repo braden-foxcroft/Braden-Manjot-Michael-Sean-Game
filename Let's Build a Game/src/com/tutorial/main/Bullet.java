@@ -8,7 +8,7 @@ package com.tutorial.main;
 
 public class Bullet extends GameObject {
 	
-	private int lifeSpan;
+	protected int lifeSpan;
 	
 //	creates a ball of radius 40. The handler should be the original handler you use.
 	public Bullet(int x, int y, ID id, Handler handler) {
@@ -54,7 +54,7 @@ public class Bullet extends GameObject {
 	}
 	
 //	move the object according to its velocity
-	private void displace() {
+	protected void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
