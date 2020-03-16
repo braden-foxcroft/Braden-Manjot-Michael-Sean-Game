@@ -3,6 +3,7 @@ package com.tutorial.main;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import sun.misc.GC;
 
 public class Display {
 	
@@ -97,6 +98,32 @@ public class Display {
 		Color barBackgroundColor = Color.WHEAT;
 		Color barColor = Color.LAWNGREEN;
 		Color secondBarColor = Color.DARKGRAY;
+		Camera c = cam;
+		int hbx = (int) c.placeXOnScreen(x);
+		int hby = (int) c.placeYOnScreen(y);
+		gC.setFill(barBackgroundColor);
+		//Top of health bar
+		gC.fillRect(hbx - 25, hby + 30, 50, 5);
+		//Left part of health bar
+		gC.fillRect(hbx - 25, hby + 30, 5, 15);
+		//Bottom part of health bar
+		gC.fillRect(hbx - 25, hby + 45, 50, 5);
+		//Right part of health bar
+		gC.fillRect(hbx + 20, hby + 30, 5, 20);
+		gC.setFill(secondBarColor);
+		//Making the individual health bars inside the bigger health bar
+		float segmentSize = (40 / maxHealth);
+		for (int i = 1; i <= maxHealth; i++) {
+			float segmentPlacement = (hbx - 20) + ((i - 1) * segmentSize);
+			if (i <= health) {
+				gC.setFill(barColor);
+			}
+			else {
+				gC.setFill(secondBarColor);
+			}
+			gC.fillRect(segmentPlacement, hby + 35, segmentSize, 10);
+			System.out.println(segmentSize);
+		}
 		
 		
 	}
