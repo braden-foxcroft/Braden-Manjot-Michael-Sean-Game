@@ -29,6 +29,7 @@ public class Handler {
 	private MainMenu menu = null;
 	private PauseMenu pause = null;
 	private MouseClickHandler clickHandler = null;
+	private Camera cam;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -246,15 +247,18 @@ public class Handler {
 			pause.recieveClick(x, y);
 		} else {
 			if (player != null) {
-				player.doClick(x,y);
+				player.doClick(cam.reverseEngineerX((float)x), cam.reverseEngineerY((float)y));
 			}
 		}
 	}
 	
-	public MouseClickHandler setupClickHandler(Camera cam) {
+	public MouseClickHandler setupClickHandler() {
 		this.clickHandler = new MouseClickHandler(this);
-		this.clickHandler.setCam(cam);
 		return this.clickHandler;
+	}
+	
+	public void setCam(Camera cam) {
+		this.cam = cam;
 	}
 	
 	public String toString() {
