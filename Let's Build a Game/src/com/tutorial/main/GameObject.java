@@ -17,6 +17,7 @@ public abstract class GameObject {
 	protected int radius;
 	protected Handler handler; // an instance of the handler is required.
 	protected boolean damaging = false;
+	protected boolean canTouch = true;
 	
 //	This creates an object.
 	public GameObject(int x, int y, ID id, Handler handler) {
@@ -63,9 +64,23 @@ public abstract class GameObject {
 	
 //	The behavior when two objects collide.
 	public void hit(GameObject other) {
+		if (!this.canTouch || !other.canTouch)
+		{
+			return;
+		}
+		this.onCollision(other);
+		other.onCollision(this);
 		if (TextGame.textGameActive) {
 			System.out.println("collision");
 			TextGame.padding++;
+		}
+		if (other.damaging) {
+			this.doSkill("hurt",1);
+			this.doSkill("invuln",1);
+		}
+		if (this.damaging) {
+			other.doSkill("hurt",1);
+			other.doSkill("invuln",1);
 		}
 		if (other.anchored) {
 			if (!this.anchored) {
@@ -86,14 +101,6 @@ public abstract class GameObject {
 			this.setVelocity(vA);
 			other.setVelocity(vB);
 		}
-		if (other.damaging) {
-			this.hitWall();
-		}
-		if (this.damaging) {
-			other.hitWall();
-		}
-		this.onCollision(other);
-		other.onCollision(this);
 	}
 	
 	public abstract void onCollision(GameObject other);
@@ -162,13 +169,24 @@ public abstract class GameObject {
 		return this.radius;
 	}
 	
-//	This does nothing. It's there for the sake of brevity.
-	public void doSkill(String skillname, float x, float y) {
-		
+//	Wrapper that takes a vector
+	public void doSkill(String skillName, Vector v) {
+		doSkill(skillName, v.x, v.y);
 	}
 	
-	public void doSkill(String skillName, Vector v) {
-		doSkill(skillName, (int)v.x, (int)v.y);
+//	Wrapper that takes no parameters
+	public void doSkill(String skillName) {
+		doSkill(skillName, 0);
+	}
+	
+//	Wrapper that takes 1 parameter
+	public void doSkill(String skillName, float param1) {
+		doSkill(skillName, param1, 0);
+	}
+	
+//	This does nothing. It's there for the sake of brevity.
+	public void doSkill(String skillname, float x, float y) {
+		// Do nothing. It's really just here to be overridden.
 	}
 	
 //	A method for rendering an object for the text-based version.
@@ -193,6 +211,14 @@ public abstract class GameObject {
 			System.out.println("Could not display: " + this.id);
 			TextGame.padding++;
 		}
+	}
+	
+	public void addTo(Handler h) {
+		h.object.add(this);
+	}
+	
+	public void removeFrom(Handler h) {
+		h.object.remove(this);
 	}
 	
 	public String toString() {

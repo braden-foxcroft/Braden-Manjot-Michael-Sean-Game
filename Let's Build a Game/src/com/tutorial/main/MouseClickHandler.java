@@ -6,6 +6,16 @@ import javafx.scene.input.MouseEvent;
 public class MouseClickHandler implements EventHandler<MouseEvent> {
 
 	private Handler handler;
+	private double mouseX = 0;
+	private double mouseY = 0;
+	
+	public double x() {
+		return this.mouseX;
+	}
+	
+	public double y() {
+		return this.mouseY;
+	}
 	
 	public MouseClickHandler(Handler handler) {
 		this.handler = handler;
@@ -14,7 +24,9 @@ public class MouseClickHandler implements EventHandler<MouseEvent> {
 	public void handle(MouseEvent event) {
 		if (event.getEventType() == MouseEvent.MOUSE_CLICKED)
 		{
-			handler.clickEvent(event.getX(), event.getY());
+			this.mouseX = (float)event.getSceneX();
+			this.mouseY = (float)event.getSceneY();
+			handler.clickEvent(mouseX, mouseY);
 		}
 	}
 	

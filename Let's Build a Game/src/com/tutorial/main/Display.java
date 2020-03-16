@@ -27,17 +27,33 @@ public class Display {
 		else if(id == DisplayID.Trap) {
 			gC.setFill(Color.GREY);
 		}
+		else if(id == DisplayID.DasherTrap) {
+			gC.setFill(Color.color(0.5, 0.3, 0.5));
+		}
 		else if(id == DisplayID.Ball) {
 			gC.setFill(Color.DARKGOLDENROD.darker());
 		}
 		else if(id == DisplayID.Bullet) {
 			gC.setFill(Color.YELLOW);
 		}
+		else if(id == DisplayID.PrisonBullet) {
+			gC.setFill(Color.color(0.7, 0.3, 0.3));
+		}
+		else if(id == DisplayID.BulletUntouchable) {
+			gC.setFill(Color.color(0.1, 0.4, 0.4));
+		}
+		else if(id == DisplayID.PrisonBulletUntouchable) {
+			gC.setFill(Color.color(0.1, 0.1, 0.1));
+		}
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
 		}
 		else if(id == DisplayID.PlayerInvincible) {
 			gC.setFill(Color.YELLOW);
+		} else {
+			System.err.println("Tried to display object of unknown type.");
+			System.err.println("Please modify Display.java to add the display ID behavior");
+			System.exit(0);
 		}
 		x = cam.placeXOnScreen(x);
 		y = cam.placeYOnScreen(y);
@@ -94,12 +110,41 @@ public class Display {
 		Color barBackgroundColor = Color.WHEAT;
 		Color barColor = Color.LAWNGREEN;
 		Color secondBarColor = Color.DARKGRAY;
+		Camera c = cam;
+		int hbx = (int) c.placeXOnScreen(x);
+		int hby = (int) c.placeYOnScreen(y);
+		gC.setFill(barBackgroundColor);
+		//Top of health bar
+		gC.fillRect(hbx - 25, hby + 30, 50, 5);
+		//Left part of health bar
+		gC.fillRect(hbx - 25, hby + 30, 5, 15);
+		//Bottom part of health bar
+		gC.fillRect(hbx - 25, hby + 45, 50, 5);
+		//Right part of health bar
+		gC.fillRect(hbx + 20, hby + 30, 5, 20);
+		gC.setFill(secondBarColor);
+		//Making the individual health bars inside the bigger health bar
+		float segmentSize = (40 / maxHealth);
+		for (int i = 1; i <= maxHealth; i++) {
+			float segmentPlacement = (hbx - 20) + ((i - 1) * segmentSize);
+			if (i <= health) {
+				gC.setFill(barColor);
+			}
+			else {
+				gC.setFill(secondBarColor);
+			}
+			gC.fillRect(segmentPlacement, hby + 35, segmentSize, 10);
+		}
 		
 		
 	}
 	
 	public void updateCamera(GameObject thing) {
 		cam.centerCameraOn(thing);
+	}
+	
+	public Camera getCamera() {
+		return this.cam;
 	}
 	
 //	Draw a rectangle
@@ -112,5 +157,5 @@ public class Display {
 		gC.setFill(Color.BLACK);
 		gC.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	}
-
+	
 }
