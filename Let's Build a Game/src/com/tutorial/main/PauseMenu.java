@@ -85,18 +85,21 @@ public class PauseMenu extends Handler{
 	
 	public void saveGame() {
 		object = handler.getObjects();
-		//String stringOfObjects;
+		String stringOfObjects = "";
+		
+		for (GameObject j:object) {
+			stringOfObjects = stringOfObjects + j.id + "," + j.radius + "," + j.velX + "," + j.velY + "," + j.x + "," + j.y + ",\n";
+		}
+	
 		Calendar rightNow = Calendar.getInstance();
+		//System.out.print(stringOfObjects );
 		try {
-			FileWriter newSave = new FileWriter("C:\\Users\\mdbuc\\Desktop\\" + "test" + ".txt");
-			//FileWriter test = new FileWriter("C:\\Users\\mdbuc\\Desktop\\File.txt");
-			newSave.append(handler.toString());
+			FileWriter newSave = new FileWriter("C:\\Users\\mdbuc\\Desktop\\" + "Our game" + rightNow.getTimeInMillis() + ".txt");
+			newSave.append(stringOfObjects);
 			newSave.close();
 		} catch (IOException e) {
 			System.out.println("An error made you die");
 			e.printStackTrace();
 		}
-		
-		
 	}
 }
