@@ -29,6 +29,7 @@ public class Handler {
 	private MainMenu menu = null;
 	private PauseMenu pause = null;
 	private MouseClickHandler clickHandler = null;
+	private Camera cam;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -88,16 +89,17 @@ public class Handler {
 			}
 		}
 		// check for death, when needed
-		if (check_Death) {
+		if (check_Death || true) {
 			for (int thing = 0; thing < object.size(); thing++) {
 				GameObject a = object.get(thing);
 				if (a.check_Death()) {
+					thing--;
 					removeObject(a);
-					thing = 0;
 				}
 			}
 			Handler.check_Death = false;
-		}}
+		}
+		}
 
 		
 	}
@@ -119,7 +121,7 @@ public class Handler {
 	public void setup() {
 		this.addObject(new Player(320,300,ID.Player, this));
 //		this.addObject(new Ball(200,200,ID.Ball, this));
-		//this.addObject(new Enemy(640,300,ID.Enemy, this));
+		this.addObject(new Enemy(640,300,ID.Enemy, this));
 		Random r = new Random();
 		for(int i = 0 ; i < 10 ; i++) {
 			Obstacle o = new Obstacle(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Obstacle, this, r.nextInt(200)+50);
@@ -245,15 +247,18 @@ public class Handler {
 			pause.recieveClick(x, y);
 		} else {
 			if (player != null) {
-				player.doClick(x,y);
+				player.doClick(cam.reverseEngineerX((float)x), cam.reverseEngineerY((float)y));
 			}
 		}
 	}
 	
-	public MouseClickHandler setupClickHandler(Camera cam) {
+	public MouseClickHandler setupClickHandler() {
 		this.clickHandler = new MouseClickHandler(this);
-		this.clickHandler.setCam(cam); //TODO fix this
 		return this.clickHandler;
+	}
+	
+	public void setCam(Camera cam) {
+		this.cam = cam;
 	}
 	
 	public String toString() {
