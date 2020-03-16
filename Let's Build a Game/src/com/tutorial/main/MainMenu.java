@@ -2,6 +2,9 @@ package com.tutorial.main;
 
 import java.util.LinkedList;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import javafx.scene.paint.Color;
 
 // TODO Michael, do this
@@ -46,7 +49,12 @@ public class MainMenu extends Handler {
 		else if (text == "Quit") {
 			System.exit(1);
 		}
-		//else if (text == "")
+		else if (text == "Back") {
+			state = MenuState.mainmenu;
+		}
+		else if (text == "Pick File") {
+			
+		}
 	}
 	
 	public void update() {
@@ -80,15 +88,27 @@ public class MainMenu extends Handler {
 		handler.setGameStatePlay();
 		
 	}
-	
-	public void renderOptionsMenu() {
-		
+	public void filePicker() {
 		
 	}
 	
+	public void renderOptionsMenu() {
+		Color cc = Color.color(0, 0, 0.5);
+		
+		addButton(new OurButton(50,30,400,100,cc,"Change Screen Size"));
+		
+		addButton(new OurButton(50,210,400,100,cc,"More setttings"));
+		
+		addButton(new OurButton(280,570,400,100,cc,"Back"));
+
+	}
+	
 	public void renderLoadMenu() {
+		Color c = Color.color(0, 0.5, 0);
 		
+		addButton(new OurButton(280,30,400,100,c,"Pick File"));
 		
+		addButton(new OurButton(280,570,400,100,c,"Back"));
 	}
 	
 	public void renderMainMenu() {
@@ -96,9 +116,9 @@ public class MainMenu extends Handler {
 		
 		addButton(new OurButton(280,30,400,100,c,"Play game"));
 		
-		addButton(new OurButton(280,210,400,100,c,"Load game \n COMING SOON"));
+		addButton(new OurButton(280,210,400,100,c,"Load game"));
 		
-		addButton(new OurButton(280,390,400,100,c,"Options \n COMING SOON"));
+		addButton(new OurButton(280,390,400,100,c,"Options"));
 		
 		addButton(new OurButton(280,570,400,100,c,"Quit"));
 		
