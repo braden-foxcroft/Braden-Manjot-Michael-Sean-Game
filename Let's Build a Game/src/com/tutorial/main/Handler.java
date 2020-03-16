@@ -117,7 +117,7 @@ public class Handler {
 	public void setup() {
 		this.addObject(new Player(320,300,ID.Player, this));
 //		this.addObject(new Ball(200,200,ID.Ball, this));
-		this.addObject(new Enemy(640,300,ID.Enemy, this));
+		//this.addObject(new Enemy(640,300,ID.Enemy, this));
 		Random r = new Random();
 		for(int i = 0 ; i < 10 ; i++) {
 			Obstacle o = new Obstacle(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Obstacle, this, r.nextInt(200)+50);
