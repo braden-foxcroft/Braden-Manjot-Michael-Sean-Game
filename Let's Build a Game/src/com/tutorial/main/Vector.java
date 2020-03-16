@@ -167,7 +167,20 @@ public class Vector {
 	
 //	Creates a unit vector
 	public Vector unitVector() {
-		return this.scaleAndCopy(1 / this.length());
+		if (this.length() == 0) {
+			return this.scaleAndCopy(1);
+		} else {
+			return this.scaleAndCopy(1 / this.length());
+		}
+	}
+	
+//	Creates a unit vector
+	public Vector unitVector(float length) {
+		if (this.length() == 0) {
+			return this.scaleAndCopy(1);
+		} else {
+			return this.scaleAndCopy(length / this.length());
+		}
 	}
 	
 //	Projection. Requires linear algebra knowledge to understand.

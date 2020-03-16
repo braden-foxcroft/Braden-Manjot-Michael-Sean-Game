@@ -8,5 +8,6 @@ public enum DisplayID {
 	Obstacle(),
 	Trap(),
 	Bullet(),
+	BulletUntouchable(),
 	Ball();
 }

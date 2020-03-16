@@ -34,6 +34,9 @@ public class Display {
 		else if(id == DisplayID.Bullet) {
 			gC.setFill(Color.YELLOW);
 		}
+		else if(id == DisplayID.BulletUntouchable) {
+			gC.setFill(Color.color(0.1, 0.4, 0.4));
+		}
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
 		}
