@@ -77,10 +77,9 @@ public class Enemy extends Character {
 	}
 	
 	public void addTo(Handler h) {
-//		TODO uncomment this to add enemies back in
-//		h.object.add(this);
-//		h.enemies.add(this);
-//		h.movingStuff.add(this);
+		h.object.add(this);
+		h.enemies.add(this);
+		h.movingStuff.add(this);
 	}
 	
 	public void removeFrom(Handler h) {

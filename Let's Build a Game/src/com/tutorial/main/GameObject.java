@@ -74,6 +74,14 @@ public abstract class GameObject {
 			System.out.println("collision");
 			TextGame.padding++;
 		}
+		if (other.damaging) {
+			this.doSkill("hurt",1);
+			this.doSkill("invuln",1);
+		}
+		if (this.damaging) {
+			other.doSkill("hurt",1);
+			other.doSkill("invuln",1);
+		}
 		if (other.anchored) {
 			if (!this.anchored) {
 				Vector vA = new Vector(this);
@@ -92,12 +100,6 @@ public abstract class GameObject {
 			vA.collide(vB, dir);
 			this.setVelocity(vA);
 			other.setVelocity(vB);
-		}
-		if (other.damaging) {
-			this.hitWall();
-		}
-		if (this.damaging) {
-			other.hitWall();
 		}
 	}
 	

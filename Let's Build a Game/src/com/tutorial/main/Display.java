@@ -3,7 +3,6 @@ package com.tutorial.main;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import sun.misc.GC;
 
 public class Display {
 	
@@ -28,20 +27,33 @@ public class Display {
 		else if(id == DisplayID.Trap) {
 			gC.setFill(Color.GREY);
 		}
+		else if(id == DisplayID.DasherTrap) {
+			gC.setFill(Color.color(0.5, 0.3, 0.5));
+		}
 		else if(id == DisplayID.Ball) {
 			gC.setFill(Color.DARKGOLDENROD.darker());
 		}
 		else if(id == DisplayID.Bullet) {
 			gC.setFill(Color.YELLOW);
 		}
+		else if(id == DisplayID.PrisonBullet) {
+			gC.setFill(Color.color(0.7, 0.3, 0.3));
+		}
 		else if(id == DisplayID.BulletUntouchable) {
 			gC.setFill(Color.color(0.1, 0.4, 0.4));
+		}
+		else if(id == DisplayID.PrisonBulletUntouchable) {
+			gC.setFill(Color.color(0.1, 0.1, 0.1));
 		}
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
 		}
 		else if(id == DisplayID.PlayerInvincible) {
 			gC.setFill(Color.YELLOW);
+		} else {
+			System.err.println("Tried to display object of unknown type.");
+			System.err.println("Please modify Display.java to add the display ID behavior");
+			System.exit(0);
 		}
 		x = cam.placeXOnScreen(x);
 		y = cam.placeYOnScreen(y);
@@ -122,7 +134,6 @@ public class Display {
 				gC.setFill(secondBarColor);
 			}
 			gC.fillRect(segmentPlacement, hby + 35, segmentSize, 10);
-			System.out.println(segmentSize);
 		}
 		
 		
@@ -146,5 +157,5 @@ public class Display {
 		gC.setFill(Color.BLACK);
 		gC.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	}
-
+	
 }

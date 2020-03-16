@@ -82,6 +82,7 @@ public class PauseMenu extends Handler{
 		addButton(new OurButton(280,390,400,100,c,"Quit"));
 		
 	}
+	
 	public void saveGame() {
 		object = handler.getObjects();
 		//String stringOfObjects;

@@ -81,14 +81,6 @@ public class Player extends Character{
 		this.startSkill("dash", (float)x, (float)y);
 	}
 	
-	public void dash(float x, float y) {
-		this.anchored = true;
-		Vector v = new Vector(x, y);
-		Vector move = new Vector(this,v);
-		move = move.unitVector().scaleAndCopy(20);
-		this.setVelocity(move);
-	}
-	
 	public void addTo(Handler h) {
 		if (h.player == null)
 		{

@@ -35,7 +35,7 @@ public class AnimationController extends AnimationTimer{
 		frames++;
 		if(System.currentTimeMillis() - timer > 1000) {
 			timer += 1000;
-			if (frames > 100) {
+			if (frames < 40) {
 				System.out.println("FPS: " + frames);
 			} else if (frames < 3) {
 				System.err.println("Framerate dropped below 3 per second.");
