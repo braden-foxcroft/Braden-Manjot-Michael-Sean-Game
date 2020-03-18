@@ -176,6 +176,8 @@ public abstract class Character extends GameObject {
 	public float getDashSpeed() {
 		return this.dashSpeed;
 	}
-	
+	public int getHealth() {
+		return this.health;
+	}
 	
 }

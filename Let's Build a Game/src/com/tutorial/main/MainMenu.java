@@ -55,6 +55,18 @@ public class MainMenu extends Handler {
 		else if (text == "Pick File") {
 			
 		}
+		else if (text == "^") {
+			Game.arenaHeight = Game.arenaHeight + 100;
+			Game.arenaWidth = Game.arenaWidth + 100;
+		}
+		else if (text == "v") {
+			Game.arenaHeight = Game.arenaHeight - 100;
+			Game.arenaWidth = Game.arenaWidth - 100;
+		}
+		else if (text == "Defaults") {
+			Game.arenaHeight = 1500;
+			Game.arenaWidth = 2000;
+		}
 	}
 	
 	public void update() {
@@ -95,9 +107,24 @@ public class MainMenu extends Handler {
 	public void renderOptionsMenu() {
 		Color cc = Color.color(0, 0, 0.5);
 		
-		addButton(new OurButton(50,30,400,100,cc,"Change Screen Size"));
+		addButton(new OurButton(50,30,400,100,cc,"Change Arena Size"));
 		
-		addButton(new OurButton(50,210,400,100,cc,"More setttings"));
+		addButton(new OurButton(50,30,100,100,cc, Game.arenaHeight + "," + Game.arenaWidth));
+		
+		addButton(new OurButton(500,30,100,100,cc,"^"));
+		
+		addButton(new OurButton(610,30,100,100,cc,"v"));
+		
+		addButton(new OurButton(750,30,150,100,cc,"Defaults"));
+		
+		addButton(new OurButton(50,210,400,100,cc,"More setttings to add"));
+		
+		addButton(new OurButton(50,390,400,100,cc,"More setttings to add"));
+
+		
+
+		
+
 		
 		addButton(new OurButton(280,570,400,100,cc,"Back"));
 
