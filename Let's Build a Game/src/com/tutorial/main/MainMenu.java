@@ -121,11 +121,6 @@ public class MainMenu extends Handler {
 		
 		addButton(new OurButton(50,390,400,100,cc,"More setttings to add"));
 
-		
-
-		
-
-		
 		addButton(new OurButton(280,570,400,100,cc,"Back"));
 
 	}
