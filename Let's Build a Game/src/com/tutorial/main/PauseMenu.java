@@ -39,6 +39,9 @@ public class PauseMenu extends Handler{
 		else if (text == "Quit") {
 			System.exit(1);
 		}
+		else if (text == "Main Menu") {
+			setGameStateMainMenu();
+		}
 	}
 	
 //	A method that updates the buttons in the game menu
@@ -68,7 +71,8 @@ public class PauseMenu extends Handler{
 	}
 	
 	private void renderSaveMenu() {
-		saveGame();
+		handler.toString();
+		//pSaveGame();
 		state = PauseState.mainPause;
 		// To prevent an endless loop of saves. Please, do not delete this line of code!
 	}
@@ -81,22 +85,7 @@ public class PauseMenu extends Handler{
 		
 		addButton(new OurButton(280,390,400,100,c,"Quit"));
 		
-	}
-	
-	public void saveGame() {
-		object = handler.getObjects();
-		//String stringOfObjects;
-		Calendar rightNow = Calendar.getInstance();
-		try {
-			FileWriter newSave = new FileWriter("C:\\Users\\mdbuc\\Desktop\\" + "test" + ".txt");
-			//FileWriter test = new FileWriter("C:\\Users\\mdbuc\\Desktop\\File.txt");
-			newSave.append(handler.toString());
-			newSave.close();
-		} catch (IOException e) {
-			System.out.println("An error made you die");
-			e.printStackTrace();
-		}
-		
+		//addButton(new OurButton(280,570,400,100,c,"Main Menu"));
 		
 	}
 }
