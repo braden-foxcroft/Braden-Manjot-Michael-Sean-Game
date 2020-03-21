@@ -5,6 +5,8 @@ public enum DisplayID {
 	PlayerInvincible(),
 	Enemy(),
 	EnemyInvincible(),
+	Ally(),
+	AllyInvincible(),
 	Obstacle(),
 	Trap(),
 	DasherTrap(),
