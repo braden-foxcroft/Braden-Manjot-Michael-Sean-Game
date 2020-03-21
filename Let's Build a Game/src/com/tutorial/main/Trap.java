@@ -19,6 +19,15 @@ public class Trap extends Character {
 		this.invincibleUpdate();
 	}
 	
+	public void addTo(Handler h) {
+		h.obstacles.add(this);
+		h.object.add(this);
+	}
+	
+	public void removeFrom(Handler h) {
+		h.obstacles.remove(this);
+		h.object.remove(this);
+	}
 
 	public void hitWall() {
 		// do Nothing, this will be an anchored object.
