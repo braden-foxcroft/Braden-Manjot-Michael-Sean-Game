@@ -76,7 +76,6 @@ public class Display {
 	}
 
 	public void drawBorders() {
-//		TODO Manjot, make this
 //		Using the camera position, work out where to properly display the borders
 //		Display them however you like, so long as you can see that you hit them
 //		when you reach the edge of the map.
@@ -100,7 +99,6 @@ public class Display {
 	}
 	
 	public void drawHealthBar(float x, float y, int radius, int health, int maxHealth) {
-//		TODO Manjot, make this
 //		Draw the health bar below the corresponding character
 //		Use the x and y, and radius to place the bar below the character.
 //		Leave a pixel or two between the bottom of the character and the health bar
