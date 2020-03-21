@@ -38,6 +38,16 @@ public class Obstacle extends GameObject {
 	public void render(Display d) {
 		d.displayObject(DisplayID.Obstacle, this.x, this.y, radius);
 	}
+	
+	public void addTo(Handler h) {
+		h.obstacles.add(this);
+		h.object.add(this);
+	}
+	
+	public void removeFrom(Handler h) {
+		h.obstacles.remove(this);
+		h.object.remove(this);
+	}
 
 
 

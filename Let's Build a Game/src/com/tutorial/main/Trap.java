@@ -19,6 +19,15 @@ public class Trap extends Character {
 		this.invincibleUpdate();
 	}
 	
+	public void addTo(Handler h) {
+		h.obstacles.add(this);
+		h.object.add(this);
+	}
+	
+	public void removeFrom(Handler h) {
+		h.obstacles.remove(this);
+		h.object.remove(this);
+	}
 
 	public void hitWall() {
 		// do Nothing, this will be an anchored object.
@@ -60,8 +69,7 @@ public class Trap extends Character {
 		else if (trapType == 1) {
 //			Create an enemy (or ally)
 			if (other.id == ID.Enemy) {
-				// TODO do this when you add allies (Braden)
-				other.doSkill("hurt", 5);
+				handler.addObject(new Ally(tempX,tempY,ID.Ally, handler));
 			} else {
 				handler.addObject(new Enemy(tempX,tempY,ID.Enemy, handler));
 			}
