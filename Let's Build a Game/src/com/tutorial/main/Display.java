@@ -21,6 +21,9 @@ public class Display {
 		else if(id == DisplayID.Enemy) {
 			gC.setFill(Color.RED);
 		}
+		else if(id == DisplayID.Ally) {
+			gC.setFill(Color.CYAN);
+		}
 		else if(id == DisplayID.Obstacle) {
 			gC.setFill(Color.WHITE);
 		}
@@ -48,10 +51,13 @@ public class Display {
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
 		}
+		else if(id == DisplayID.AllyInvincible) {
+			gC.setFill(Color.DARKSEAGREEN);
+		}
 		else if(id == DisplayID.PlayerInvincible) {
 			gC.setFill(Color.YELLOW);
 		} else {
-			System.err.println("Tried to display object of unknown type.");
+			System.err.println("Tried to display object of unknown type. (" + id + ")");
 			System.err.println("Please modify Display.java to add the display ID behavior");
 			System.exit(0);
 		}
@@ -76,10 +82,6 @@ public class Display {
 	}
 
 	public void drawBorders() {
-//		TODO Manjot, make this
-//		Using the camera position, work out where to properly display the borders
-//		Display them however you like, so long as you can see that you hit them
-//		when you reach the edge of the map.
 		Camera c = cam;
 		int tlx = (int) c.placeXOnScreen(0);
 		int tly = (int) c.placeYOnScreen(0);

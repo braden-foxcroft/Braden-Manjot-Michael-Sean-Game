@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 
+@SuppressWarnings("unused")
 public class PauseMenu extends Handler{
 	private static PauseState state = PauseState.mainPause;
 	private static LinkedList<OurButton> buttonList;

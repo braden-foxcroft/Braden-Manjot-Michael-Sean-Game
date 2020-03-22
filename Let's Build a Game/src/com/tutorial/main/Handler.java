@@ -17,7 +17,9 @@ public class Handler {
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
 //	A list of every ally
 	public LinkedList<Character> allies = new LinkedList<Character>();
-//	A list of every enemy
+//	A list of every ally
+	public LinkedList<GameObject> obstacles = new LinkedList<GameObject>();
+//	A list of every obstacle or trap
 	public LinkedList<Character> enemies = new LinkedList<Character>();
 //	A list of every character
 	public LinkedList<GameObject> movingStuff = new LinkedList<GameObject>();
@@ -189,11 +191,14 @@ public class Handler {
 		{
 			if (this.player != null) {
 				d.updateCamera(this.player);
-			} else {
-				if (this.movingStuff.size() > 0)
-				{
-					d.updateCamera(this.movingStuff.get(0));
-				}
+			}
+			else if (this.enemies.size() > 0)
+			{
+				d.updateCamera(this.enemies.get(0));
+			}
+			else if (this.movingStuff.size() > 0)
+			{
+				d.updateCamera(this.movingStuff.get(0));
 			}
 			d.drawBorders();
 			for (int i = 0; i < object.size(); i++)

@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 // TODO Michael, do this
 // Make all menus
 // (In PauseMenu, too)
+@SuppressWarnings("unused")
 public class MainMenu extends Handler {
 	private static MenuState state = MenuState.mainmenu;
 	private static LinkedList<OurButton> buttonList;
