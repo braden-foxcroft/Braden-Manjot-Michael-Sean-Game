@@ -268,92 +268,16 @@ public class Handler {
 	
 	public String toString() {
 		String result = "";
-//		TODO Michael do this
-//		Make sure that every variable of significance in the program
-//		is being stored in this string.
-//		Store it in the way that you would want a program to read it.
-//		You'll have to be able to turn it back into data afterwards.
 		
 		result += Game.arenaHeight + "," + Game.arenaWidth; // Replace this with relevant code
 		
 		result += "\n";
-		for (GameObject i: allies) {
-			result += i.id; 
-			result += ",";
-			result += i.radius;
-			result += ",";
-			result += i.x;
-			result += ",";
-			result += i.y;
-			result += ",";
-			result += i.velX;
-			result += ",";
-			result += i.velY;
-			result += ",\n";
-			//result += i.skills;
-			//result += ",";
-			//result += i.health;
-			//result += ",\n"; 
-		}
-		for (GameObject i: movingStuff) {
-			result += i.id; 
-			result += ",";
-			result += i.radius;
-			result += ",";
-			result += i.x;
-			result += ",";
-			result += i.y;
-			result += ",";
-			result += i.velX;
-			result += ",";
-			result += i.velY;
-			result += ",\n";
-			if (i.id == ID.Enemy) {
-				//result += i.skills;
-				//result += ",";
-				//result += i.health;
-				//result += ",\n";
-			}
-			else{
-				//result += null;
-				//result += ",";
-				//result += null;
-				//result += ",\n";
-			}
-			
-		}
+		
 		for (GameObject i: object) {
-			if (i.id == ID.Obstacle) {
-				result += i.id; 
-				result += ",";
-				result += i.radius;
-				result += ",";
-				result += i.x;
-				result += ",";
-				result += i.y;
-				result += ",";
-				result += i.velX;
-				result += ",";
-				result += i.velY;
-				result += ",\n";
-			}
-			if (i.id == ID.Trap) {
-				result += i.id; 
-				result += ",";
-				result += i.radius;
-				result += ",";
-				result += i.x;
-				result += ",";
-				result += i.y;
-				result += ",";
-				result += i.velX;
-				result += ",";
-				result += i.velY;
-				result += ",\n";
-			}
+			result += i.toString();
 		}
 
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 	

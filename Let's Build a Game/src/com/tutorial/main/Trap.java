@@ -133,6 +133,27 @@ public class Trap extends Character {
 			d.drawHealthBar(x, y, radius, health, MAXHEALTH);
 		}
 	}
+	public String toString() {
+		String result = "";
+		result += this.id; 
+		result += ",";
+		result += this.radius;
+		result += ",";
+		result += this.x;
+		result += ",";
+		result += this.y;
+		result += ",";
+		result += this.velX;
+		result += ",";
+		result += this.velY;
+		result += ",";
+		result += this.anchored;
+		result += ",";
+		result += this.damaging;
+		result += ",\n";
+		
+		return result;
+	}
 
 
 
