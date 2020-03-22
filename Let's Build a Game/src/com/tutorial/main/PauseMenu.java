@@ -78,9 +78,10 @@ public class PauseMenu extends Handler{
 		Calendar rightNow = Calendar.getInstance();
 		String userHomeFolder = System.getProperty("user.home");
 		File newSave = new File(userHomeFolder, rightNow.getTimeInMillis() + ".txt");
+		//System.out.println(userHomeFolder);
 		try {
 			FileWriter save = new FileWriter(newSave);
-			save.append(objects);
+			//save.append(objects);
 			//FileWriter newSave = new FileWriter("Save"+ rightNow.getTimeInMillis() + ".txt");
 			
 			save.close();
