@@ -223,15 +223,22 @@ public abstract class GameObject {
 	
 	public String toString() {
 		String result = "";
-//		TODO Michael, make this.
-//		This method should produce a list of properties of the object
-//		For example, it might return "Player,500.98,320.1,3.6,-4.2,30,5"
-//		You decide how it structures the result. However it does it, make sure it's readable.
-//		At the end, you will have to parse the data back into an object,
-//		so consider how to arrange the data to make it as readable as possible
-		
-		
-		result += this.id + ",position"; // Just an example. Do whatever
+		result += this.id; 
+		result += ",";
+		result += this.radius;
+		result += ",";
+		result += this.x;
+		result += ",";
+		result += this.y;
+		result += ",";
+		result += this.velX;
+		result += ",";
+		result += this.velY;
+		result += ",";
+		result += this.anchored;
+		result += ",";
+		result += this.damaging;
+		result += ",\n";
 		
 		return result;
 	}

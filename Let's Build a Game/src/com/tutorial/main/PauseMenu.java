@@ -1,11 +1,13 @@
 package com.tutorial.main;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.LinkedList;
 
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 
 @SuppressWarnings("unused")
 public class PauseMenu extends Handler{
@@ -72,10 +74,25 @@ public class PauseMenu extends Handler{
 	}
 	
 	private void renderSaveMenu() {
-		handler.toString();
-		//pSaveGame();
+		String objects = handler.toString();
+		Calendar rightNow = Calendar.getInstance();
+		String userHomeFolder = System.getProperty("user.home");
+		File newSave = new File(userHomeFolder, rightNow.getTimeInMillis() + ".txt");
+		//System.out.println(userHomeFolder);
+		try {
+			FileWriter save = new FileWriter(newSave);
+			//save.append(objects);
+			//FileWriter newSave = new FileWriter("Save"+ rightNow.getTimeInMillis() + ".txt");
+			
+			save.close();
+			
+			
+		} catch (IOException e) {
+			System.out.println("Cannot Save at this time");
+			e.printStackTrace();
+		} 
+		//System.out.println(userHomeFolder);
 		state = PauseState.mainPause;
-		// To prevent an endless loop of saves. Please, do not delete this line of code!
 	}
 	
 	public void renderPauseMenu() {
