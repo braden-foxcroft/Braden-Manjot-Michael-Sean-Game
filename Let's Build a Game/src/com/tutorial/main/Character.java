@@ -176,6 +176,26 @@ public abstract class Character extends GameObject {
 	public float getDashSpeed() {
 		return this.dashSpeed;
 	}
-	
+	public String toString() {
+		String result = "";
+		result += this.id; 
+		result += ",";
+		result += this.radius;
+		result += ",";
+		result += this.x;
+		result += ",";
+		result += this.y;
+		result += ",";
+		result += this.velX;
+		result += ",";
+		result += this.velY;
+		result += ",";
+		result += this.currentSkill;
+		result += ",";
+		result += this.health;
+		result += ",\n";
+		
+		return result;
+	}
 	
 }

@@ -17,7 +17,9 @@ public class Handler {
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
 //	A list of every ally
 	public LinkedList<Character> allies = new LinkedList<Character>();
-//	A list of every enemy
+//	A list of every ally
+	public LinkedList<GameObject> obstacles = new LinkedList<GameObject>();
+//	A list of every obstacle or trap
 	public LinkedList<Character> enemies = new LinkedList<Character>();
 //	A list of every character
 	public LinkedList<GameObject> movingStuff = new LinkedList<GameObject>();
@@ -189,11 +191,14 @@ public class Handler {
 		{
 			if (this.player != null) {
 				d.updateCamera(this.player);
-			} else {
-				if (this.movingStuff.size() > 0)
-				{
-					d.updateCamera(this.movingStuff.get(0));
-				}
+			}
+			else if (this.enemies.size() > 0)
+			{
+				d.updateCamera(this.enemies.get(0));
+			}
+			else if (this.movingStuff.size() > 0)
+			{
+				d.updateCamera(this.movingStuff.get(0));
 			}
 			d.drawBorders();
 			for (int i = 0; i < object.size(); i++)
@@ -263,23 +268,16 @@ public class Handler {
 	
 	public String toString() {
 		String result = "";
-//		TODO Michael do this
-//		Make sure that every variable of significance in the program
-//		is being stored in this string.
-//		Store it in the way that you would want a program to read it.
-//		You'll have to be able to turn it back into data afterwards.
 		
-		result += "<Game properties go here>"; // Replace this with relevant code
+		result += Game.arenaHeight + "," + Game.arenaWidth; // Replace this with relevant code
 		
 		result += "\n";
+		
 		for (GameObject i: object) {
-			result += i.toString(); // Append GameObject descriptor
-			result += "\n"; // Add a linebreak.
+			result += i.toString();
 		}
-		
-		result += "--------------LastLine---------";
-//		Just a marker. Remove this if you want.
-		
+
+		//System.out.println(result);
 		return result;
 	}
 	
