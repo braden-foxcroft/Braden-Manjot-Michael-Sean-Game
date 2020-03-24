@@ -6,13 +6,13 @@ package com.tutorial.main;
 // An enemy. Moves toward you, tries to hit you. That is all, so far.
 //Exclusively original code.
 
-public class Enemy extends Character {
+public class Ally extends Character {
 	
 	private float accel = 0.2f; // how fast can it accelerate?
 	private GameObject target;
 	
 //	Makes an enemy.
-	public Enemy(int x, int y, ID id, Handler handler) {
+	public Ally(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.setVelX(0);
 		this.setVelY(0);
@@ -48,7 +48,7 @@ public class Enemy extends Character {
 		else
 		{
 			targetDrive = new Vector(this, target);
-			alignDrive = (new Vector(target)).add(new Vector(this).negate());
+			alignDrive = (new Vector(handler.player)).add(new Vector(this).negate());
 		}
 		targetDrive = targetDrive.scaleAndCopy(0.01f);
 		
@@ -90,11 +90,11 @@ public class Enemy extends Character {
 	
 //	Finds the most suitable target
 	private void chooseNewTarget() {
-		if (handler.allies.size() == 0) {
+		if (handler.enemies.size() == 0) {
 			return;
 		}
-		target = handler.allies.get(0);
-		for (Character o : handler.allies) {
+		target = handler.enemies.get(0);
+		for (Character o : handler.enemies) {
 			float len = new Vector(this,o).length();
 			float lenOld = new Vector(this, target).length();
 			if (len < lenOld) {
@@ -144,22 +144,22 @@ public class Enemy extends Character {
 	
 	public void addTo(Handler h) {
 		h.object.add(this);
-		h.enemies.add(this);
+		h.allies.add(this);
 		h.movingStuff.add(this);
 	}
 	
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
-		h.enemies.remove(this);
+		h.allies.remove(this);
 		h.movingStuff.remove(this);
 	}
 	
 //	Render it
 	public void render(Display d) {
 		if (this.invincible) {
-			d.displayObject(DisplayID.EnemyInvincible, x, y, radius);
+			d.displayObject(DisplayID.AllyInvincible, x, y, radius);
 		} else {
-			d.displayObject(DisplayID.Enemy, x, y, radius);
+			d.displayObject(DisplayID.Ally, x, y, radius);
 		}
 		d.drawHealthBar(x, y, radius, health, Character.MAXHEALTH);
 	}

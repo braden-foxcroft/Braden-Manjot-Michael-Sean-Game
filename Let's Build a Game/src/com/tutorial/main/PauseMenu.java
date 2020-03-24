@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import javafx.scene.paint.Color;
 
+@SuppressWarnings("unused")
 public class PauseMenu extends Handler{
 	private static PauseState state = PauseState.mainPause;
 	private static LinkedList<OurButton> buttonList;

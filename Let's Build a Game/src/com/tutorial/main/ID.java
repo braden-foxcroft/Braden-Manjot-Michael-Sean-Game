@@ -9,5 +9,6 @@ public enum ID {
 	Ball(),
 	Bullet(),
 	Item(),
-	Trap();
+	Trap(),
+	Ally();
 }
