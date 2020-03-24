@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 // This class contains every GameObject, and the boolean state of each key.
 // Its purpose is to handle interactions between objects.
@@ -32,6 +33,7 @@ public class Handler {
 	private PauseMenu pause = null;
 	private MouseClickHandler clickHandler = null;
 	private Camera cam;
+	private Stage mainStage;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -184,7 +186,7 @@ public class Handler {
 		d.setupNextFrame();
 		if (gState == GameState.MainMenu) {
 			if (menu == null) {
-				menu = new MainMenu(this);
+				menu = new MainMenu(this, mainStage);
 			}
 			menu.update();
 			menu.render(d);
@@ -277,6 +279,10 @@ public class Handler {
 	
 	public void setCam(Camera cam) {
 		this.cam = cam;
+	}
+	
+	public void setMainStage(Stage mainStage) {
+		this.mainStage = mainStage;
 	}
 	
 	public String toString() {

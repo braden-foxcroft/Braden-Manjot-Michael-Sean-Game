@@ -31,6 +31,7 @@ public class Game extends Application {
 		mCH = handler.setupClickHandler();
 		handler.setCam(display.getCamera());
 		gameScene.addEventHandler(MouseEvent.ANY, mCH);
+		handler.setMainStage(mainStage);
 		
 		
 		AnimationController aC = new AnimationController(handler, display);
