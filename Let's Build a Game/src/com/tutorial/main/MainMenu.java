@@ -1,11 +1,13 @@
 package com.tutorial.main;
 
+import java.io.File;
 import java.util.LinkedList;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.util.concurrent.TimeUnit;
 
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
 // TODO Michael, do this
 // Make all menus
@@ -15,11 +17,14 @@ public class MainMenu extends Handler {
 	private static MenuState state = MenuState.mainmenu;
 	private static LinkedList<OurButton> buttonList;
 	private Handler handler;
+	private Stage mainStage;
+	private boolean timeToUpdate = true;
 	
 	
-	public MainMenu(Handler h) {
+	public MainMenu(Handler h, Stage mainStage) {
 		buttonList = new LinkedList<OurButton>();
 		this.handler = h;
+		this.mainStage = mainStage;
 	}
 	
 	public void render(Display d) {
@@ -39,22 +44,22 @@ public class MainMenu extends Handler {
 	public void menuClickHandler(String text) {
 
 		if(text == "Play game") {
-			state = MenuState.playmenu;
+			setState(MenuState.playmenu);
 		}
 		else if (text == "Load game") {
-			state = MenuState.loadmenu;
+			setState(MenuState.loadmenu);
 		}
 		else if (text == "Options") {
-			state = MenuState.optionsmenu;
+			setState(MenuState.optionsmenu);
 		}
 		else if (text == "Quit") {
 			System.exit(1);
 		}
 		else if (text == "Back") {
-			state = MenuState.mainmenu;
+			setState(MenuState.mainmenu);
 		}
 		else if (text == "Pick File") {
-			
+			load();
 		}
 		else if (text == "^") {
 			Game.arenaHeight = Game.arenaHeight + 100;
@@ -71,6 +76,11 @@ public class MainMenu extends Handler {
 	}
 	
 	public void update() {
+		if (!timeToUpdate)
+		{
+			return;
+		}
+		this.timeToUpdate = false;
 		reset();
 		if (state == MenuState.mainmenu) {
 			renderMainMenu();
@@ -101,8 +111,21 @@ public class MainMenu extends Handler {
 		handler.setGameStatePlay();
 		
 	}
-	public void filePicker() {
-		
+	
+	public void load() {
+		File f = filePicker();
+//		TODO Michael, do this
+//		Make it load.
+	}
+	
+	public File filePicker() {
+		FileChooser fileChooser = new FileChooser();
+		 fileChooser.setTitle("Open Resource File");
+		 fileChooser.getExtensionFilters().addAll(
+		         new ExtensionFilter("Text Files", "*.txt"),
+		         new ExtensionFilter("All Files", "*.*"));
+		 File selectedFile = fileChooser.showOpenDialog(mainStage);
+		 return selectedFile;
 	}
 	
 	public void renderOptionsMenu() {
@@ -146,5 +169,10 @@ public class MainMenu extends Handler {
 		addButton(new OurButton(280,570,400,100,c,"Quit"));
 		
 		
+	}
+
+	public void setState(MenuState state) {
+		MainMenu.state = state;
+		this.timeToUpdate = true;
 	}
 }

@@ -53,7 +53,7 @@ public abstract class Character extends GameObject {
 			}
 		}
 		else if (currentSkill.equals("stuff")) {
-			// TODO add more skills
+			// TODO Braden, add more skills
 		}
 		
 	}
