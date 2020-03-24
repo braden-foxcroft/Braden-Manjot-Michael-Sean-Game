@@ -46,7 +46,7 @@ public abstract class Character extends GameObject {
 		if (currentSkill.equals("dash")) {
 			Vector a = new Vector(this, 0);
 			Vector b = new Vector(currentParam1,currentParam2);
-			if (a.add(b.negate()).length() <= 20) {
+			if (a.add(b.negate()).length() <= dashSpeed + 1) {
 				Vector vel = new Vector(this);
 				this.setVelocity(vel.scaleAndCopy(0.4f));
 				skillReset();

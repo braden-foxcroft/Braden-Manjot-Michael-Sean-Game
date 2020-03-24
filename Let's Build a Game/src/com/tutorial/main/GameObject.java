@@ -17,6 +17,9 @@ public abstract class GameObject {
 	protected int radius;
 	protected Handler handler; // an instance of the handler is required.
 	protected boolean damaging = false;
+	/**
+	 * Contains whether or not the object is touchable
+	 */
 	protected boolean canTouch = true;
 	
 //	This creates an object.

@@ -21,7 +21,6 @@ public class Vector {
 		// creates a velocity vector from a GameObject
 	}
 	
-	
 //	Extract a vector representing the path between two objects.
 	public Vector(GameObject a, int b) {
 		this.x = a.getX();

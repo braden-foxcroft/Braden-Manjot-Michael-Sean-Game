@@ -6,7 +6,7 @@ public class DasherTrap extends Trap {
 	
 	private GameObject target;
 	private int range = 1000;
-	private int wait;
+	private int wait = 0;
 	private java.util.Random r = new Random();
 	
 	public DasherTrap(int x, int y, ID id, Handler handler, int aRadius, GameObject target) {
@@ -51,6 +51,7 @@ public class DasherTrap extends Trap {
 			this.wait--;
 			return;
 		}
+//		Start next dash
 		this.wait = (60) * 3;
 		Vector v = new Vector(this, target);
 		v = v.unitVector(r.nextInt(range) + 500);
@@ -60,6 +61,18 @@ public class DasherTrap extends Trap {
 		if (check_Death()) {
 			Handler.time_To_Die();
 		}
+	}
+	
+//	adds objects to their respective / appropriate lists in the handler
+	public void addTo(Handler h) {
+		h.object.add(this);
+		h.movingStuff.add(this);
+	}
+	
+//	removes objects from their respective / appropriate lists in the handler	
+	public void removeFrom(Handler h) {
+		h.object.remove(this);
+		h.movingStuff.remove(this);
 	}
 	
 	public boolean check_Death() {
