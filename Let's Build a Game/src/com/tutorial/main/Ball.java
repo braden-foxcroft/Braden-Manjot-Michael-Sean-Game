@@ -49,7 +49,7 @@ public class Ball extends GameObject {
 		this.setVelocity(dir);
 	}
 	
-//	move the object according to its velocity
+//	Offsets position based on current velocity
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
@@ -64,11 +64,13 @@ public class Ball extends GameObject {
 		}
 	}
 	
+//	adds objects to their respective / appropriate lists in the handler
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.movingStuff.add(this);
 	}
 	
+//	removes objects from their respective / appropriate lists in the handler	
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.movingStuff.remove(this);

@@ -1,12 +1,14 @@
 package com.tutorial.main;
 
 import java.util.Random;
+// Traps are a collision activated gameObject with a randomized variety of effects. 
+// traps generation and placement done in the Handler class, setup method.
 
 public class Trap extends Character {
 	
 	Random r = new Random();
 	
-
+// parameters all passed from Handler setup method
 	public Trap(int x, int y, ID id, Handler handler, int aRadius) {
 		super(x, y, id, handler);
 		this.anchored = true;
@@ -18,12 +20,12 @@ public class Trap extends Character {
 	public void tick() {
 		this.invincibleUpdate();
 	}
-	
+// adds objects to their respective lists in the handler	
 	public void addTo(Handler h) {
 		h.obstacles.add(this);
 		h.object.add(this);
 	}
-	
+//	removes objects from their respective lists in the handler	
 	public void removeFrom(Handler h) {
 		h.obstacles.remove(this);
 		h.object.remove(this);
@@ -38,16 +40,25 @@ public class Trap extends Character {
 		Handler.time_To_Die();
 	}
 
-	public void onCollision(GameObject other) { // need to change this from GameObject to Character
+	// this method from the abstract class GameObject is used to initiate all of the
+	// trap effects once the object itself is hit. 
+	
+	public void onCollision(GameObject other) { 
+		// avoids traps being set off by other traps
 		if (other.id != ID.Enemy && other.id != ID.Player)
 		{
 			return;
 		}
+		// avoids traps being set off multiple times
 		if (this.health < 1) {
 			return;
 		}
+		// creates temporary place holders for the traps position
 		int tempX = (int)this.getX();
 		int tempY = (int)this.getY();
+		
+//		chooses the effect of the trap randomly based on a list of integers
+//		each of which corresponds with a different trap effect
 		
 		Random r = new Random();
 		int trapType = r.nextInt(6); // change this range to enable later traps
@@ -56,7 +67,8 @@ public class Trap extends Character {
 //		TODO Have multiple trap display types
 		
 		if (trapType == 0) {
-//			Create an ball
+//			Creates an anchored ball and launches it in a randomized direction
+//			Ball is given a set amount of time to exist in the Ball class.
 			Ball bTemp = new Ball(tempX, tempY, ID.Ball, handler);
 			handler.addObject(bTemp);
 			Vector dir = new Vector(other,this);
@@ -132,6 +144,27 @@ public class Trap extends Character {
 		{
 			d.drawHealthBar(x, y, radius, health, MAXHEALTH);
 		}
+	}
+	public String toString() {
+		String result = "";
+		result += this.id; 
+		result += ",";
+		result += this.radius;
+		result += ",";
+		result += this.x;
+		result += ",";
+		result += this.y;
+		result += ",";
+		result += this.velX;
+		result += ",";
+		result += this.velY;
+		result += ",";
+		result += this.anchored;
+		result += ",";
+		result += this.damaging;
+		result += ",\n";
+		
+		return result;
 	}
 
 
