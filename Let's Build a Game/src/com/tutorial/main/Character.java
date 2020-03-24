@@ -46,14 +46,14 @@ public abstract class Character extends GameObject {
 		if (currentSkill.equals("dash")) {
 			Vector a = new Vector(this, 0);
 			Vector b = new Vector(currentParam1,currentParam2);
-			if (a.add(b.negate()).length() <= 20) {
+			if (a.add(b.negate()).length() <= dashSpeed + 1) {
 				Vector vel = new Vector(this);
 				this.setVelocity(vel.scaleAndCopy(0.4f));
 				skillReset();
 			}
 		}
 		else if (currentSkill.equals("stuff")) {
-			// TODO add more skills
+			// TODO Braden, add more skills
 		}
 		
 	}
@@ -176,8 +176,26 @@ public abstract class Character extends GameObject {
 	public float getDashSpeed() {
 		return this.dashSpeed;
 	}
-	public int getHealth() {
-		return this.health;
+	public String toString() {
+		String result = "";
+		result += this.id; 
+		result += ",";
+		result += this.radius;
+		result += ",";
+		result += this.x;
+		result += ",";
+		result += this.y;
+		result += ",";
+		result += this.velX;
+		result += ",";
+		result += this.velY;
+		result += ",";
+		result += this.currentSkill;
+		result += ",";
+		result += this.health;
+		result += ",\n";
+		
+		return result;
 	}
 	
 }

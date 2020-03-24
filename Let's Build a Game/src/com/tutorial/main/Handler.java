@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 // This class contains every GameObject, and the boolean state of each key.
 // Its purpose is to handle interactions between objects.
@@ -32,6 +33,7 @@ public class Handler {
 	private PauseMenu pause = null;
 	private MouseClickHandler clickHandler = null;
 	private Camera cam;
+	private Stage mainStage;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -115,16 +117,25 @@ public class Handler {
 		}
 		return false;
 	}
-	
+// Method to make sure that the randomized location of the object spawning
+//	does not overlap with any pre-existing game objects already on the canvas.
 	private boolean isHitting(GameObject me, GameObject you) {
 		return me.distance(you) < (me.getRadius() + you.getRadius());
 	}
-	
+// setup method spawns / creates the characters, enemies, obstacles and traps for each game.	
 	public void setup() {
+		// creates the player at the specified starting location
 		this.addObject(new Player(320,300,ID.Player, this));
 //		this.addObject(new Ball(200,200,ID.Ball, this));
+		// creates the enemy at the specified starting location
 		this.addObject(new Enemy(640,300,ID.Enemy, this));
+		
+		// Set up for generating the randomized map / trap scheme
 		Random r = new Random();
+		// this will create 10 obstacles each with a radius of between 50 and 250
+		// and with a location who's center is inside the bounds of the playing area. 
+		// *done to increase variety in map generation
+		// checks if the object overlaps with any pre-existing objects via 'isHitting' method.
 		for(int i = 0 ; i < 10 ; i++) {
 			Obstacle o = new Obstacle(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Obstacle, this, r.nextInt(200)+50);
 			if (!isHittingAnything(o)) {
@@ -133,6 +144,10 @@ public class Handler {
 				i--;
 			}
 		}
+		// creates 20 traps each with a radius between 5 and 65. 
+		// locations randomly generated on map so as not to overlap with any pre-existing
+		// game objects.Trap effect decided on collision by randomized number generator.
+		// checks if the object overlaps with any pre-existing objects via 'isHitting' method. 
 		for(int i = 0 ; i < 20 ; i++) {
 			Trap o = new Trap(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Trap, this, r.nextInt(60)+5);
 			if (!isHittingAnything(o)) {
@@ -142,17 +157,17 @@ public class Handler {
 			}
 		}
 	}
-	
+//	Method to remove all objects from the canvas via the handler list. 	
 	public void removeAll() {
 		while (objectCount() > 0) {
 			this.removeObject(this.object.get(0));
 		}
 	}
-	
+//	returns an integer representation of the number of objects currently in the game	
 	public int objectCount() {
 		return this.object.size();
 	}
-	
+//	removes objects of a particular type, specified by their ID. 	
 	public void removeByID(ID id) {
 		GameObject o;
 		for (int i = 0; i<objectCount(); i++) {
@@ -171,7 +186,7 @@ public class Handler {
 		d.setupNextFrame();
 		if (gState == GameState.MainMenu) {
 			if (menu == null) {
-				menu = new MainMenu(this);
+				menu = new MainMenu(this, mainStage);
 			}
 			menu.update();
 			menu.render(d);
@@ -266,94 +281,22 @@ public class Handler {
 		this.cam = cam;
 	}
 	
+	public void setMainStage(Stage mainStage) {
+		this.mainStage = mainStage;
+	}
+	
 	public String toString() {
 		String result = "";
-//		TODO Michael do this
-//		Make sure that every variable of significance in the program
-//		is being stored in this string.
-//		Store it in the way that you would want a program to read it.
-//		You'll have to be able to turn it back into data afterwards.
 		
 		result += Game.arenaHeight + "," + Game.arenaWidth; // Replace this with relevant code
 		
 		result += "\n";
-		for (GameObject i: allies) {
-			result += i.id; 
-			result += ",";
-			result += i.radius;
-			result += ",";
-			result += i.x;
-			result += ",";
-			result += i.y;
-			result += ",";
-			result += i.velX;
-			result += ",";
-			result += i.velY;
-			result += ",\n";
-			//result += i.skills;
-			//result += ",";
-			//result += i.health;
-			//result += ",\n"; 
-		}
-		for (GameObject i: movingStuff) {
-			result += i.id; 
-			result += ",";
-			result += i.radius;
-			result += ",";
-			result += i.x;
-			result += ",";
-			result += i.y;
-			result += ",";
-			result += i.velX;
-			result += ",";
-			result += i.velY;
-			result += ",\n";
-			if (i.id == ID.Enemy) {
-				//result += i.skills;
-				//result += ",";
-				//result += i.health;
-				//result += ",\n";
-			}
-			else{
-				//result += null;
-				//result += ",";
-				//result += null;
-				//result += ",\n";
-			}
-			
-		}
+		
 		for (GameObject i: object) {
-			if (i.id == ID.Obstacle) {
-				result += i.id; 
-				result += ",";
-				result += i.radius;
-				result += ",";
-				result += i.x;
-				result += ",";
-				result += i.y;
-				result += ",";
-				result += i.velX;
-				result += ",";
-				result += i.velY;
-				result += ",\n";
-			}
-			if (i.id == ID.Trap) {
-				result += i.id; 
-				result += ",";
-				result += i.radius;
-				result += ",";
-				result += i.x;
-				result += ",";
-				result += i.y;
-				result += ",";
-				result += i.velX;
-				result += ",";
-				result += i.velY;
-				result += ",\n";
-			}
+			result += i.toString();
 		}
 
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 	

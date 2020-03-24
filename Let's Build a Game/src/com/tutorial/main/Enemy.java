@@ -39,6 +39,7 @@ public class Enemy extends Character {
 //		alignDrive aligns the two velocities, to avoid orbiting
 		Vector targetDrive;
 		Vector alignDrive;
+//		TODO fix alignDrive
 		if (target == null) {
 			float xA = (float) (Game.WIDTH / 2) - x; // the direction the player is in
 			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the player is in
@@ -48,7 +49,7 @@ public class Enemy extends Character {
 		else
 		{
 			targetDrive = new Vector(this, target);
-			alignDrive = (new Vector(target)).add(new Vector(this).negate());
+			alignDrive = new Vector(target).add(new Vector(this).negate());
 		}
 		targetDrive = targetDrive.scaleAndCopy(0.01f);
 		

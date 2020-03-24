@@ -1,16 +1,14 @@
 package com.tutorial.main;
 
-//import java.awt.Color;
-// import java.awt.Graphics;
 
-// Creates a ball. This ball has friction, and can collide with stuff.
+// Creates a Bullet. This Bullet that can collide with stuff.
 // Exclusively original code.
 
 public class Bullet extends GameObject {
 	
 	protected int lifeSpan;
 	
-//	creates a ball of radius 40. The handler should be the original handler you use.
+//	creates a bullet of radius 5. The handler should be the original handler you use.
 	public Bullet(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.radius = 5;
@@ -20,7 +18,6 @@ public class Bullet extends GameObject {
 	
 //	A routine that acts once a tick.
 	public void tick() {
-//		this.drag();
 		displace();
 		this.constrain();
 		this.lifeSpan--;
@@ -67,12 +64,12 @@ public class Bullet extends GameObject {
 			this.setVelY(this.getVelY() * drag);
 		}
 	}
-	
+//	adds the objects to the appropriate lists in the handler
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.movingStuff.add(this);
 	}
-	
+//	removes objects from the necessary lists in the handler	
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.movingStuff.remove(this);
