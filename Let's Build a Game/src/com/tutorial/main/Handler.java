@@ -122,7 +122,9 @@ public class Handler {
 	private boolean isHitting(GameObject me, GameObject you) {
 		return me.distance(you) < (me.getRadius() + you.getRadius());
 	}
-// setup method spawns / creates the characters, enemies, obstacles and traps for each game.	
+/** setup method spawns / creates the characters, enemies, obstacles and traps for each game.	
+ *  See in-line commenting for in-depth breakdowns on individual actions within this method.
+ */
 	public void setup() {
 		// creates the player at the specified starting location
 		this.addObject(new Player(320,300,ID.Player, this));
