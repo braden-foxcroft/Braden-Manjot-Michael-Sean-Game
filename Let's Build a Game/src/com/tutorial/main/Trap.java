@@ -16,16 +16,22 @@ public class Trap extends Character {
 		this.damaging = false;
 	}
 
-	
+/** A routine that acts once per tick of the game. 
+ * 	
+ */
 	public void tick() {
 		this.invincibleUpdate();
 	}
-// adds objects to their respective lists in the handler	
+/** adds objects to their respective lists in the handler	
+ * 
+ */
 	public void addTo(Handler h) {
 		h.obstacles.add(this);
 		h.object.add(this);
 	}
-//	removes objects from their respective lists in the handler	
+/**	removes objects from their respective lists in the handler	
+ * 
+ */
 	public void removeFrom(Handler h) {
 		h.obstacles.remove(this);
 		h.object.remove(this);
@@ -34,15 +40,20 @@ public class Trap extends Character {
 	public void hitWall() {
 		// do Nothing, this will be an anchored object.
 	}
-
+/** Determines if the conditions for death of the object have been met,
+ *  Calls for the Handler to remove it at the end of the tick. 
+ */
 	public void planDeath() {
 		this.health = 0;
 		Handler.time_To_Die();
 	}
 
-	// this method from the abstract class GameObject is used to initiate all of the
-	// trap effects once the object itself is hit. 
-	
+/**this method from the abstract class GameObject is used to initiate all of the
+ * trap effects once the object itself is hit.
+ * 	
+ * @param other = GameObject that activated the trap
+ *  See in-line commenting in Trap Class, onCollision for more details.
+ */
 	public void onCollision(GameObject other) { 
 		// avoids traps being set off by other traps
 		if (other.id != ID.Enemy && other.id != ID.Player)
@@ -63,8 +74,6 @@ public class Trap extends Character {
 		Random r = new Random();
 		int trapType = r.nextInt(6); // change this range to enable later traps
 		
-//		TODO initialize trap type on creation
-//		TODO Have multiple trap display types
 		
 		if (trapType == 0) {
 //			Creates an anchored ball and launches it in a randomized direction
@@ -137,7 +146,9 @@ public class Trap extends Character {
 		}
 		
 	}
-	
+/**	display the object
+ * passes the instance variable references to the display class
+ */	
 	public void render(Display d) {
 		d.displayObject(DisplayID.Trap, this.x, this.y, radius);
 		if (this.health < MAXHEALTH)
@@ -145,6 +156,9 @@ public class Trap extends Character {
 			d.drawHealthBar(x, y, radius, health, MAXHEALTH);
 		}
 	}
+/** toString method that displays the instance variables of the class
+ * 	
+ */
 	public String toString() {
 		String result = "";
 		result += this.id; 

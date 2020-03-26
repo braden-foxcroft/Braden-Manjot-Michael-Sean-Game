@@ -2,6 +2,13 @@ package com.tutorial.main;
 
 import java.util.Random;
 
+/**
+ * 
+ * Dasher Trap class Spawns a neutral object that will target the character who 
+ * activated it, wait, then dash at said character. This object only takes damage
+ * when it uses its dash skill. 
+ *
+ */
 public class DasherTrap extends Trap {
 	
 	private GameObject target;
@@ -9,6 +16,15 @@ public class DasherTrap extends Trap {
 	private int wait = 0;
 	private java.util.Random r = new Random();
 	
+	/** Constructor for DashTrap
+	 * 
+	 * @param x = initial X coordinate on the canvas
+	 * @param y = initial Y coordinate on the canvas
+	 * @param id = Identifier for use in display and handler
+	 * @param handler = the list that will be used to render and display the object
+	 * @param aRadius = The radius of the DashTrap object that is spawned
+	 * @param target = The character that activated the trap
+	 */
 	public DasherTrap(int x, int y, ID id, Handler handler, int aRadius, GameObject target) {
 		super(x, y, id, handler, aRadius);
 		this.target = target;
@@ -17,7 +33,9 @@ public class DasherTrap extends Trap {
 		this.damaging = false;
 		this.dashSpeed = 10;
 	}
-	
+/**	A routine that acts once a tick.
+ * All of the calls that must be called per tick of the game.
+ */	
 	public void tick() {
 		think();
 		displace();
