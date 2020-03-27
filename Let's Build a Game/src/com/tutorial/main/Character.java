@@ -193,7 +193,7 @@ public abstract class Character extends GameObject {
 		result += this.currentSkill;
 		result += ",";
 		result += this.health;
-		result += ",\n";
+		result += ",";
 		
 		return result;
 	}
