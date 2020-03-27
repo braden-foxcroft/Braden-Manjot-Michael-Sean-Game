@@ -1,8 +1,9 @@
 package com.tutorial.main;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
+import java.util.Scanner;
 
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -73,6 +74,24 @@ public class MainMenu extends Handler {
 			Game.arenaHeight = 1500;
 			Game.arenaWidth = 2000;
 		}
+		else if (text == "^ ") {
+			handler.setNumOfTraps(handler.getNumOfTraps() + 5);
+		}
+		else if (text == "v ") {
+			handler.setNumOfTraps(handler.getNumOfTraps() - 5);
+		}
+		else if (text == "Defaults ") {
+			handler.setNumOfTraps(5);
+		}
+		else if (text == "^  ") {
+			handler.setNumOfObsticles(handler.getNumOfObsticles() + 5);
+		}
+		else if (text == "v  ") {
+			handler.setNumOfObsticles(handler.getNumOfObsticles() - 5);
+		}
+		else if (text == "Defaults  ") {
+			handler.setNumOfObsticles(10);
+		}
 	}
 	
 	public void update() {
@@ -113,9 +132,35 @@ public class MainMenu extends Handler {
 	}
 	
 	public void load() {
-		File f = filePicker();
 //		TODO Michael, do this
 //		Make it load.
+		String stringOfObjects = "";
+		LinkedList<GameObject> loadedObjects;
+		File f = filePicker();
+		try {
+			Scanner myReader = new Scanner(f);
+			while (myReader.hasNextLine()) {
+				String data = myReader.nextLine();
+				stringOfObjects += data;
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("an Error occored while loading");
+			e.printStackTrace();
+		}
+		
+		//System.out.println(stringOfObjects);
+		
+		int iIndex = 0;
+		int fIndex = stringOfObjects.indexOf(',');
+		
+		//System.out.println(stringOfObjects.subSequence(iIndex, fIndex));
+		Game.arenaHeight = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+		iIndex += fIndex+1;
+		fIndex = stringOfObjects.indexOf(',',fIndex + 1);
+		
+		Game.arenaWidth = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+		
+	
 	}
 	
 	public File filePicker() {
@@ -141,9 +186,25 @@ public class MainMenu extends Handler {
 		
 		addButton(new OurButton(750,30,150,100,cc,"Defaults"));
 		
-		addButton(new OurButton(50,210,400,100,cc,"More setttings to add"));
+		addButton(new OurButton(50,210,400,100,cc,"Amount of Traps"));
 		
-		addButton(new OurButton(50,390,400,100,cc,"More setttings to add"));
+		addButton(new OurButton(50,210,100,100,cc, handler.getNumOfTraps() + ""));
+		
+		addButton(new OurButton(500,210,100,100,cc,"^ "));
+		
+		addButton(new OurButton(610,210,100,100,cc,"v "));
+		
+		addButton(new OurButton(750,210,150,100,cc,"Defaults "));
+		
+		addButton(new OurButton(50,390,400,100,cc,"Amount of Obsticles"));
+		
+		addButton(new OurButton(50,390,100,100,cc, handler.getNumOfObsticles() + ""));
+		
+		addButton(new OurButton(500,390,100,100,cc,"^  "));
+		
+		addButton(new OurButton(610,390,100,100,cc,"v  "));
+		
+		addButton(new OurButton(750,390,150,100,cc,"Defaults  "));
 
 		addButton(new OurButton(280,570,400,100,cc,"Back"));
 

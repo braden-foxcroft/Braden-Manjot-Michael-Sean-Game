@@ -20,6 +20,12 @@ public class Player extends Character{
 		this.setVelY(0);
 		this.radius = 25;
 	}
+	public Player(int x, int y, ID id,int velX,int velY, Handler handler) {
+		super(x, y, id, handler);
+		this.setVelX(velX);
+		this.setVelY(velY);
+		this.radius = 25;
+	}
 
 //	Update the player's state
 	public void tick() {
