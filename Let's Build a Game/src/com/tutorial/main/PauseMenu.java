@@ -24,6 +24,7 @@ public class PauseMenu extends Handler{
 			b.render(d);
 		}
 	}
+	
 	public void recieveClick(double x, double y) {
 		for (OurButton b:buttonList) {
 			if (b.coordinatesAreInside((int)x, (int)y)) {
@@ -31,6 +32,7 @@ public class PauseMenu extends Handler{
 			}
 		}
 	}
+	
 	public void menuClickHandler(String text) {
 
 		if(text == "Resume") {

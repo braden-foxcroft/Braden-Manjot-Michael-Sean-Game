@@ -35,7 +35,7 @@ public class Handler {
 	private Camera cam;
 	private Stage mainStage;
 	private int numOfTraps = 20;
-	private int numOfObsticles = 10;
+	private int numOfObstacles = 10;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -140,7 +140,7 @@ public class Handler {
 		// and with a location who's center is inside the bounds of the playing area. 
 		// *done to increase variety in map generation
 		// checks if the object overlaps with any pre-existing objects via 'isHitting' method.
-		for(int i = 0 ; i < numOfObsticles ; i++) {
+		for(int i = 0 ; i < numOfObstacles ; i++) {
 			Obstacle o = new Obstacle(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Obstacle, this, r.nextInt(200)+50);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
@@ -323,17 +323,17 @@ public class Handler {
 	public int getNumOfTraps() {
 		return this.numOfTraps;
 	}
-	public int getNumOfObsticles() {
-		return this.numOfObsticles;
+	public int getNumOfObstacles() {
+		return this.numOfObstacles;
 	}
 	public void setNumOfTraps(int num) {
 		if (num >= 5) {
 			this.numOfTraps = num;
 		}
 	}
-	public void setNumOfObsticles(int num) {
+	public void setNumOfObstacles(int num) {
 		if (num >= 10) {
-			this.numOfObsticles = num;
+			this.numOfObstacles = num;
 		}
 	}
 	
