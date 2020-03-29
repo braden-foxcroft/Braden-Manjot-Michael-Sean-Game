@@ -34,6 +34,8 @@ public class Handler {
 	private MouseClickHandler clickHandler = null;
 	private Camera cam;
 	private Stage mainStage;
+	private int numOfTraps = 20;
+	private int numOfObsticles = 10;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -122,7 +124,9 @@ public class Handler {
 	private boolean isHitting(GameObject me, GameObject you) {
 		return me.distance(you) < (me.getRadius() + you.getRadius());
 	}
-// setup method spawns / creates the characters, enemies, obstacles and traps for each game.	
+/** setup method spawns / creates the characters, enemies, obstacles and traps for each game.	
+ *  See in-line commenting for in-depth breakdowns on individual actions within this method.
+ */
 	public void setup() {
 		// creates the player at the specified starting location
 		this.addObject(new Player(320,300,ID.Player, this));
@@ -136,7 +140,7 @@ public class Handler {
 		// and with a location who's center is inside the bounds of the playing area. 
 		// *done to increase variety in map generation
 		// checks if the object overlaps with any pre-existing objects via 'isHitting' method.
-		for(int i = 0 ; i < 10 ; i++) {
+		for(int i = 0 ; i < numOfObsticles ; i++) {
 			Obstacle o = new Obstacle(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Obstacle, this, r.nextInt(200)+50);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
@@ -148,7 +152,7 @@ public class Handler {
 		// locations randomly generated on map so as not to overlap with any pre-existing
 		// game objects.Trap effect decided on collision by randomized number generator.
 		// checks if the object overlaps with any pre-existing objects via 'isHitting' method. 
-		for(int i = 0 ; i < 20 ; i++) {
+		for(int i = 0 ; i < numOfTraps ; i++) {
 			Trap o = new Trap(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Trap, this, r.nextInt(60)+5);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
@@ -288,15 +292,15 @@ public class Handler {
 	public String toString() {
 		String result = "";
 		
-		result += Game.arenaHeight + "," + Game.arenaWidth; // Replace this with relevant code
+		result += Game.arenaHeight + "," + Game.arenaWidth + ","; // Replace this with relevant code
 		
-		result += "\n";
+		//result += "\n";
 		
 		for (GameObject i: object) {
 			result += i.toString();
 		}
 
-		//System.out.println(result);
+		System.out.println(result);
 		return result;
 	}
 	
@@ -315,6 +319,22 @@ public class Handler {
 	}
 	public LinkedList<GameObject> getObjects(){
 		return object;
+	}
+	public int getNumOfTraps() {
+		return this.numOfTraps;
+	}
+	public int getNumOfObsticles() {
+		return this.numOfObsticles;
+	}
+	public void setNumOfTraps(int num) {
+		if (num >= 5) {
+			this.numOfTraps = num;
+		}
+	}
+	public void setNumOfObsticles(int num) {
+		if (num >= 10) {
+			this.numOfObsticles = num;
+		}
 	}
 	
 //	Inform every handler that it is time to check for deaths. False positives are fine.
