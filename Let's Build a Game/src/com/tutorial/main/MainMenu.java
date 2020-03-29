@@ -84,13 +84,13 @@ public class MainMenu extends Handler {
 			handler.setNumOfTraps(5);
 		}
 		else if (text == "^  ") {
-			handler.setNumOfObsticles(handler.getNumOfObsticles() + 5);
+			handler.setNumOfObstacles(handler.getNumOfObstacles() + 5);
 		}
 		else if (text == "v  ") {
-			handler.setNumOfObsticles(handler.getNumOfObsticles() - 5);
+			handler.setNumOfObstacles(handler.getNumOfObstacles() - 5);
 		}
 		else if (text == "Defaults  ") {
-			handler.setNumOfObsticles(10);
+			handler.setNumOfObstacles(10);
 		}
 	}
 	
@@ -143,8 +143,9 @@ public class MainMenu extends Handler {
 				String data = myReader.nextLine();
 				stringOfObjects += data;
 			}
+			myReader.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("an Error occored while loading");
+			System.err.println("An Error occored while loading");
 			e.printStackTrace();
 		}
 		
@@ -198,7 +199,7 @@ public class MainMenu extends Handler {
 		
 		addButton(new OurButton(50,390,400,100,cc,"Amount of Obsticles"));
 		
-		addButton(new OurButton(50,390,100,100,cc, handler.getNumOfObsticles() + ""));
+		addButton(new OurButton(50,390,100,100,cc, handler.getNumOfObstacles() + ""));
 		
 		addButton(new OurButton(500,390,100,100,cc,"^  "));
 		
