@@ -22,10 +22,6 @@ public abstract class Character extends GameObject {
 		super(x, y, id, handler);
 	}
 	
-	//public Character(int x, int y, ID id, Handler handler, float velX) {
-	//	super(x, y, id, handler);
-	//}
-	
 //	Checks if you should stop being invincible.
 	public void invincibleUpdate() {
 		if (this.invincible) {
