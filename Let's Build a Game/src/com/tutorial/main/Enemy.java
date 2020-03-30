@@ -24,6 +24,13 @@ public class Enemy extends Character {
 		this.setVelY(velY);
 		this.radius = 25;
 	}
+	public Enemy(int x, int y, ID id,int velX,int velY, Handler handler,int health) {
+		super(x, y, id, handler);
+		this.setVelX(velX);
+		this.setVelY(velY);
+		this.radius = 25;
+		this.health = health;
+	}
 	
 //	Acts once every tick
 	public void tick() {

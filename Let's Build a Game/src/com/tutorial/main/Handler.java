@@ -290,9 +290,8 @@ public class Handler {
 	public String toString() {
 		String result = "";
 		
-		result += Game.arenaHeight + "," + Game.arenaWidth + ","; // Replace this with relevant code
+		result += Game.arenaHeight + "," + Game.arenaWidth + ","; 
 		
-		//result += "\n";
 		
 		for (GameObject i: object) {
 			result += i.toString();
@@ -305,7 +304,7 @@ public class Handler {
 	
 	
 	
-	// Setters for gameStates
+	// Setters and getters
 	public void setGameStatePlay() {
 		gState = GameState.Play;
 	}

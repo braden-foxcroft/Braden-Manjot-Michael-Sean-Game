@@ -143,22 +143,176 @@ public class MainMenu extends Handler {
 				String data = myReader.nextLine();
 				stringOfObjects += data;
 			}
+			myReader.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("an Error occored while loading");
 			e.printStackTrace();
-		}
+			}
 		
 		//System.out.println(stringOfObjects);
 		
 		int iIndex = 0;
 		int fIndex = stringOfObjects.indexOf(',');
 		
+		//handler.removeAll();
+		
 		//System.out.println(stringOfObjects.subSequence(iIndex, fIndex));
 		Game.arenaHeight = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
-		iIndex += fIndex+1;
+		iIndex = fIndex+1;
+		//System.out.println(iIndex);
+		//System.out.println(fIndex);
 		fIndex = stringOfObjects.indexOf(',',fIndex + 1);
 		
 		Game.arenaWidth = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+		
+		//System.out.println(iIndex);
+		//System.out.println(fIndex);
+		
+		iIndex = fIndex+1;
+		fIndex = stringOfObjects.indexOf(',',iIndex);
+		
+		//System.out.println(stringOfObjects.subSequence(iIndex, fIndex));
+		
+		while (fIndex < stringOfObjects.length() -1) {
+			
+			//System.out.println(stringOfObjects.subSequence(iIndex, fIndex));
+			String object = stringOfObjects.substring(iIndex, fIndex).toString();
+			System.out.println(object);
+			if (object == "Player") {
+				System.out.println("Im a Player!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				//float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills arnt implemented yet
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int health = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				//handler.addObject(new Player((int)x,(int)y,ID.Player,(int)velX,(int)velY, handler,health));
+			}
+			else if (object == "Enemy") {
+				System.out.println("Im a Enemy!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				//float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills arnt implemented yet
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int health = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				//handler.addObject(new Enemy((int)x,(int)y,ID.Enemy,(int)velX,(int)velY, handler,health));
+			}
+			else if (object == "Ally") {
+				System.out.println("Im a ally!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				//float Skills = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills arnt implemented yet
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int health = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				handler.addObject(new Ally((int)x,(int)y,ID.Ally,(int)velX,(int)velY, handler,health));
+			}
+			else if (object == "Obstacle") {
+				System.out.println("Im an obstacle!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+			}
+			else if (object == "Trap") {
+				System.out.println("Im a trap!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+			}
+			else if (object == "Bullet") {
+				System.out.println("Im a bullet!!");
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+			}
+			iIndex = fIndex+1;
+			fIndex = stringOfObjects.indexOf(',',iIndex);
+			//System.out.println("lenght is " + stringOfObjects.length());
+			//System.out.println("index is " + fIndex);
+			
+		}
 		
 	
 	}
