@@ -7,6 +7,7 @@ import org.junit.Test;
 
 // a test for vector arithmetic
 
+// TODO Comments by Braden
 public class VectorTest {
 
 	/*

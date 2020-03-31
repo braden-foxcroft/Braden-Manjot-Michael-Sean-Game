@@ -4,6 +4,7 @@ package com.tutorial.main;
 // and applied based on mechanics rules.
 // A vector consists of an x and y. This describes a velocity, position, and path.
 
+// TODO Comments by Braden
 public class Vector {
 	public float x;
 	public float y;
@@ -20,7 +21,6 @@ public class Vector {
 		this.y = g.getVelY();
 		// creates a velocity vector from a GameObject
 	}
-	
 	
 //	Extract a vector representing the path between two objects.
 	public Vector(GameObject a, int b) {

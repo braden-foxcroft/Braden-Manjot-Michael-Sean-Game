@@ -10,7 +10,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-@SuppressWarnings("unused")
+
+// TODO Comments by Michael
 public class MainMenu extends Handler {
 	/**
 	 * 
@@ -56,7 +57,6 @@ public class MainMenu extends Handler {
 	 * @param text - Name of the button.
 	 */
 	public void menuClickHandler(String text) {
-
 		if(text == "Play game") {
 			setState(MenuState.playmenu);
 		}
@@ -97,14 +97,15 @@ public class MainMenu extends Handler {
 			handler.setNumOfTraps(5);
 		}
 		else if (text == "^  ") {
-			handler.setNumOfObsticles(handler.getNumOfObsticles() + 5);
+			handler.setNumOfObstacles(handler.getNumOfObstacles() + 5);
 		}
 		else if (text == "v  ") {
-			handler.setNumOfObsticles(handler.getNumOfObsticles() - 5);
+			handler.setNumOfObstacles(handler.getNumOfObstacles() - 5);
 		}
 		else if (text == "Defaults  ") {
-			handler.setNumOfObsticles(10);
+			handler.setNumOfObstacles(10);
 		}
+		this.timeToUpdate = true;
 	}
 	/**
 	 * method that Updates and controls which buttons are displayed
@@ -129,6 +130,7 @@ public class MainMenu extends Handler {
 			renderPlayMenu();
 		}
 	}
+	
 	/**
 	 * Method that clears the button list
 	 */
@@ -159,7 +161,6 @@ public class MainMenu extends Handler {
 	public void load() {
 
 		String stringOfObjects = "";
-		LinkedList<GameObject> loadedObjects;
 		File f = filePicker();
 		try {
 			Scanner myReader = new Scanner(f);
@@ -169,7 +170,7 @@ public class MainMenu extends Handler {
 			}
 			myReader.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("an Error occored while loading");
+			System.err.println("An Error occored while loading");
 			e.printStackTrace();
 			}
 		
@@ -206,7 +207,6 @@ public class MainMenu extends Handler {
 				//System.out.println("Im a Player!!");
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -226,7 +226,7 @@ public class MainMenu extends Handler {
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				//float skills = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills arnt implemented yet
+				//float skills = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills aren't implemented yet
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -238,7 +238,6 @@ public class MainMenu extends Handler {
 				//System.out.println("Im a Enemy!!");
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -270,7 +269,6 @@ public class MainMenu extends Handler {
 				//System.out.println("Im a ally!!");
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -314,11 +312,9 @@ public class MainMenu extends Handler {
 
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				handler.addObject(new Obstacle((int)x,(int)y,ID.Obstacle,handler,radius));
 			}
@@ -338,11 +334,9 @@ public class MainMenu extends Handler {
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				handler.addObject(new Trap((int)x,(int)y,ID.Trap,handler,radius));
 			}
@@ -351,7 +345,6 @@ public class MainMenu extends Handler {
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -363,11 +356,9 @@ public class MainMenu extends Handler {
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				handler.addObject(new Bullet((int)x,(int)y,ID.Bullet,handler));
 			}
@@ -423,7 +414,7 @@ public class MainMenu extends Handler {
 		
 		addButton(new OurButton(50,390,400,100,cc,"Amount of Obsticles"));
 		
-		addButton(new OurButton(50,390,100,100,cc, handler.getNumOfObsticles() + ""));
+		addButton(new OurButton(50,390,100,100,cc, handler.getNumOfObstacles() + ""));
 		
 		addButton(new OurButton(500,390,100,100,cc,"^  "));
 		

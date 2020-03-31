@@ -4,6 +4,7 @@ package com.tutorial.main;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+// TODO Comments by Manjot
 public class Display {
 	
 	private GraphicsContext gC;
@@ -14,6 +15,7 @@ public class Display {
 		this.cam = new Camera();
 	}
 	
+	//Sets the color of each kind of object that can be displayed)
 	public void displayObject(DisplayID id, float x, float y, int radius) {
 		if (id == DisplayID.Player) {
 			gC.setFill(Color.BLUE);
@@ -48,12 +50,15 @@ public class Display {
 		else if(id == DisplayID.PrisonBulletUntouchable) {
 			gC.setFill(Color.color(0.1, 0.1, 0.1));
 		}
+		//When enemy takes damage they are invincible for a second, this is shown with a different color
 		else if(id == DisplayID.EnemyInvincible) {
 			gC.setFill(Color.GREEN);
 		}
+		//When ally takes damage they are invincible for a second, this is shown with a different color
 		else if(id == DisplayID.AllyInvincible) {
 			gC.setFill(Color.DARKSEAGREEN);
 		}
+		//When player takes damage they are invincible for a second, this is shown with a different color
 		else if(id == DisplayID.PlayerInvincible) {
 			gC.setFill(Color.YELLOW);
 		} else {
@@ -61,12 +66,13 @@ public class Display {
 			System.err.println("Please modify Display.java to add the display ID behavior");
 			System.exit(0);
 		}
+		//Sets the shape of the characters as well as places them on screen
 		x = cam.placeXOnScreen(x);
 		y = cam.placeYOnScreen(y);
 		gC.fillOval((int)(x-radius), (int)(y-radius), 2 * radius, 2* radius);
 	}
 	
-//	Draws a button
+//	Draws a button (used for menu)
 	public void displayButton(int x, int y, int width, int height, Color color, String text) {
 		gC.setFill(color);
 		gC.fillRect(x, y, width, height);
@@ -82,6 +88,9 @@ public class Display {
 	}
 
 	public void drawBorders() {
+//		Using the camera position, work out where to properly display the borders
+//		Display them however you like, so long as you can see that you hit them
+//		when you reach the edge of the map.
 		Camera c = cam;
 		int tlx = (int) c.placeXOnScreen(0);
 		int tly = (int) c.placeYOnScreen(0);
@@ -102,7 +111,6 @@ public class Display {
 	}
 	
 	public void drawHealthBar(float x, float y, int radius, int health, int maxHealth) {
-//		TODO Manjot, make this
 //		Draw the health bar below the corresponding character
 //		Use the x and y, and radius to place the bar below the character.
 //		Leave a pixel or two between the bottom of the character and the health bar
@@ -116,7 +124,7 @@ public class Display {
 		int hbx = (int) c.placeXOnScreen(x);
 		int hby = (int) c.placeYOnScreen(y);
 		gC.setFill(barBackgroundColor);
-		//Top of health bar
+		//Top part of health bar
 		gC.fillRect(hbx - 25, hby + 30, 50, 5);
 		//Left part of health bar
 		gC.fillRect(hbx - 25, hby + 30, 5, 15);
@@ -141,6 +149,7 @@ public class Display {
 		
 	}
 	
+	//Updates camera and centers it on the player
 	public void updateCamera(GameObject thing) {
 		cam.centerCameraOn(thing);
 	}
@@ -149,7 +158,7 @@ public class Display {
 		return this.cam;
 	}
 	
-//	Draw a rectangle
+//	Draw a rectangle (used for menu)
 	public void displayRectangle(int x, int y, int width, int height, Color color) {
 		gC.setFill(color);
 		gC.fillRect(x, y, width, height);

@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 // The executable class that manages the text-based version of the game.
 // May not be compatible with all devices.
 
+// TODO Comments by Braden
 public class TextGame {
 	
 	public static final int WIDTH = 96; // these are arbitrary

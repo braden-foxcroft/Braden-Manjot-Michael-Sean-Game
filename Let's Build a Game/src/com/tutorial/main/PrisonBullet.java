@@ -1,5 +1,6 @@
 package com.tutorial.main;
 
+// TODO Comments by Sean
 public class PrisonBullet extends Bullet {
 	
 	private int maxLife = (60) * 8;
