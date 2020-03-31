@@ -1,5 +1,7 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+
 // import java.awt.Graphics;
 
 // This class is an abstract class that represents every on-screen object that

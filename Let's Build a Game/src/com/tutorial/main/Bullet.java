@@ -1,5 +1,7 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
 
 // Creates a Bullet. This Bullet that can collide with stuff.
 // Exclusively original code.

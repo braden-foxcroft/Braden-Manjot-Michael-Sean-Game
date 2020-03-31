@@ -1,5 +1,9 @@
-package com.tutorial.main;
+package com.tutorial.display;
 
+
+import com.tutorial.main.Camera;
+import com.tutorial.main.Game;
+import com.tutorial.main.GameObject;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
