@@ -1,0 +1,106 @@
+package com.tutorial.main;
+
+//import java.awt.Color;
+// import java.awt.Graphics;
+
+// Creates a ball. This ball has friction, and can collide with stuff.
+// Exclusively original code.
+
+public class Ball extends GameObject {
+	
+	private int lifeSpan;
+	
+/**	creates a ball of radius 40. The handler should be the original handler you use.
+ * 
+ * @param x = initial X coordinate on canvas
+ * @param y = initial Y coordinate on canvas
+ * @param id = identification flag for handler
+ * @param handler = the list that this object will be kept in for rendering and ticks
+ */
+	public Ball(int x, int y, ID id, Handler handler) {
+		super(x, y, id, handler);
+		this.radius = 40;
+		int lifeSpan = 30; // LifeSpan in seconds
+		this.lifeSpan = 60 * lifeSpan;
+	}
+	
+/**	A routine that acts once a tick.
+ * All of the calls that must be called per tick of the game.
+ */
+	public void tick() {
+		this.drag();
+		displace();
+		this.constrain();
+		this.lifeSpan--;
+		if (check_Death()) {
+			Handler.time_To_Die();
+		}
+	}
+	
+/**	Overwrite the default behavior
+ * checks for death of the object
+ */
+	public boolean check_Death() {
+		return this.lifeSpan < 0;
+	}
+	
+	public void inheritRadius(GameObject other) {
+		this.radius = other.radius;
+	}
+	
+/**	display the object
+ * passes the instance variable references to the display class
+ */
+	public void render(Display d) {
+		d.displayObject(DisplayID.Ball, x, y, radius);
+	}
+	
+/**	Gives the Ball a randomized direction and a constrained randomized velocity. 
+ * 
+ * @param dir = direction of the vector being passed in
+ */
+	public void launchAround(Vector dir) {
+		this.anchored = true;
+		this.setVelocity(dir);
+	}
+	
+/**	Offsets position based on current velocity
+ * 
+ */
+	private void displace() {
+		this.x += this.velX;
+		this.y += this.velY;
+	}
+	
+//	slow the object proportional to its velocity
+	private void drag() {
+		if (!this.anchored) {
+			float drag = 0.99f;
+			this.setVelX(this.getVelX() * drag);
+			this.setVelY(this.getVelY() * drag);
+		}
+	}
+	
+//	adds objects to their respective / appropriate lists in the handler
+	public void addTo(Handler h) {
+		h.object.add(this);
+		h.movingStuff.add(this);
+	}
+	
+//	removes objects from their respective / appropriate lists in the handler	
+	public void removeFrom(Handler h) {
+		h.object.remove(this);
+		h.movingStuff.remove(this);
+	}
+	
+	
+	public void onCollision(GameObject other) {
+		
+	}
+	
+//	does nothing; there because it's required.
+	public void hitWall() {
+		// do nothing
+	}
+	
+}

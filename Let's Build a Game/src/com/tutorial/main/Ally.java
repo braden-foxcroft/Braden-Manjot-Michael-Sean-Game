@@ -18,6 +18,19 @@ public class Ally extends Character {
 		this.setVelY(0);
 		this.radius = 25;
 	}
+	public Ally(int x, int y, ID id, int velX, int velY, Handler handler) {
+		super(x, y, id, handler);
+		this.setVelX(velX);
+		this.setVelY(velY);
+		this.radius = 25;
+	}
+	public Ally(int x, int y, ID id,int velX,int velY, Handler handler,int health) {
+		super(x, y, id, handler);
+		this.setVelX(velX);
+		this.setVelY(velY);
+		this.radius = 25;
+		this.health = health;
+	}
 	
 //	Acts once every tick
 	public void tick() {

@@ -237,11 +237,11 @@ public abstract class GameObject {
 		result += this.velX;
 		result += ",";
 		result += this.velY;
+//		result += ",";
+//		result += this.anchored;
+//		result += ",";
+//		result += this.damaging;
 		result += ",";
-		result += this.anchored;
-		result += ",";
-		result += this.damaging;
-		result += ",\n";
 		
 		return result;
 	}
