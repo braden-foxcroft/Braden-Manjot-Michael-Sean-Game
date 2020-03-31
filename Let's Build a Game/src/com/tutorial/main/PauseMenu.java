@@ -19,7 +19,7 @@ public class PauseMenu extends Handler{
 	private Stage mainStage;
 	/**
 	 * Constructor for the pause menu.
-	 * @param h
+	 * @param h - Handler for the PauseMenu
 	 */
 	public PauseMenu(Handler h) {
 		buttonList = new LinkedList<OurButton>();
@@ -80,7 +80,7 @@ public class PauseMenu extends Handler{
 	}
 	/**
 	 * method that adds a new button to be rendered.
-	 * @param b
+	 * @param b - Button to be added to the list
 	 */
 	public void addButton(OurButton b) {
 		b.setPauseMenu(this);
@@ -95,7 +95,6 @@ public class PauseMenu extends Handler{
 		try {
 			FileWriter save = new FileWriter(pathSelecter());
 			save.append(objects);
-			
 			save.close();
 			
 		} catch (IOException e) {
@@ -107,7 +106,7 @@ public class PauseMenu extends Handler{
 	}
 	/**
 	 * Prompts the user for a file location and a name. 
-	 * @return
+	 * @return - Returns a newly created file, for saving
 	 */
 	public File pathSelecter() {
 		Calendar rightNow = Calendar.getInstance();

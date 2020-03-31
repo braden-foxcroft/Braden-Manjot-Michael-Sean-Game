@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 // TODO Comments by Michael
 public class MainMenu extends Handler {
+	/**
+	 * 
+	 */
 	private static MenuState state = MenuState.mainmenu;
 	private static LinkedList<OurButton> buttonList;
 	private Handler handler;
@@ -21,8 +24,8 @@ public class MainMenu extends Handler {
 	
 /**
  * Constructor for the Main Menu
- * @param h
- * @param mainStage
+ * @param h - Handler that executes the program
+ * @param mainStage - Window for file viewer
  */
 	public MainMenu(Handler h, Stage mainStage) {
 		buttonList = new LinkedList<OurButton>();
@@ -39,8 +42,8 @@ public class MainMenu extends Handler {
 	}
 	/**
 	 * Method that controls click locations
-	 * @param x
-	 * @param y
+	 * @param x - Coordinate on the Horizontal plane
+	 * @param y - Coordinate on the Vertical Plane
 	 */
 	public void recieveClick(double x, double y) {
 		for (OurButton b:buttonList) {
@@ -51,7 +54,7 @@ public class MainMenu extends Handler {
 	}
 	/**
 	 * Method that takes name of button and executes action
-	 * @param text
+	 * @param text - Name of the button.
 	 */
 	public void menuClickHandler(String text) {
 		if(text == "Play game") {
@@ -138,7 +141,7 @@ public class MainMenu extends Handler {
 	}
 	/**
 	 * method that adds a button to the list to be displayed
-	 * @param b
+	 * @param b - Newly created button. 
 	 */
 	public void addButton(OurButton b) {
 		b.setMenu(this);
@@ -368,11 +371,11 @@ public class MainMenu extends Handler {
 			
 		}
 		
-	
+	handler.setGameStatePlay();
 	}
 	/**
 	 * method that launches a window to select the save file
-	 * @return
+	 * @return - File of the Save.
 	 */
 	public File filePicker() {
 		FileChooser fileChooser = new FileChooser();
@@ -450,7 +453,7 @@ public class MainMenu extends Handler {
 	}
 	/**
 	 * method that sets the menu state
-	 * @param state
+	 * @param state - Menu State you want to change to.
 	 */
 	public void setState(MenuState state) {
 		MainMenu.state = state;
