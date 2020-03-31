@@ -324,12 +324,12 @@ public class Handler {
 		return this.numOfObsticles;
 	}
 	public void setNumOfTraps(int num) {
-		if (numOfTraps >= 5) {
+		if (num >= 5) {
 			this.numOfTraps = num;
 		}
 	}
 	public void setNumOfObsticles(int num) {
-		if (numOfObsticles >= 10) {
+		if (num >= 10) {
 			this.numOfObsticles = num;
 		}
 	}
