@@ -8,22 +8,36 @@ import java.util.LinkedList;
 
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 @SuppressWarnings("unused")
 public class PauseMenu extends Handler{
 	private static PauseState state = PauseState.mainPause;
 	private static LinkedList<OurButton> buttonList;
 	private Handler handler;
-	
+	private Stage mainStage;
+	/**
+	 * Constructor for the pause menu.
+	 * @param h
+	 */
 	public PauseMenu(Handler h) {
 		buttonList = new LinkedList<OurButton>();
 		this.handler = h;
 	}
+	/**
+	 * Method that renders the buttons in the Pause Menu.
+	 */
 	public void render(Display d) {
 		for (OurButton b:buttonList) {
 			b.render(d);
 		}
 	}
+	/**
+	 * Method that takes the location on the screen of the click.
+	 * @param x
+	 * @param y
+	 */
 	public void recieveClick(double x, double y) {
 		for (OurButton b:buttonList) {
 			if (b.coordinatesAreInside((int)x, (int)y)) {
@@ -31,6 +45,10 @@ public class PauseMenu extends Handler{
 			}
 		}
 	}
+	/**
+	 * Method that controls the function of the button, by the name of the button.
+	 * @param text
+	 */
 	public void menuClickHandler(String text) {
 
 		if(text == "Resume") {
@@ -47,9 +65,9 @@ public class PauseMenu extends Handler{
 		}
 	}
 	
-//	A method that updates the buttons in the game menu
-//	This method is called 60x a second, so don't put any
-//	processor-intensive code in it.
+	/**
+	 * This method controls what is shown on the screen, by interpreting the PauseMenu state.
+	 */
 	public void update() {
 		reset();
 		if (state == PauseState.mainPause) {
@@ -58,43 +76,58 @@ public class PauseMenu extends Handler{
 		else if (state == PauseState.save) {
 			renderSaveMenu();
 		}
-		else if (state == PauseState.quit) {
-			
-		}
 	}
+	/**
+	 * Method that removes all the buttons from the button list.
+	 */
 	public void reset() {
 			while (buttonList.size() > 0) {
 				buttonList.remove();
 			}
 	}
-	
+	/**
+	 * method that adds a new button to be rendered.
+	 * @param b
+	 */
 	public void addButton(OurButton b) {
 		b.setPauseMenu(this);
 		buttonList.add(b);
 	}
-	
+	/**
+	 * method that takes a created file and saves the list of the handler.
+	 */
 	private void renderSaveMenu() {
 		String objects = handler.toString();
 		Calendar rightNow = Calendar.getInstance();
-		String userHomeFolder = System.getProperty("user.home");
-		File newSave = new File(userHomeFolder,"Save" + rightNow.getTimeInMillis() + ".txt");
-		//System.out.println(userHomeFolder);
+
 		try {
-			FileWriter save = new FileWriter(newSave);
+			FileWriter save = new FileWriter(pathSelecter());
 			save.append(objects);
-			//FileWriter newSave = new FileWriter("Save"+ rightNow.getTimeInMillis() + ".txt");
 			
 			save.close();
-			
 			
 		} catch (IOException e) {
 			System.out.println("Cannot Save at this time");
 			e.printStackTrace();
 		} 
-		//System.out.println(userHomeFolder);
+	
 		state = PauseState.mainPause;
 	}
-	
+	/**
+	 * Prompts the user for a file location and a name. 
+	 * @return
+	 */
+	public File pathSelecter() {
+		Calendar rightNow = Calendar.getInstance();
+		FileChooser fileSelecter = new FileChooser();
+		fileSelecter.setTitle("Select File Path");
+		fileSelecter.setInitialFileName("Save" + rightNow.getTimeInMillis() + ".txt");
+		File selectedFile = fileSelecter.showSaveDialog(mainStage);
+		return selectedFile;
+	}
+	/**
+	 * Method that creates the buttons for the Pause Menu.
+	 */
 	public void renderPauseMenu() {
 		Color c = Color.BLUE;
 		addButton(new OurButton(280,30,400,100,c,"Resume"));
