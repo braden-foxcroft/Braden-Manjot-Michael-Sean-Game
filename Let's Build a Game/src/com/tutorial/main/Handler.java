@@ -34,6 +34,8 @@ public class Handler {
 	private MouseClickHandler clickHandler = null;
 	private Camera cam;
 	private Stage mainStage;
+	private int numOfTraps = 20;
+	private int numOfObstacles = 10;
 	
 //	Occurs every tick. Causes all objects to update and all collisions to occur.
 	public void tick(){
@@ -138,7 +140,7 @@ public class Handler {
 		// and with a location who's center is inside the bounds of the playing area. 
 		// *done to increase variety in map generation
 		// checks if the object overlaps with any pre-existing objects via 'isHitting' method.
-		for(int i = 0 ; i < 10 ; i++) {
+		for(int i = 0 ; i < numOfObstacles ; i++) {
 			Obstacle o = new Obstacle(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Obstacle, this, r.nextInt(200)+50);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
@@ -150,7 +152,7 @@ public class Handler {
 		// locations randomly generated on map so as not to overlap with any pre-existing
 		// game objects.Trap effect decided on collision by randomized number generator.
 		// checks if the object overlaps with any pre-existing objects via 'isHitting' method. 
-		for(int i = 0 ; i < 20 ; i++) {
+		for(int i = 0 ; i < numOfTraps ; i++) {
 			Trap o = new Trap(r.nextInt(Game.arenaWidth), r.nextInt(Game.arenaHeight), ID.Trap, this, r.nextInt(60)+5);
 			if (!isHittingAnything(o)) {
 				this.addObject(o);
@@ -290,9 +292,8 @@ public class Handler {
 	public String toString() {
 		String result = "";
 		
-		result += Game.arenaHeight + "," + Game.arenaWidth; // Replace this with relevant code
+		result += Game.arenaHeight + "," + Game.arenaWidth + ","; 
 		
-		result += "\n";
 		
 		for (GameObject i: object) {
 			result += i.toString();
@@ -305,7 +306,7 @@ public class Handler {
 	
 	
 	
-	// Setters for gameStates
+	// Setters and getters
 	public void setGameStatePlay() {
 		gState = GameState.Play;
 	}
@@ -317,6 +318,22 @@ public class Handler {
 	}
 	public LinkedList<GameObject> getObjects(){
 		return object;
+	}
+	public int getNumOfTraps() {
+		return this.numOfTraps;
+	}
+	public int getNumOfObstacles() {
+		return this.numOfObstacles;
+	}
+	public void setNumOfTraps(int num) {
+		if (num >= 5) {
+			this.numOfTraps = num;
+		}
+	}
+	public void setNumOfObstacles(int num) {
+		if (num >= 10) {
+			this.numOfObstacles = num;
+		}
 	}
 	
 //	Inform every handler that it is time to check for deaths. False positives are fine.

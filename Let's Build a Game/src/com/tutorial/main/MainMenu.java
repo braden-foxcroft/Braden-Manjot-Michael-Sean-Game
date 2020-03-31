@@ -1,17 +1,15 @@
 package com.tutorial.main;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
+import java.util.Scanner;
 
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-// TODO Michael, do this
-// Make all menus
-// (In PauseMenu, too)
 @SuppressWarnings("unused")
 public class MainMenu extends Handler {
 	private static MenuState state = MenuState.mainmenu;
@@ -20,19 +18,29 @@ public class MainMenu extends Handler {
 	private Stage mainStage;
 	private boolean timeToUpdate = true;
 	
-	
+/**
+ * Constructor for the Main Menu
+ * @param h
+ * @param mainStage
+ */
 	public MainMenu(Handler h, Stage mainStage) {
 		buttonList = new LinkedList<OurButton>();
 		this.handler = h;
 		this.mainStage = mainStage;
 	}
-	
+	/**
+	 * Method that adds buttons to display list
+	 */
 	public void render(Display d) {
 		for (OurButton b:buttonList) {
 			b.render(d);
 		}
 	}
-	
+	/**
+	 * Method that controls click locations
+	 * @param x
+	 * @param y
+	 */
 	public void recieveClick(double x, double y) {
 		for (OurButton b:buttonList) {
 			if (b.coordinatesAreInside((int)x, (int)y)) {
@@ -40,7 +48,10 @@ public class MainMenu extends Handler {
 			}
 		}
 	}
-	
+	/**
+	 * Method that takes name of button and executes action
+	 * @param text
+	 */
 	public void menuClickHandler(String text) {
 
 		if(text == "Play game") {
@@ -73,8 +84,28 @@ public class MainMenu extends Handler {
 			Game.arenaHeight = 1500;
 			Game.arenaWidth = 2000;
 		}
+		else if (text == "^ ") {
+			handler.setNumOfTraps(handler.getNumOfTraps() + 5);
+		}
+		else if (text == "v ") {
+			handler.setNumOfTraps(handler.getNumOfTraps() - 5);
+		}
+		else if (text == "Defaults ") {
+			handler.setNumOfTraps(5);
+		}
+		else if (text == "^  ") {
+			handler.setNumOfObstacles(handler.getNumOfObstacles() + 5);
+		}
+		else if (text == "v  ") {
+			handler.setNumOfObstacles(handler.getNumOfObstacles() - 5);
+		}
+		else if (text == "Defaults  ") {
+			handler.setNumOfObstacles(10);
+		}
 	}
-	
+	/**
+	 * method that Updates and controls which buttons are displayed
+	 */
 	public void update() {
 		if (!timeToUpdate)
 		{
@@ -95,29 +126,263 @@ public class MainMenu extends Handler {
 			renderPlayMenu();
 		}
 	}
-	
+	/**
+	 * Method that clears the button list
+	 */
 	public void reset() {
 		while (buttonList.size() > 0) {
 			buttonList.remove();
 		}
 	}
-	
+	/**
+	 * method that adds a button to the list to be displayed
+	 * @param b
+	 */
 	public void addButton(OurButton b) {
 		b.setMenu(this);
 		buttonList.add(b);
 	}
-	
+	/**
+	 * method that changes the game state to Play, it changes from main to play.
+	 */
 	public void renderPlayMenu() {
 		handler.setGameStatePlay();
 		
 	}
-	
+	/**
+	 * Method that picks a save file and adds it all the objects to the
+	 * handler.
+	 */
 	public void load() {
+
+		String stringOfObjects = "";
+		LinkedList<GameObject> loadedObjects;
 		File f = filePicker();
-//		TODO Michael, do this
-//		Make it load.
-	}
+		try {
+			Scanner myReader = new Scanner(f);
+			while (myReader.hasNextLine()) {
+				String data = myReader.nextLine();
+				stringOfObjects += data;
+			}
+			myReader.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("An Error occored while loading");
+			e.printStackTrace();
+			}
+		
+		//System.out.println(stringOfObjects);
+		
+		int iIndex = 0;
+		int fIndex = stringOfObjects.indexOf(',');
+		
+		handler.removeAll();
+		
+		//System.out.println(stringOfObjects.subSequence(iIndex, fIndex));
+		Game.arenaHeight = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+		iIndex = fIndex+1;
+		//System.out.println(iIndex);
+		//System.out.println(fIndex);
+		fIndex = stringOfObjects.indexOf(',',fIndex + 1);
+		
+		Game.arenaWidth = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+		
+		//System.out.println(iIndex);
+		//System.out.println(fIndex);
+		
+		iIndex = fIndex+1;
+		fIndex = stringOfObjects.indexOf(',',iIndex);
+		
+		//System.out.println(stringOfObjects.subSequence(iIndex, fIndex));
+		
+		while (fIndex < stringOfObjects.length() -1) {
+			
+			//System.out.println(stringOfObjects.subSequence(iIndex, fIndex));
+			String object = stringOfObjects.substring(iIndex, fIndex).toString();
+			//System.out.println(object);
+			if (object.charAt(0)=='P') {
+				//System.out.println("Im a Player!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				//float skills = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills arnt implemented yet
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int health = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				handler.addObject(new Player((int)x,(int)y,ID.Player,(int)velX,(int)velY, handler,health));
+			}
+			else if (object.charAt(0)=='E') {
+				//System.out.println("Im a Enemy!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				//float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills arnt implemented yet
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int health = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				handler.addObject(new Enemy((int)x,(int)y,ID.Enemy,(int)velX,(int)velY, handler,health));
+			}
+			else if (object.charAt(0)=='A') {
+				//System.out.println("Im a ally!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				//float Skills = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills arnt implemented yet)
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int health = Integer.parseInt((String) stringOfObjects.subSequence(iIndex, fIndex));
+				
+				handler.addObject(new Ally((int)x,(int)y,ID.Ally,(int)velX,(int)velY, handler,health));
+			}
+			else if (object.charAt(0)=='O') {
+				//System.out.println("Im an obstacle!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				handler.addObject(new Obstacle((int)x,(int)y,ID.Obstacle,handler,radius));
+			}
+			else if (object.charAt(0)=='T') {
+				//System.out.println("Im a trap!!");
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				handler.addObject(new Trap((int)x,(int)y,ID.Trap,handler,radius));
+			}
+			else if (object.charAt(0)=='B') {
+				//System.out.println("Im a bullet!!");
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float x = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float y = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+
+				iIndex = fIndex+1;
+				fIndex = stringOfObjects.indexOf(',',iIndex);
+				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
+				
+				handler.addObject(new Bullet((int)x,(int)y,ID.Bullet,handler));
+			}
+			if(fIndex < stringOfObjects.length() -1) {
+			iIndex = fIndex+1;
+			fIndex = stringOfObjects.indexOf(',',iIndex);
+			}
+			//System.out.println("lenght is " + stringOfObjects.length());
+			//System.out.println("index is " + fIndex);
+			
+		}
+		
 	
+	}
+	/**
+	 * method that launches a window to select the save file
+	 * @return
+	 */
 	public File filePicker() {
 		FileChooser fileChooser = new FileChooser();
 		 fileChooser.setTitle("Open Resource File");
@@ -127,7 +392,9 @@ public class MainMenu extends Handler {
 		 File selectedFile = fileChooser.showOpenDialog(mainStage);
 		 return selectedFile;
 	}
-	
+	/**
+	 * method that creates the buttons for the options menu
+	 */
 	public void renderOptionsMenu() {
 		Color cc = Color.color(0, 0, 0.5);
 		
@@ -141,14 +408,32 @@ public class MainMenu extends Handler {
 		
 		addButton(new OurButton(750,30,150,100,cc,"Defaults"));
 		
-		addButton(new OurButton(50,210,400,100,cc,"More setttings to add"));
+		addButton(new OurButton(50,210,400,100,cc,"Amount of Traps"));
 		
-		addButton(new OurButton(50,390,400,100,cc,"More setttings to add"));
+		addButton(new OurButton(50,210,100,100,cc, handler.getNumOfTraps() + ""));
+		
+		addButton(new OurButton(500,210,100,100,cc,"^ "));
+		
+		addButton(new OurButton(610,210,100,100,cc,"v "));
+		
+		addButton(new OurButton(750,210,150,100,cc,"Defaults "));
+		
+		addButton(new OurButton(50,390,400,100,cc,"Amount of Obsticles"));
+		
+		addButton(new OurButton(50,390,100,100,cc, handler.getNumOfObstacles() + ""));
+		
+		addButton(new OurButton(500,390,100,100,cc,"^  "));
+		
+		addButton(new OurButton(610,390,100,100,cc,"v  "));
+		
+		addButton(new OurButton(750,390,150,100,cc,"Defaults  "));
 
 		addButton(new OurButton(280,570,400,100,cc,"Back"));
 
 	}
-	
+	/**
+	 * method that creates the buttons for the load menu
+	 */
 	public void renderLoadMenu() {
 		Color c = Color.color(0, 0.5, 0);
 		
@@ -156,7 +441,9 @@ public class MainMenu extends Handler {
 		
 		addButton(new OurButton(280,570,400,100,c,"Back"));
 	}
-	
+	/**
+	 * method that creates the buttons for the Main menu.
+	 */
 	public void renderMainMenu() {
 		Color c = Color.color(0, 0.5, 0.5);
 		
@@ -170,7 +457,10 @@ public class MainMenu extends Handler {
 		
 		
 	}
-
+	/**
+	 * method that sets the menu state
+	 * @param state
+	 */
 	public void setState(MenuState state) {
 		MainMenu.state = state;
 		this.timeToUpdate = true;

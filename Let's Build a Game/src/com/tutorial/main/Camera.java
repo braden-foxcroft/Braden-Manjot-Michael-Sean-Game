@@ -5,8 +5,7 @@ public class Camera {
 	private int cameraY = 0;
 //	These values mark the top-left corner of the camera's vision.
 //	They do not mark the center of the camera's vision.
-//	To get the width and height of the screen, use:
-//	Game.WIDTH and Game.HEIGHT
+//	To get the width and height of the screen, Game.WIDTH and Game.HEIGHT is used
 	
 	public int getXPos() {
 		return this.cameraX;
@@ -16,16 +15,15 @@ public class Camera {
 		return this.cameraY;
 	}
 	
+	/** Takes x position of the object in the arena and returns the x positions of the object
+	 on the screen*/
 	public float placeXOnScreen(float x) {
-//		This function should take the x position of the object in the arena,
-//		and return the x position of the object on the screen.
 		x -= this.getXPos();
 		return x;
 	}
-	
+	/** Takes y position of the object in the arena and returns the y positions of the object
+	 on the screen*/
 	public float placeYOnScreen(float y) {
-//		This function should take the y position of the object in the arena,
-//		and return the y position of the object on the screen.
 		y -= this.getYPos();
 		return y;
 	}
@@ -37,9 +35,8 @@ public class Camera {
 	public float reverseEngineerY(float y) {
 		return y + this.getYPos();
 	}
-	
+	//Centers the camera on the object that is passed in
 	public void centerCameraOn(GameObject thing) {
-//		This should center the camera on the object that is passed in.
 		this.cameraX = (int)(thing.getX() - Game.WIDTH / 2);
 		this.cameraY = (int) (thing.getY() - Game.HEIGHT / 2);
 	}
