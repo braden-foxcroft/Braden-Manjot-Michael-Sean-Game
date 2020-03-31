@@ -4,6 +4,7 @@ import java.util.Random;
 // Traps are a collision activated gameObject with a randomized variety of effects. 
 // traps generation and placement done in the Handler class, setup method.
 
+// TODO Comments by Sean
 public class Trap extends Character {
 	
 	Random r = new Random();
@@ -48,13 +49,9 @@ public class Trap extends Character {
 		Handler.time_To_Die();
 	}
 
-/**this method from the abstract class GameObject is used to initiate all of the
- * trap effects once the object itself is hit.
- * 	
- * @param other = GameObject that activated the trap
- *  See in-line commenting in Trap Class, onCollision for more details.
- */
 	public void onCollision(GameObject other) { 
+		// This method is special because the trap actually triggers
+		
 		// avoids traps being set off by other traps
 		if (other.id != ID.Enemy && other.id != ID.Player)
 		{

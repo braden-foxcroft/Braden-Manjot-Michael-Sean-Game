@@ -4,6 +4,7 @@ package com.tutorial.main;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+// TODO Comments by Manjot
 public class Display {
 	
 	private GraphicsContext gC;

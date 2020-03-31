@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+// TODO Comments by Braden
 public class Keylist implements EventHandler<KeyEvent> {
 	
 	ArrayList<Key> keys;

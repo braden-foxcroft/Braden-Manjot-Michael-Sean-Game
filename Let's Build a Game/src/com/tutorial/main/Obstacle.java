@@ -4,6 +4,7 @@ import java.util.Random;
 // Game object of obstacles, used to create a randomized map on the canvas
 // Obstacles are anchored and deal damage when hit.
 
+// TODO Comments by Sean
 public class Obstacle extends GameObject {
 	
 	Random r = new Random();

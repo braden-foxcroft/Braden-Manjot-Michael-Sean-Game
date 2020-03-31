@@ -3,6 +3,7 @@ package com.tutorial.main;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
+// TODO Comments by Braden
 public class MouseClickHandler implements EventHandler<MouseEvent> {
 
 	private Handler handler;

@@ -5,10 +5,21 @@ package com.tutorial.main;
 // Die and take damage
 // Exclusively original code.
 
+// TODO Comments by Sean
+
 public abstract class Character extends GameObject {
 	
+	/**
+	 * The maximum health any character can have
+	 */
 	public static final int MAXHEALTH = 5;
+	
+	/**
+	 * The default explosion radius
+	 */
 	public int explodeRadius = 30; // The radius of explosions
+	
+	
 	public float dashSpeed = 20; // The speed of dashing
 	protected String currentSkill = "";
 	protected float currentParam1 = 0f;
@@ -17,20 +28,20 @@ public abstract class Character extends GameObject {
 	protected boolean invincible = false; // whether you are invincible after taking damage
 	protected int health = Character.MAXHEALTH; // your health. 0=death.
 	
-/**	Implement a character.
- * 
- * @param x = initial X coordinate of the Character being spawned
- * @param y = initial Y coordinate of the Character being spawned
- * @param id = The identifier tag for the handling and display / rendering
- * @param handler = The list that will be used for handling, rending and display
- */
+	/**	Implement a character.
+	 * 
+	 * @param x = initial X coordinate of the Character being spawned
+	 * @param y = initial Y coordinate of the Character being spawned
+	 * @param id = The identifier tag for the handling and display / rendering
+	 * @param handler = The list that will be used for handling, rending and display
+	 */
 	public Character(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 	}
 	
-/**	Checks if you should stop being invincible.
- * 
- */
+	/**
+	 * 	Checks if you should stop being invincible, and enforces it when needed.
+	 */
 	public void invincibleUpdate() {
 		if (this.invincible) {
 			if (System.currentTimeMillis() >= this.invulnTime) {
@@ -41,18 +52,19 @@ public abstract class Character extends GameObject {
 		}
 	}
 	
-/**	Executes skills
- * 
- */
+	/**	
+	 * Executes skills
+	 */
 	public void skillUpdate() {
 		this.invincibleUpdate();
 		if (!this.currentSkill.equals("")) {
 			doCurrentSkill();
 		}
 	}
-/** doCurrentSkill will execute a skill based on the parameters currently being met in the doSkill method
- * 	
- */
+	/** 
+	 * 	doCurrentSkill will execute a skill based on the parameters
+	 *  currently being met in the doSkill method
+	 */
 	public void doCurrentSkill() {
 		doSkill(currentSkill, currentParam1, currentParam2);
 		if (currentSkill.equals("dash")) {
@@ -64,26 +76,23 @@ public abstract class Character extends GameObject {
 				skillReset();
 			}
 		}
-		else if (currentSkill.equals("stuff")) {
-			// TODO Braden, add more skills
-		}
-		
 	}
-/** startSkill assigns an available skill as instance variables to be used 
- *  by the class during activation and execution of said skill.
- * 	
- * @param skillName = The String representation of the skill being added
- * @param param1 = differing float values, assigned differently by each skill
- * @param param2 = differing float values, assigned differently by each skill
- */
+	
+	/** startSkill assigns an available skill as instance variables to be used 
+	 *  by the class during activation and execution of said skill.
+	 * 	
+	 * @param skillName = The String representation of the skill being added
+	 * @param param1 = differing float values, assigned differently by each skill
+	 * @param param2 = differing float values, assigned differently by each skill
+	 */
 	public void startSkill(String skillName, float param1, float param2) {
 		this.currentSkill = skillName;
 		this.currentParam1 = param1;
 		this.currentParam2 = param2;
 	}
-/** resets the instance variable values to empty / base, removing any skills that were previously in them.
- * 	
- */
+	/** resets the instance variable values to empty / base, removing any skills that were previously in them.
+	 * 	
+	 */
 	public void skillReset() {
 		this.currentSkill = "";
 		this.currentParam1 = 0;
@@ -91,13 +100,13 @@ public abstract class Character extends GameObject {
 		this.anchored = false;
 	}
 	
-/**	Performs skills, as needed, can be overridden, but overrides must call this.
- * 
- * @param skillName = The String representation of the skill being added
- * @param param1 = differing float values, assigned differently by each skill
- * @param param2 = differing float values, assigned differently by each skill
- * 
- */
+	/**	Performs skills, as needed, can be overridden, but overrides must call this.
+	 * 
+	 * @param skillName = The String representation of the skill being added
+	 * @param param1 = differing float values, assigned differently by each skill
+	 * @param param2 = differing float values, assigned differently by each skill
+	 * 
+	 */
 	public void doSkill(String skillName, float param1, float param2) {
 		if (skillName.equals("heal")) {
 			this.heal((int)param1);

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 // It also handles render and tick methods
 // Contains copied code.
 
+// TODO Comments by Braden
 public class Handler {
 	
 //	A list of every game object

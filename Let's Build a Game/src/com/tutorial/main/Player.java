@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 // The player character.
 // Contains only original code.
 
+// TODO Comments by Manjot
 public class Player extends Character{
 	
 	private float accel = 0.2f; // an acceleration multiplier.

@@ -4,16 +4,18 @@ package com.tutorial.main;
 // Creates a Bullet. This Bullet that can collide with stuff.
 // Exclusively original code.
 
+// TODO Comments by Sean
+
 public class Bullet extends GameObject {
 	
 	protected int lifeSpan;
 	
-/**	creates a bullet of radius 5. The handler should be the original handler you use.
- * 
- * @param x = initial X coordinate on canvas
- * @param y = initial Y coordinate on canvas
- * @param id = identification flag for handler
- * @param handler = the list that this object will be kept in for rendering and ticks
+/**	
+ * Creates a bullet of radius 5.
+ * @param x The x coordinate to create it at
+ * @param y The y coordinate to create it at
+ * @param id The id (enemy type) of the object
+ * @param handler The instance of the handler the game uses
  */
 	public Bullet(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
@@ -22,9 +24,6 @@ public class Bullet extends GameObject {
 		this.canTouch = false;
 	}
 	
-/**	A routine that acts once a tick.
- * All of the calls that must be called per tick of the game.
- */
 	public void tick() {
 		displace();
 		this.constrain();
@@ -38,17 +37,10 @@ public class Bullet extends GameObject {
 		}
 	}
 	
-/**	Overwrite the default behavior
- * checks for death of the object
- */
 	public boolean check_Death() {
 		return this.lifeSpan < 0;
 	}
 	
-	
-/**	display the object
- * passes the instance variable references to the display class
- */
 	public void render(Display d) {
 		if (this.canTouch) {
 			d.displayObject(DisplayID.Bullet, x, y, radius);
@@ -57,25 +49,24 @@ public class Bullet extends GameObject {
 		}
 	}
 	
-/**	Gives the Ball a randomized direction and a constrained randomized velocity. 
- * 
- * @param dir = direction of the vector being passed in
- */
+	/**	Gives the Bullet a velocity. 
+	 * @param dir = direction of the vector to use
+	 */
 	public void launchAround(Vector dir) {
 		this.setVelocity(dir);
 	}
 	
-/**	move the object according to its velocity
- * 
- */
+	/**
+	 * Updates its position
+	 */
 	protected void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
 	
-/**	slow the object proportional to its velocity
- * 
- */
+	/**
+	 * Applies a drag force
+	 */
 	protected void drag() {
 		if (!this.anchored) {
 			float drag = 0.99f;
@@ -83,28 +74,21 @@ public class Bullet extends GameObject {
 			this.setVelY(this.getVelY() * drag);
 		}
 	}
-/**	adds the objects to the appropriate lists in the handler
- * 
- */
+
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.movingStuff.add(this);
 	}
-/**	removes objects from the necessary lists in the handler	
- * 
- */
+
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.movingStuff.remove(this);
 	}
 	
 	public void onCollision(GameObject other) {
-		
+		// Do nothing
 	}
 	
-/**	does nothing, there because it's required.
- * 
- */
 	public void hitWall() {
 		// do nothing
 	}

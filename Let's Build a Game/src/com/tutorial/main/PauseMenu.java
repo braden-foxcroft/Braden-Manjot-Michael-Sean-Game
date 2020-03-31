@@ -7,11 +7,11 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import javafx.scene.paint.Color;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-@SuppressWarnings("unused")
+
+// TODO Comments by Michael
 public class PauseMenu extends Handler{
 	private static PauseState state = PauseState.mainPause;
 	private static LinkedList<OurButton> buttonList;
@@ -91,7 +91,6 @@ public class PauseMenu extends Handler{
 	 */
 	private void renderSaveMenu() {
 		String objects = handler.toString();
-		Calendar rightNow = Calendar.getInstance();
 
 		try {
 			FileWriter save = new FileWriter(pathSelecter());

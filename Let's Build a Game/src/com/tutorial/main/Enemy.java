@@ -4,8 +4,9 @@ package com.tutorial.main;
 // import java.awt.Graphics;
 
 // An enemy. Moves toward you, tries to hit you. That is all, so far.
-//Exclusively original code.
+// Exclusively original code.
 
+// TODO Comments by Braden
 public class Enemy extends Character {
 	
 	private float accel = 0.2f; // how fast can it accelerate?
@@ -52,7 +53,6 @@ public class Enemy extends Character {
 //		alignDrive aligns the two velocities, to avoid orbiting
 		Vector targetDrive;
 		Vector alignDrive;
-//		TODO fix alignDrive
 		if (target == null) {
 			float xA = (float) (Game.WIDTH / 2) - x; // the direction the player is in
 			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the player is in
