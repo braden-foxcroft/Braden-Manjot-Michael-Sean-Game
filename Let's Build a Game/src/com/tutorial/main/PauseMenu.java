@@ -38,6 +38,7 @@ public class PauseMenu extends Handler{
 	 * @param x
 	 * @param y
 	 */
+	
 	public void recieveClick(double x, double y) {
 		for (OurButton b:buttonList) {
 			if (b.coordinatesAreInside((int)x, (int)y)) {
@@ -49,6 +50,7 @@ public class PauseMenu extends Handler{
 	 * Method that controls the function of the button, by the name of the button.
 	 * @param text
 	 */
+	
 	public void menuClickHandler(String text) {
 
 		if(text == "Resume") {
