@@ -154,8 +154,7 @@ public class MainMenu extends Handler {
 	 * handler.
 	 */
 	public void load() {
-//		TODO Michael, do this
-//		Make it load.
+
 		String stringOfObjects = "";
 		LinkedList<GameObject> loadedObjects;
 		File f = filePicker();
