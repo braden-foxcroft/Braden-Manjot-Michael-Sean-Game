@@ -2,6 +2,7 @@ package com.tutorial.main;
 
 import java.util.Random;
 
+// TODO Comments by Sean
 /**
  * 
  * Dasher Trap class Spawns a neutral object that will target the character who 

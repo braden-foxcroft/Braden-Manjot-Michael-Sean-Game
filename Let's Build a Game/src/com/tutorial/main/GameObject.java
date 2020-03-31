@@ -7,6 +7,7 @@ package com.tutorial.main;
 // of attributes that must exist, to prevent errors.
 // Some of this code is copied (see the game file for sources)
 
+// TODO Comments by Braden
 public abstract class GameObject {
 	protected float x;
 	protected float y;
@@ -30,7 +31,17 @@ public abstract class GameObject {
 		this.handler = handler;
 	}
 	
+
+	/**
+	 * Acts once every tick.
+	 * Updates character.
+	 */
 	public abstract void tick();
+	
+	/**
+	 * Displays
+	 * @param d
+	 */
 	public abstract void render(Display d);
 	public abstract void hitWall();
 	
@@ -106,6 +117,10 @@ public abstract class GameObject {
 		}
 	}
 	
+	/**
+	 * Triggers actions on collision
+	 * @param other - The object collided with
+	 */
 	public abstract void onCollision(GameObject other);
 	
 //	Returns the distance to the center of another object.
@@ -160,10 +175,16 @@ public abstract class GameObject {
 		this.velY = velY;
 	}
 	
+	/**
+	 * Accelerates an object in the x direction
+	 */
 	public void accelX(float x) {
 		this.setVelX(this.getVelX()+x);
 	}
 	
+	/**
+	 * Accelerates an object in the y direction
+	 */
 	public void accelY(float y) {
 		this.setVelY(this.getVelY()+y);
 	}
@@ -216,10 +237,18 @@ public abstract class GameObject {
 		}
 	}
 	
+	/**
+	 * Adds the object to the appropriate lists in handler
+	 * @param h the handler to add the object into
+	 */
 	public void addTo(Handler h) {
 		h.object.add(this);
 	}
 	
+	/**
+	 * Removes the object to the appropriate lists in handler
+	 * @param h the handler to remove the object from
+	 */
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 	}

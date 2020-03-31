@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+// TODO Comments by Braden
 public class Game extends Application {
 	
 	public static final int WIDTH = 960;
