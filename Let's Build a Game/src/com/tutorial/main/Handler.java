@@ -4,6 +4,8 @@ package com.tutorial.main;
 import java.util.LinkedList;
 import java.util.Random;
 
+import com.tutorial.display.Display;
+
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 

@@ -2,6 +2,9 @@ package com.tutorial.main;
 
 import java.util.Random;
 
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
+
 // TODO Comments by Sean
 /**
  * 

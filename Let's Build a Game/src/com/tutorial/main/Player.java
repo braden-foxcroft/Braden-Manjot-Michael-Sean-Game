@@ -1,5 +1,8 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
+
 import javafx.scene.input.KeyCode;
 
 // import java.awt.Color;

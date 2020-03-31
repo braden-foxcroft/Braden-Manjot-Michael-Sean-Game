@@ -1,5 +1,7 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+
 import javafx.animation.AnimationTimer;
 
 //Animation controller manages the frame updates. It's the new 'game loop'

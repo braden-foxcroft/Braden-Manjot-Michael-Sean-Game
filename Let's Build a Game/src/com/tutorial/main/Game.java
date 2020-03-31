@@ -1,5 +1,7 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
