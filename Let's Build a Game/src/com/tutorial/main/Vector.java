@@ -4,6 +4,7 @@ package com.tutorial.main;
 // and applied based on mechanics rules.
 // A vector consists of an x and y. This describes a velocity, position, and path.
 
+// TODO Comments by Braden
 public class Vector {
 	public float x;
 	public float y;

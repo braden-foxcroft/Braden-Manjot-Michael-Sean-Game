@@ -1,5 +1,7 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+// TODO Comments by Braden
 public class Game extends Application {
 	
 	public static final int WIDTH = 960;

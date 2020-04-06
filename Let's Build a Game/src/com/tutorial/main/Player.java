@@ -1,5 +1,8 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
+
 import javafx.scene.input.KeyCode;
 
 // import java.awt.Color;
@@ -9,6 +12,7 @@ import javafx.scene.input.KeyCode;
 // The player character.
 // Contains only original code.
 
+// TODO Comments by Manjot
 public class Player extends Character{
 	
 	private float accel = 0.2f; // an acceleration multiplier.
