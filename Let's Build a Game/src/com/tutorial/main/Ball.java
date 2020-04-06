@@ -9,18 +9,19 @@ import com.tutorial.display.DisplayID;
 // Creates a ball. This ball has friction, and can collide with stuff.
 // Exclusively original code.
 
-// TODO Comments by Sean
 
 public class Ball extends GameObject {
-	
+	/**
+	 * an integer value representing the time that an object will remain on screen for
+	 */
 	private int lifeSpan;
 	
 /**	
  * Creates a ball of radius 40. The handler should be the original handler you use.
- * @param x The x coordinate to create it at
- * @param y The y coordinate to create it at
- * @param id The id (enemy type) of the object
- * @param handler The instance of the handler the game uses
+ * @param x - The x coordinate to create it at
+ * @param y - The y coordinate to create it at
+ * @param id - The id (enemy type) of the object
+ * @param handler - The instance of the handler the game uses
  */
 	public Ball(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
@@ -45,7 +46,7 @@ public class Ball extends GameObject {
 	
 	/**
 	 * Sets the radius to the radius of other
-	 * @param other The object to inherit the radius from
+	 * @param other - The object to inherit the radius from
 	 */
 	public void inheritRadius(GameObject other) {
 		this.radius = other.radius;
@@ -57,7 +58,7 @@ public class Ball extends GameObject {
 	
 	/**	
 	 * Gives the Ball a direction and a velocity, and anchors it. 
-	 * @param dir Direction of the vector being passed in
+	 * @param dir - Direction of the vector being passed in
 	 */
 	public void launchAround(Vector dir) {
 		this.anchored = true;
@@ -88,8 +89,8 @@ public class Ball extends GameObject {
 		h.movingStuff.add(this);
 	}
 	
-	/**	removes objects from their respective / appropriate lists in the handler
-	 * 
+	/**	
+	 * removes objects from their respective / appropriate lists in the handler
 	 */
 	public void removeFrom(Handler h) {
 		h.object.remove(this);

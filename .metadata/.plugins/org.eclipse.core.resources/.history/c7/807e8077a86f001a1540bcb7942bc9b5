@@ -2,9 +2,6 @@ package com.tutorial.main;
 
 import java.util.Random;
 
-import com.tutorial.display.Display;
-import com.tutorial.display.DisplayID;
-
 /**
  * 
  * Dasher Trap class Spawns a neutral object that will target the character who 
@@ -13,32 +10,20 @@ import com.tutorial.display.DisplayID;
  *
  */
 public class DasherTrap extends Trap {
-	/**
-	 * The game object that the DasherTrap will aim at
-	 */
+	
 	private GameObject target;
-	/**
-	 * The max length that the trap will dash forward
-	 */
 	private int range = 1000;
-	/**
-	 * an integer value representing the time this trap will wait between dashes
-	 */
 	private int wait = 0;
-	/**
-	 * A random number
-	 */
 	private java.util.Random r = new Random();
 	
-	/** 
-	 * Constructor for DashTrap
+	/** Constructor for DashTrap
 	 * 
-	 * @param x - initial X coordinate on the canvas
-	 * @param y - initial Y coordinate on the canvas
-	 * @param id - Identifier for use in display and handler
-	 * @param handler - the list that will be used to render and display the object
-	 * @param aRadius - The radius of the DashTrap object that is spawned
-	 * @param target - The character that activated the trap
+	 * @param x = initial X coordinate on the canvas
+	 * @param y = initial Y coordinate on the canvas
+	 * @param id = Identifier for use in display and handler
+	 * @param handler = the list that will be used to render and display the object
+	 * @param aRadius = The radius of the DashTrap object that is spawned
+	 * @param target = The character that activated the trap
 	 */
 	public DasherTrap(int x, int y, ID id, Handler handler, int aRadius, GameObject target) {
 		super(x, y, id, handler, aRadius);
@@ -48,15 +33,17 @@ public class DasherTrap extends Trap {
 		this.damaging = false;
 		this.dashSpeed = 10;
 	}
-
+/**	A routine that acts once a tick.
+ * All of the calls that must be called per tick of the game.
+ */	
 	public void tick() {
 		think();
 		displace();
 		constrain();
 		skillUpdate();
 	}
-/**	
- * Offsets position based on current velocity
+/**	Offsets position based on current velocity
+ * 
  */	
 	public void displace() {
 		this.x += velX;
@@ -74,11 +61,7 @@ public class DasherTrap extends Trap {
 	public void hurt(int damage) {
 //		Nope, no damage here!
 	}
-/** 
- * think has the DasherTrap complete its wait period, then performs 
- * 	linear algebra to dictate what its relative path must be to collide with 
- *  its intended target.
- */
+	
 	public void think() {
 		if (this.currentSkill.equals("dash")) {
 			return;
@@ -100,17 +83,13 @@ public class DasherTrap extends Trap {
 		}
 	}
 	
-/**	
- * adds objects to their respective / appropriate lists in the handler
- */
+//	adds objects to their respective / appropriate lists in the handler
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.movingStuff.add(this);
 	}
 	
-/** 
- * removes objects from their respective / appropriate lists in the handler	
- */
+//	removes objects from their respective / appropriate lists in the handler	
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.movingStuff.remove(this);

@@ -40,7 +40,9 @@ public class Handler {
 	private int numOfTraps = 20;
 	private int numOfObstacles = 10;
 	
-//	Occurs every tick. Causes all objects to update and all collisions to occur.
+/**	Occurs every tick. Causes all objects to update and all collisions to occur.
+ * 
+ */
 	public void tick(){
 		if (kL.justPressed(KeyCode.ESCAPE) && gState == GameState.Pause) {
 			System.exit(1);
@@ -122,8 +124,14 @@ public class Handler {
 		}
 		return false;
 	}
-// Method to make sure that the randomized location of the object spawning
-//	does not overlap with any pre-existing game objects already on the canvas.
+
+/**	Method to make sure that the randomized location of the object spawning
+ * does not overlap with any pre-existing game objects already on the canvas.
+ * 
+ * @param me = placeholder fort object 1
+ * @param you = placeholder for object 2
+ * @return = Boolean value of if there would be an overlap between the two objects. 
+ */
 	private boolean isHitting(GameObject me, GameObject you) {
 		return me.distance(you) < (me.getRadius() + you.getRadius());
 	}
@@ -139,7 +147,7 @@ public class Handler {
 		
 		// Set up for generating the randomized map / trap scheme
 		Random r = new Random();
-		// this will create 10 obstacles each with a radius of between 50 and 250
+		// this will creates a number of obstacles each with a radius of between 50 and 250
 		// and with a location who's center is inside the bounds of the playing area. 
 		// *done to increase variety in map generation
 		// checks if the object overlaps with any pre-existing objects via 'isHitting' method.
@@ -151,7 +159,7 @@ public class Handler {
 				i--;
 			}
 		}
-		// creates 20 traps each with a radius between 5 and 65. 
+		// creates a number of traps each with a radius between 5 and 65. 
 		// locations randomly generated on map so as not to overlap with any pre-existing
 		// game objects.Trap effect decided on collision by randomized number generator.
 		// checks if the object overlaps with any pre-existing objects via 'isHitting' method. 
