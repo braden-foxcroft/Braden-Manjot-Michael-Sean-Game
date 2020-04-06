@@ -1,7 +1,10 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+
 import javafx.scene.paint.Color;
 
+// TODO Comments by Michael
 public class OurButton {
 	private int x,y,width,height;
 	private Color color;

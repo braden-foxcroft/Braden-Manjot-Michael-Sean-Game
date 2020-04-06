@@ -2,6 +2,7 @@ package com.tutorial.main;
 
 import javafx.scene.input.KeyCode;
 
+// TODO Comments by Braden
 public class Key {
 	private boolean pressed;
 	private boolean justPressed;

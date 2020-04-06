@@ -1,8 +1,12 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+
 import javafx.animation.AnimationTimer;
 
 //Animation controller manages the frame updates. It's the new 'game loop'
+
+// TODO Comments by Braden
 
 public class AnimationController extends AnimationTimer{
 
@@ -15,7 +19,11 @@ public class AnimationController extends AnimationTimer{
 	private long timer = System.currentTimeMillis();
 	private int frames = 0;
 	
-//	Create the controller
+	/**
+	 * Creates an animationController
+	 * @param handler The instance of the handler the game uses
+	 * @param d The instance of the display the game uses
+	 */
 	public AnimationController(Handler handler, Display d) {
 		super();
 		this.handler = handler;
@@ -23,7 +31,9 @@ public class AnimationController extends AnimationTimer{
 		this.display = d;
 	}
 	
-//	The game loop. Called every time the screen updates.
+	/**
+	 * The game loop. Called every time the screen updates.
+	 */
 	public void handle(long now) {
 		delta += (now - lastTime) / ns;
 		lastTime = now;
@@ -49,12 +59,16 @@ public class AnimationController extends AnimationTimer{
 		}
 	}
 
-//	The render method
+	/**
+	 * The method that causes every in-game object to render
+	 */
 	private void render() {
 		handler.render(display);
 	}
 	
-//	The tick method
+	/**
+	 * The method that causes every in-game object to update its values
+	 */
 	private void tick() {
 		handler.tick();
 	}

@@ -4,6 +4,8 @@ package com.tutorial.main;
 import java.util.LinkedList;
 import java.util.Random;
 
+import com.tutorial.display.Display;
+
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 // It also handles render and tick methods
 // Contains copied code.
 
+// TODO Comments by Braden
 public class Handler {
 	
 //	A list of every game object
