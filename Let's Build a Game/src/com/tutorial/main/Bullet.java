@@ -6,18 +6,20 @@ import com.tutorial.display.DisplayID;
 // Creates a Bullet. This Bullet that can collide with stuff.
 // Exclusively original code.
 
-// TODO Comments by Sean
+
 
 public class Bullet extends GameObject {
-	
+	/**
+	 * an integer value representing the time that an object will remain on screen for
+	 */	
 	protected int lifeSpan;
 	
 /**	
  * Creates a bullet of radius 5.
- * @param x The x coordinate to create it at
- * @param y The y coordinate to create it at
- * @param id The id (enemy type) of the object
- * @param handler The instance of the handler the game uses
+ * @param x - The x coordinate to create it at
+ * @param y - The y coordinate to create it at
+ * @param id - The id (enemy type) of the object
+ * @param handler - The instance of the handler the game uses
  */
 	public Bullet(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
@@ -51,8 +53,9 @@ public class Bullet extends GameObject {
 		}
 	}
 	
-	/**	Gives the Bullet a velocity. 
-	 * @param dir = direction of the vector to use
+	/**	
+	 * Gives the Bullet a velocity. 
+	 * @param dir - direction of the vector to use
 	 */
 	public void launchAround(Vector dir) {
 		this.setVelocity(dir);

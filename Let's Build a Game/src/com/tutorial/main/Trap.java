@@ -7,12 +7,20 @@ import java.util.Random;
 import com.tutorial.display.Display;
 import com.tutorial.display.DisplayID;
 
-// TODO Comments by Sean
+
 public class Trap extends Character {
 	
 	Random r = new Random();
 	
-// parameters all passed from Handler setup method
+/**	
+ * Parameters for the constructor passed in from handler in the setup method
+ * Creates an anchored obstacle on the canvas
+ * @param x - The x coordinate to create it at
+ * @param y - The y coordinate to create it at
+ * @param id - The id (enemy type) of the object
+ * @param handler - The instance of the handler the game uses
+ * @param aRadius - The radius of the trap being created
+ */
 	public Trap(int x, int y, ID id, Handler handler, int aRadius) {
 		super(x, y, id, handler);
 		this.anchored = true;
@@ -20,21 +28,21 @@ public class Trap extends Character {
 		this.damaging = false;
 	}
 
-/** A routine that acts once per tick of the game. 
- * 	
+/** 
+ * A routine that acts once per tick of the game. 	
  */
 	public void tick() {
 		this.invincibleUpdate();
 	}
-/** adds objects to their respective lists in the handler	
- * 
+/** 
+ * Adds objects to their respective lists in the handler	
  */
 	public void addTo(Handler h) {
 		h.obstacles.add(this);
 		h.object.add(this);
 	}
-/**	removes objects from their respective lists in the handler	
- * 
+/**	
+ * Removes objects from their respective lists in the handler	
  */
 	public void removeFrom(Handler h) {
 		h.obstacles.remove(this);
@@ -44,7 +52,8 @@ public class Trap extends Character {
 	public void hitWall() {
 		// do Nothing, this will be an anchored object.
 	}
-/** Determines if the conditions for death of the object have been met,
+/** 
+ *  Determines if the conditions for death of the object have been met,
  *  Calls for the Handler to remove it at the end of the tick. 
  */
 	public void planDeath() {
@@ -53,31 +62,31 @@ public class Trap extends Character {
 	}
 
 	public void onCollision(GameObject other) { 
-		// This method is special because the trap actually triggers
+// This method is special because the trap actually triggers
 		
-		// avoids traps being set off by other traps
+// avoids traps being set off by other traps
 		if (other.id != ID.Enemy && other.id != ID.Player)
 		{
 			return;
 		}
-		// avoids traps being set off multiple times
+// avoids traps being set off multiple times
 		if (this.health < 1) {
 			return;
 		}
-		// creates temporary place holders for the traps position
+// creates temporary place holders for the traps position
 		int tempX = (int)this.getX();
 		int tempY = (int)this.getY();
 		
-//		chooses the effect of the trap randomly based on a list of integers
-//		each of which corresponds with a different trap effect
+//	chooses the effect of the trap randomly based on a list of integers
+//	each of which corresponds with a different trap effect
 		
 		Random r = new Random();
 		int trapType = r.nextInt(6); // change this range to enable later traps
 		
 		
 		if (trapType == 0) {
-//			Creates an anchored ball and launches it in a randomized direction
-//			Ball is given a set amount of time to exist in the Ball class.
+//	Creates an anchored ball and launches it in a randomized direction
+//	Ball is given a set amount of time to exist in the Ball class.
 			Ball bTemp = new Ball(tempX, tempY, ID.Ball, handler);
 			handler.addObject(bTemp);
 			Vector dir = new Vector(other,this);
@@ -88,7 +97,7 @@ public class Trap extends Character {
 			this.planDeath();
 		}
 		else if (trapType == 1) {
-//			Create an enemy (or ally)
+//	Create an enemy (or ally)
 			if (other.id == ID.Enemy) {
 				handler.addObject(new Ally(tempX,tempY,ID.Ally, handler));
 			} else {
@@ -97,7 +106,7 @@ public class Trap extends Character {
 			this.planDeath();
 		}
 		else if (trapType == 2) {
-//			Create bullets
+//	Create bullets
 			float speed = r.nextFloat() * 12;
 			for (int i = -1; i <= 1 ; i++) {
 				for (int j = -1; j <= 1; j++)
@@ -114,7 +123,7 @@ public class Trap extends Character {
 			this.planDeath();
 		}
 		else if (trapType == 3) {
-//			Heal whatever hit it
+//	Heal whatever hit it
 			other.doSkill("heal",1);
 			this.planDeath();
 		}
@@ -124,8 +133,8 @@ public class Trap extends Character {
 			this.planDeath();
 		}
 		else if (trapType == 5) {
-//			Create nearly-invisible bullets,
-//			Which materialize and then do damage
+//	Create nearly-invisible bullets,
+//	Which materialize and then do damage
 			other.setVelocity(new Vector(0,0));
 			float speed = 8;
 			int total = 3;
@@ -146,8 +155,11 @@ public class Trap extends Character {
 		}
 		
 	}
-/**	display the object
- * passes the instance variable references to the display class
+/**	
+ * Display the object
+ * Passes the instance variable references to the display class
+ * 
+ * @param d - display variable passed into the display class so that it can be appropriately rendered on the screen
  */	
 	public void render(Display d) {
 		d.displayObject(DisplayID.Trap, this.x, this.y, radius);
@@ -156,8 +168,8 @@ public class Trap extends Character {
 			d.drawHealthBar(x, y, radius, health, MAXHEALTH);
 		}
 	}
-/** toString method that displays the instance variables of the class
- * 	
+/** 
+ * toString method that displays the instance variables of the class
  */
 	public String toString() {
 		String result = "";
@@ -172,10 +184,6 @@ public class Trap extends Character {
 		result += this.velX;
 		result += ",";
 		result += this.velY;
-//		result += ",";
-//		result += this.anchored;
-//		result += ",";
-//		result += this.damaging;
 		result += ",";
 		
 		return result;

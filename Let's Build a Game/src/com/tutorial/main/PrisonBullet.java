@@ -3,9 +3,12 @@ package com.tutorial.main;
 import com.tutorial.display.Display;
 import com.tutorial.display.DisplayID;
 
-// TODO Comments by Sean
+
 public class PrisonBullet extends Bullet {
-	
+	/**
+	 * An integer representing the time that this object will be rendered for
+	 * Decrements in tick() method
+	 */
 	private int maxLife = (60) * 8;
 	
 	public PrisonBullet(int x, int y, ID id, Handler handler) {
@@ -13,9 +16,8 @@ public class PrisonBullet extends Bullet {
 		this.lifeSpan = maxLife;
 	}
 	
-//	A routine that acts once a tick.
+
 	public void tick() {
-//		this.drag();
 		displace();
 		this.constrain();
 		this.lifeSpan--;
