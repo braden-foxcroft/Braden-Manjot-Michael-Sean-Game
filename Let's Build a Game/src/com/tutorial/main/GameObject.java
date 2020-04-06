@@ -47,7 +47,9 @@ public abstract class GameObject {
 	public abstract void render(Display d);
 	public abstract void hitWall();
 	
-//	Constrain prevents objects from leaving the bounds of the arena
+/**
+ * 	Constrain prevents objects from leaving the bounds of the arena
+ */
 	protected void constrain() {
 		int width = Game.arenaWidth;
 		int height = Game.arenaHeight;

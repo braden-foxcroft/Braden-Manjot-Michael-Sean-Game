@@ -5,7 +5,7 @@ package com.tutorial.main;
 // Die and take damage
 // Exclusively original code.
 
-// TODO Comments by Sean
+
 
 public abstract class Character extends GameObject {
 	
@@ -28,12 +28,13 @@ public abstract class Character extends GameObject {
 	protected boolean invincible = false; // whether you are invincible after taking damage
 	protected int health = Character.MAXHEALTH; // your health. 0=death.
 	
-	/**	Implement a character.
+	/**	
+	 * Implement a character.
 	 * 
-	 * @param x = initial X coordinate of the Character being spawned
-	 * @param y = initial Y coordinate of the Character being spawned
-	 * @param id = The identifier tag for the handling and display / rendering
-	 * @param handler = The list that will be used for handling, rending and display
+	 * @param x - initial X coordinate of the Character being spawned
+	 * @param y - initial Y coordinate of the Character being spawned
+	 * @param id - The identifier tag for the handling and display / rendering
+	 * @param handler - The list that will be used for handling, rending and display
 	 */
 	public Character(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
@@ -78,20 +79,21 @@ public abstract class Character extends GameObject {
 		}
 	}
 	
-	/** startSkill assigns an available skill as instance variables to be used 
+	/** 
+	 * startSkill assigns an available skill as instance variables to be used 
 	 *  by the class during activation and execution of said skill.
 	 * 	
-	 * @param skillName = The String representation of the skill being added
-	 * @param param1 = differing float values, assigned differently by each skill
-	 * @param param2 = differing float values, assigned differently by each skill
+	 * @param skillName - The String representation of the skill being added
+	 * @param param1 - differing float values, assigned differently by each skill
+	 * @param param2 - differing float values, assigned differently by each skill
 	 */
 	public void startSkill(String skillName, float param1, float param2) {
 		this.currentSkill = skillName;
 		this.currentParam1 = param1;
 		this.currentParam2 = param2;
 	}
-	/** resets the instance variable values to empty / base, removing any skills that were previously in them.
-	 * 	
+	/** 
+	 * resets the instance variable values to empty / base, removing any skills that were previously in them.	
 	 */
 	public void skillReset() {
 		this.currentSkill = "";
@@ -100,11 +102,12 @@ public abstract class Character extends GameObject {
 		this.anchored = false;
 	}
 	
-	/**	Performs skills, as needed, can be overridden, but overrides must call this.
+	/**	
+	 * Performs skills, as needed, can be overridden, but overrides must call this.
 	 * 
-	 * @param skillName = The String representation of the skill being added
-	 * @param param1 = differing float values, assigned differently by each skill
-	 * @param param2 = differing float values, assigned differently by each skill
+	 * @param skillName - The String representation of the skill being added
+	 * @param param1 - differing float values, assigned differently by each skill
+	 * @param param2 - differing float values, assigned differently by each skill
 	 * 
 	 */
 	public void doSkill(String skillName, float param1, float param2) {
@@ -138,9 +141,10 @@ public abstract class Character extends GameObject {
 		
 	}
 	
-/**	Heals a character by 1 health, returns true if now at max health.
+/**	
+ * Heals a character by 1 health, returns true if now at max health.
  * 
- * @param healBy = integer value that the health will be increased by
+ * @param healBy - integer value that the health will be increased by
  * 
  * @return Boolean value for if the character has full health or not
  */
@@ -152,9 +156,10 @@ public abstract class Character extends GameObject {
 		}
 		return false;
 	}
-/** hurt decrements the players remaining health and prompts the timeToDie check.
+/** 
+ * hurt decrements the players remaining health and prompts the timeToDie check.
  * 	
- * @param damage = integer representation of the amount of health that will be lost
+ * @param damage - integer representation of the amount of health that will be lost
  */
 	public void hurt(int damage) {
 		if (this.invincible)
@@ -168,9 +173,10 @@ public abstract class Character extends GameObject {
 		}
 		return;
 	}
-/** invuln is a boolean flag for a state of invulnerability in a character
+/** 
+ * invuln is a boolean flag for a state of invulnerability in a character
  * 	
- * @param time = the amount of time your character will remain invulnerable
+ * @param time - the amount of time your character will remain invulnerable
  */
 	public void invuln(float time) {
 		if (invincible) {
@@ -180,16 +186,17 @@ public abstract class Character extends GameObject {
 		this.invincible = true;
 	}
 	
-/**	restores a characters health to maximum
- * 
+/**	
+ * restores a characters health to maximum
  */
 	public void maxHeal() {
 		this.health = Character.MAXHEALTH;
 	}
-/** Performs a dash skill which offers a temporary boost to acceleration
+/** 
+ * Performs a dash skill which offers a temporary boost to acceleration
  * 	
- * @param x = X coordinate of dash destination
- * @param y = Y coordinate of the dash destination
+ * @param x - X coordinate of dash destination
+ * @param y - Y coordinate of the dash destination
  */
 	public void dash(float x, float y) {
 		this.anchored = true;
@@ -203,8 +210,8 @@ public abstract class Character extends GameObject {
 		
 	}
 	
-/** For when it hits something damaging
- * 	
+/** 
+ * For when it hits something damaging	
  */
 	public void hitWall() {
 		if (!this.invincible) {
@@ -221,8 +228,8 @@ public abstract class Character extends GameObject {
 		}
 	}
 	
-/**	Returns a boolean saying if the object should be removed this frame.
- * 
+/**	
+ * Returns a boolean saying if the object should be removed this frame.
  */
 	public boolean check_Death() {
 		return (this.health <= 0) && !this.invincible;
