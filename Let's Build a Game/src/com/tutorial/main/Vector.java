@@ -1,42 +1,68 @@
 package com.tutorial.main;
 
-// Contains vectors. These are developed based on linear algebra rules,
-// and applied based on mechanics rules.
-// A vector consists of an x and y. This describes a velocity, position, and path.
+/**
+ * An x and y coordinate for use in mathematics.
+ * Used for vector arithmetic.
+ * Vectors can represent a path, position, or velocity
+ */
 
-// TODO Comments by Braden
 public class Vector {
+	
+	/**
+	 * The x value encoded in the vector
+	 */
 	public float x;
+	
+	/**
+	 * The y value encoded in the vector
+	 */
 	public float y;
 	
-//	Create a vector from floating-point values
+	/**
+	 * Creates a vector
+	 * @param x - The x value of the vector to create
+	 * @param y - The y value of the vector to create
+	 */
 	public Vector(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-//	Extract a vector from a GameObject's velocity
+	/**
+	 * Create a vector that represents the velocity of a gameObject
+	 * @param g - The gameobject to clone the velocity of
+	 */
 	public Vector(GameObject g) {
 		this.x = g.getVelX();
 		this.y = g.getVelY();
 		// creates a velocity vector from a GameObject
 	}
 	
-//	Extract a vector representing the path between two objects.
+	/**
+	 * Create a vector representing the path from the origin to an object
+	 * @param a - The gameObject to start at
+	 * @param b - An arbitrary integer
+	 */
 	public Vector(GameObject a, int b) {
 		this.x = a.getX();
 		this.y = a.getY();
-//		Creates a coordinate
 	}
 	
-//	Extract a vector representing the path between two objects.
+	/**
+	 * Creates a vector describing the path between two objects
+	 * @param a - The object to start the path at
+	 * @param b - The object to end the path at
+	 */
 	public Vector(GameObject a, GameObject b) {
 		this.x = b.getX() - a.getX();
 		this.y = b.getY() - a.getY();
-		// Creates a vector from the position of A
-		// to the position of B.
 	}
 	
+	/**
+	 * Creates a vector describing the path from an object to the end of another path
+	 * @param a - The object to start the path at
+	 * @param b - The path to end the path at
+	 */
 	public Vector(GameObject a, Vector b) {
 		this.x = b.x - a.getX();
 		this.y = b.y - a.getY();
@@ -44,18 +70,27 @@ public class Vector {
 		// to the position of B.
 	}
 	
-//	Return the length of a vector.
+	/**
+	 * Get the length of the vector
+	 * @return The calculated length of the vector
+	 */
 	public float length() {
 		return (float)Math.sqrt((x * x) + (y * y));
 	}
 	
-//	Copy a vector.
+	/**
+	 * Create a deep copy of a vector
+	 * @param v - the vector to copy
+	 */
 	public Vector(Vector v) {
 		this.x = v.x;
 		this.y = v.y;
 	}
 	
-//	Switch two vectors around.
+	/**
+	 * Switch two vector's values
+	 * @param other - the vector to switch this with
+	 */
 	public void reverse(Vector other) {
 		float tempX = other.x;
 		float tempY = other.y;
@@ -65,7 +100,11 @@ public class Vector {
 		this.y = tempY;
 	}
 	
-//	Perform a collision, assuming identical inertia.
+	/**
+	 * Perform a collision, assuming identical inertia.
+	 * @param other - The velocity of the object collided with
+	 * @param collideDir - The vector describing the path from one object to the other.
+	 */
 	public void collide(Vector other, Vector collideDir) {
 		Vector vA = new Vector(this);
 		Vector vB = new Vector(other);
@@ -89,7 +128,11 @@ public class Vector {
 		other.set(vB);
 	}
 	
-//	Perform a collision, assuming 'other' has infinite inertia.
+	/**
+	 * Perform a collision, assuming the other object has infinite inertia
+	 * @param other - The velocity of the object collided with
+	 * @param collideDir - The vector describing the path from one object to the other.
+	 */
 	public void collideAnchored(Vector other, Vector collideDir) {
 		// 'Other' is the anchored vector.
 		Vector vA = new Vector(this);
@@ -114,28 +157,42 @@ public class Vector {
 		other.set(vB);
 	}
 	
-//	for debugging purposes. '[x,y]'
+//	See the documentation for the implemented/overridden method
 	public String toString() {
 		return "[" + x + "," + y + "]";
 	}
 	
-//	Add two vectors, return the result
+	/**
+	 * Adds the x and y of 2 vectors
+	 * @param other - the vector to add
+	 * @return The result of the addition
+	 */
 	public Vector add(Vector other) {
 		return new Vector(x + other.x, y + other.y);
 	}
 	
-//	Set a vector.
+	/**
+	 * A way to deep copy an existing vector to an existing vector
+	 * @param other - The vector to copy
+	 */
 	public void set(Vector other) {
 		this.x = other.x;
 		this.y = other.y;
 	}
 	
-//	Negate a vector. A vector plus its negation has a length of zero.
+	/**
+	 * Negate a vector. A vector plus its negation has a length of zero.
+	 * @return The negated vector
+	 */
 	public Vector negate() {
 		return new Vector(-x,-y);
 	}
 	
-//	Compare two vectors. Precise (no margin of error).
+	/**
+	 * Compare two vectors. Approximate (a tiny margin of error).
+	 * @param other the vector to compare this to
+	 * @return A boolean, true when the 2 vectors are similar to within a margin of error
+	 */
 	public boolean equals(Vector other) {
 		float a = Math.abs(other.x - x);
 		float b = Math.abs(other.y - y);
@@ -143,14 +200,22 @@ public class Vector {
 		return (a < e && b < e);
 	}
 	
-//	Checks if a vector contains another vector. (Meaning v1 * (0 <= n < 1) = v2)
+	/**
+	 * Checks if a vector contains another vector. (Meaning other * (0 <= n < 1) = this)
+	 * @param other - The vector to compare
+	 * @return True if this vector contains the other vector
+	 */
 	public boolean contains(Vector other) {
 		boolean a = this.aligns(other);
 		boolean b = Math.abs(other.x) < Math.abs(this.x);
 		return a && b;
 	}
 
-//	Checks if two vectors point the same way.
+	/**
+	 * Checks if two vectors point the same way.
+	 * @param other - The vector to compare
+	 * @return A boolean, true if both vectors have the same angle.
+	 */
 	public boolean aligns(Vector other) {
 		float a = other.x * this.y;
 		float b = other.y * this.x;
@@ -159,13 +224,20 @@ public class Vector {
 		return c && d;
 	}
 	
-//	Create a scaled copy.
+	/**
+	 * Creates a scaled copy
+	 * @param f - The factor to scale it by
+	 * @return The scaled vector
+	 */
 	public Vector scaleAndCopy(float f) {
 		return new Vector(x * f,y * f);
 		// returns a multiple of the original vector.
 	}
 	
-//	Creates a unit vector
+	/**
+	 * Produces a vector 1 unit long with the same direction
+	 * @return The created vector
+	 */
 	public Vector unitVector() {
 		if (this.length() == 0) {
 			return this.scaleAndCopy(1);
@@ -174,7 +246,11 @@ public class Vector {
 		}
 	}
 	
-//	Creates a unit vector
+	/**
+	 * Creates a vector of the given length and the same direction
+	 * @param length - The length to set the vector to
+	 * @return The new vector
+	 */
 	public Vector unitVector(float length) {
 		if (this.length() == 0) {
 			return this.scaleAndCopy(1);
@@ -183,7 +259,11 @@ public class Vector {
 		}
 	}
 	
-//	Projection. Requires linear algebra knowledge to understand.
+	/**
+	 * Projects this onto other
+	 * @param other - The vector to project onto
+	 * @return The result of the projection
+	 */
 	public Vector projection(Vector other) {
 		if (other.x == 0 && other.y == 0)
 		{
