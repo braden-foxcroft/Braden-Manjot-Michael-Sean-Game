@@ -9,40 +9,97 @@ import com.tutorial.display.Display;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-// This class contains every GameObject, and the boolean state of each key.
-// Its purpose is to handle interactions between objects.
-// It also handles render and tick methods
-// Contains copied code.
+/**
+ * This class contains every GameObject, and references to every active class.
+ * Its purpose is to handle interactions between objects.
+ * It also handles render and tick methods
+ */
 
-// TODO Comments by Braden
 public class Handler {
 	
-//	A list of every game object
+	/**
+	 * A list of every game object
+	 */
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
-//	A list of every ally
+	
+	/**
+	 * A list of every ally
+	 */
 	public LinkedList<Character> allies = new LinkedList<Character>();
-//	A list of every ally
+	
+	/**
+	 * A list of every ally
+	 */
 	public LinkedList<GameObject> obstacles = new LinkedList<GameObject>();
-//	A list of every obstacle or trap
+	
+	/**
+	 * A list of every obstacle or trap
+	 */
 	public LinkedList<Character> enemies = new LinkedList<Character>();
-//	A list of every character
+	
+	/**
+	 * A list of every character
+	 */
 	public LinkedList<GameObject> movingStuff = new LinkedList<GameObject>();
-//	The player
+	
+	/**
+	 * The player
+	 */
 	public Player player = null;
+	
+	/**
+	 * The key handler
+	 */
 	private Keylist kL;
-	private static boolean check_Death = false; // a flag that means something is about to die.
+	
+	/**
+	 * A flag that instructs all handlers to garbageCollect dead objects at the end of the next tick
+	 */
+	private static boolean check_Death = false;
+	
+	/**
+	 * The current game state
+	 */
 	private GameState gState = GameState.MainMenu;
+	
+	/**
+	 * The instance of the menu
+	 */
 	private MainMenu menu = null;
+	
+	/**
+	 * The instance of the pause menu
+	 */
 	private PauseMenu pause = null;
+	
+	/**
+	 * The instance of the click handler
+	 */
 	private MouseClickHandler clickHandler = null;
+	
+	/**
+	 * The instance of the camera
+	 */
 	private Camera cam;
+	
+	/**
+	 * The instance of the main stage.
+	 */
 	private Stage mainStage;
+	
+	/**
+	 * The number of traps to generate.
+	 */
 	private int numOfTraps = 20;
+	
+	/**
+	 * The number of obstacles to generate
+	 */
 	private int numOfObstacles = 10;
 	
-/**	Occurs every tick. Causes all objects to update and all collisions to occur.
- * 
- */
+	/**
+	 * Occurs every tick. Causes all objects to update and all collisions to occur.
+	 */
 	public void tick(){
 		if (kL.justPressed(KeyCode.ESCAPE) && gState == GameState.Pause) {
 			System.exit(1);
@@ -125,19 +182,19 @@ public class Handler {
 		return false;
 	}
 
-/**	Method to make sure that the randomized location of the object spawning
- * does not overlap with any pre-existing game objects already on the canvas.
- * 
- * @param me = placeholder fort object 1
- * @param you = placeholder for object 2
- * @return = Boolean value of if there would be an overlap between the two objects. 
- */
+	/**
+	 * Checks if two objects are colliding.
+	 * @param me - object 1
+	 * @param you - object 2
+	 * @return - Boolean value, true if the two objects are colliding. 
+	 */
 	private boolean isHitting(GameObject me, GameObject you) {
 		return me.distance(you) < (me.getRadius() + you.getRadius());
 	}
-/** setup method spawns / creates the characters, enemies, obstacles and traps for each game.	
- *  See in-line commenting for in-depth breakdowns on individual actions within this method.
- */
+	
+	/**
+	 * Resets the map.
+	 */
 	public void setup() {
 		// creates the player at the specified starting location
 		this.addObject(new Player(320,300,ID.Player, this));
@@ -172,17 +229,28 @@ public class Handler {
 			}
 		}
 	}
-//	Method to remove all objects from the canvas via the handler list. 	
+	
+	/**
+	 * Removes every object from the game
+	 */
 	public void removeAll() {
 		while (objectCount() > 0) {
 			this.removeObject(this.object.get(0));
 		}
 	}
-//	returns an integer representation of the number of objects currently in the game	
+
+	/**
+	 * Returns the number objects in the game
+	 * @return the number of objects in the game
+	 */
 	public int objectCount() {
 		return this.object.size();
 	}
-//	removes objects of a particular type, specified by their ID. 	
+
+	/**
+	 * Removes every object with the given ID
+	 * @param id - The ID to remove.
+	 */
 	public void removeByID(ID id) {
 		GameObject o;
 		for (int i = 0; i<objectCount(); i++) {
@@ -194,9 +262,10 @@ public class Handler {
 		}
 	}
 	
-	
-	
-//	Render each object.
+	/**
+	 * Renders every object
+	 * @param d - the instance of the display class to use.
+	 */
 	public void render(Display d) {
 		d.setupNextFrame();
 		if (gState == GameState.MainMenu) {
@@ -239,7 +308,10 @@ public class Handler {
 		}
 	}
 	
-//	Render each object for the text version.
+	/**
+	 * Render each object to the text version
+	 * @param board the board to render the objects to
+	 */
 	public void textRender(String[][] board) {
 		if (TextGame.textGameActive) {
 			System.out.println("hander Render");
@@ -252,27 +324,43 @@ public class Handler {
 		}
 	}
 	
-//	Create a new object. Block extra players from being made.
+	/**
+	 * Adds the object to the handler
+	 * @param o - the object to add
+	 */
 	public void addObject(GameObject o) {
 		o.addTo(this);
 	}
 	
-	
-//	Removes an object from the game.
+	/**
+	 * Removes the object from the handler
+	 * @param o - the object to remove
+	 */
 	public void removeObject(GameObject o) {
 		o.removeFrom(this);
 	}
 	
-//	Add a keyList object
+	/**
+	 * Adds a key listener
+	 * @param kL - The instance of the key listener to add
+	 */
 	public void addKeyboard(Keylist kL) {
 		this.kL = kL;
 	}
 	
-//	Get the keyBoard object
+	/**
+	 * Returns the key listener
+	 * @return The key listener
+	 */
 	public Keylist keys() {
 		return this.kL;
 	}
 	
+	/**
+	 * Handles a click event
+	 * @param x - the x coordinate of the click (on the window)
+	 * @param y - the y coordinate of the click (on the window)
+	 */
 	public void clickEvent(double x, double y) {
 		if (this.gState == GameState.MainMenu)
 		{
@@ -287,19 +375,32 @@ public class Handler {
 		}
 	}
 	
+	/**
+	 * Creates a new mouse event handler
+	 * @return The handler created
+	 */
 	public MouseClickHandler setupClickHandler() {
 		this.clickHandler = new MouseClickHandler(this);
 		return this.clickHandler;
 	}
 	
+	/**
+	 * Sets the camera to use
+	 * @param cam - the camera to use
+	 */
 	public void setCam(Camera cam) {
 		this.cam = cam;
 	}
 	
+	/**
+	 * Sets the main stage
+	 * @param mainStage - the main stage
+	 */
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public String toString() {
 		String result = "";
 		
@@ -314,40 +415,76 @@ public class Handler {
 		return result;
 	}
 	
-	
-	
-	
-	// Setters and getters
+	/**
+	 * Sets the game state to play
+	 */
 	public void setGameStatePlay() {
 		gState = GameState.Play;
 	}
+	
+	/**
+	 * Sets the game state to main menu
+	 */
 	public void setGameStateMainMenu() {
 		gState = GameState.MainMenu;
 	}
+	
+	/**
+	 * Sets the game state to pause
+	 */
 	public void setGameStatePause() {
 		gState = GameState.Pause;
 	}
+	
+	/**
+	 * Gets the objects in game
+	 * @return The list of in-game objects
+	 */
 	public LinkedList<GameObject> getObjects(){
 		return object;
 	}
+	
+	/**
+	 * Gets the number of traps to generate
+	 * @return The number of traps to make
+	 */
 	public int getNumOfTraps() {
 		return this.numOfTraps;
 	}
+	
+	/**
+	 * Gets the number of obstacles to generate
+	 * @return The number of obstacles to generate
+	 */
 	public int getNumOfObstacles() {
 		return this.numOfObstacles;
 	}
+	
+	/**
+	 * Sets the number of traps to generate
+	 * @param num - The number of traps to make
+	 */
 	public void setNumOfTraps(int num) {
 		if (num >= 5) {
 			this.numOfTraps = num;
 		}
 	}
+	
+	/**
+	 * Sets the number of obstacles to generate
+	 * @param num - The number of obstacles to generate
+	 */
 	public void setNumOfObstacles(int num) {
 		if (num >= 10) {
 			this.numOfObstacles = num;
 		}
 	}
 	
-//	Inform every handler that it is time to check for deaths. False positives are fine.
+	/**
+	 * Informs every handler that it is time to check for deaths.
+	 * Calling this method causes no problems, but not calling this method can cause objects to persist after death.
+	 */
+//	
 	public static void time_To_Die() {
 		check_Death = true;
 	}

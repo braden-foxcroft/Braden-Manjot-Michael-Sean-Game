@@ -7,16 +7,11 @@ import org.junit.Test;
 
 // a test for vector arithmetic
 
-// TODO Comments by Braden
 public class VectorTest {
-
-	/*
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-	*/
 	
+	/**
+	 * Tests the creation of new vectors
+	 */
 	@Test
 	public void newVectorTest() {
 		for (int x = -10; x<10; x++) {
