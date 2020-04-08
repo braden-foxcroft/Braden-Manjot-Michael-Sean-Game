@@ -90,15 +90,15 @@ public class Ally extends Character {
 		Vector targetDrive;
 		Vector alignDrive;
 		if (target == null) {
-			float xA = (float) (Game.WIDTH / 2) - x; // the direction the player is in
-			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the player is in
+			float xA = (float) (Game.WIDTH / 2) - x; // the direction the target is in
+			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the target is in
 			targetDrive = new Vector(xA, yA);
 			alignDrive = new Vector(0, 0);
 		}
 		else
 		{
 			targetDrive = new Vector(this, target);
-			alignDrive = (new Vector(handler.player)).add(new Vector(this).negate());
+			alignDrive = (new Vector(target)).add(new Vector(this).negate());
 		}
 		targetDrive = targetDrive.scaleAndCopy(0.01f);
 		
