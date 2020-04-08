@@ -10,8 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
-// TODO Comments by Michael
 public class PauseMenu extends Handler{
 	private static PauseState state = PauseState.mainPause;
 	private static LinkedList<OurButton> buttonList;
@@ -33,7 +31,11 @@ public class PauseMenu extends Handler{
 			b.render(d);
 		}
 	}
-	
+	/**
+	 * method that handles if the coordinates of the click are in one of the buttons
+	 * @param x - coordinate of the click on the Horizontal plane
+	 * @param y - coordinate of the click on the vertical plane
+	 */
 	public void recieveClick(double x, double y) {
 		for (OurButton b:buttonList) {
 			if (b.coordinatesAreInside((int)x, (int)y)) {
@@ -41,7 +43,10 @@ public class PauseMenu extends Handler{
 			}
 		}
 	}
-	
+	/**
+	 * method that uses the name of the button to dictate what happeneds when the button is clicked
+	 * @param text - name of the button
+	 */
 	public void menuClickHandler(String text) {
 
 		if(text == "Resume") {

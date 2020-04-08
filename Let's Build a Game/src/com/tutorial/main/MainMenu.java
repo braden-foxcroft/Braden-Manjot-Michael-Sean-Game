@@ -10,8 +10,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-
-// TODO Comments by Michael
 public class MainMenu extends Handler {
 	/**
 	 * 
