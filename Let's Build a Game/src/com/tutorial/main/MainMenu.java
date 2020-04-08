@@ -5,13 +5,19 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import com.tutorial.display.Display;
+
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-@SuppressWarnings("unused")
+
+// TODO Comments by Michael
 public class MainMenu extends Handler {
+	/**
+	 * 
+	 */
 	private static MenuState state = MenuState.mainmenu;
 	private static LinkedList<OurButton> buttonList;
 	private Handler handler;
@@ -20,8 +26,8 @@ public class MainMenu extends Handler {
 	
 /**
  * Constructor for the Main Menu
- * @param h
- * @param mainStage
+ * @param h - Handler that executes the program
+ * @param mainStage - Window for file viewer
  */
 	public MainMenu(Handler h, Stage mainStage) {
 		buttonList = new LinkedList<OurButton>();
@@ -38,8 +44,8 @@ public class MainMenu extends Handler {
 	}
 	/**
 	 * Method that controls click locations
-	 * @param x
-	 * @param y
+	 * @param x - Coordinate on the Horizontal plane
+	 * @param y - Coordinate on the Vertical Plane
 	 */
 	public void recieveClick(double x, double y) {
 		for (OurButton b:buttonList) {
@@ -50,10 +56,9 @@ public class MainMenu extends Handler {
 	}
 	/**
 	 * Method that takes name of button and executes action
-	 * @param text
+	 * @param text - Name of the button.
 	 */
 	public void menuClickHandler(String text) {
-
 		if(text == "Play game") {
 			setState(MenuState.playmenu);
 		}
@@ -102,6 +107,7 @@ public class MainMenu extends Handler {
 		else if (text == "Defaults  ") {
 			handler.setNumOfObstacles(10);
 		}
+		this.timeToUpdate = true;
 	}
 	/**
 	 * method that Updates and controls which buttons are displayed
@@ -126,6 +132,7 @@ public class MainMenu extends Handler {
 			renderPlayMenu();
 		}
 	}
+	
 	/**
 	 * Method that clears the button list
 	 */
@@ -136,7 +143,7 @@ public class MainMenu extends Handler {
 	}
 	/**
 	 * method that adds a button to the list to be displayed
-	 * @param b
+	 * @param b - Newly created button. 
 	 */
 	public void addButton(OurButton b) {
 		b.setMenu(this);
@@ -156,7 +163,6 @@ public class MainMenu extends Handler {
 	public void load() {
 
 		String stringOfObjects = "";
-		LinkedList<GameObject> loadedObjects;
 		File f = filePicker();
 		try {
 			Scanner myReader = new Scanner(f);
@@ -203,7 +209,6 @@ public class MainMenu extends Handler {
 				//System.out.println("Im a Player!!");
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -223,7 +228,7 @@ public class MainMenu extends Handler {
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				//float skills = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills arnt implemented yet
+				//float skills = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());(since skills aren't implemented yet
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -235,7 +240,6 @@ public class MainMenu extends Handler {
 				//System.out.println("Im a Enemy!!");
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -267,7 +271,6 @@ public class MainMenu extends Handler {
 				//System.out.println("Im a ally!!");
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -311,11 +314,9 @@ public class MainMenu extends Handler {
 
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				handler.addObject(new Obstacle((int)x,(int)y,ID.Obstacle,handler,radius));
 			}
@@ -335,11 +336,9 @@ public class MainMenu extends Handler {
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				handler.addObject(new Trap((int)x,(int)y,ID.Trap,handler,radius));
 			}
@@ -348,7 +347,6 @@ public class MainMenu extends Handler {
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				int radius = Integer.parseInt(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
@@ -360,11 +358,9 @@ public class MainMenu extends Handler {
 				
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velX = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 
 				iIndex = fIndex+1;
 				fIndex = stringOfObjects.indexOf(',',iIndex);
-				float velY = Float.parseFloat(stringOfObjects.subSequence(iIndex, fIndex).toString());
 				
 				handler.addObject(new Bullet((int)x,(int)y,ID.Bullet,handler));
 			}
@@ -377,11 +373,11 @@ public class MainMenu extends Handler {
 			
 		}
 		
-	
+	handler.setGameStatePlay();
 	}
 	/**
 	 * method that launches a window to select the save file
-	 * @return
+	 * @return - File of the Save.
 	 */
 	public File filePicker() {
 		FileChooser fileChooser = new FileChooser();
@@ -459,7 +455,7 @@ public class MainMenu extends Handler {
 	}
 	/**
 	 * method that sets the menu state
-	 * @param state
+	 * @param state - Menu State you want to change to.
 	 */
 	public void setState(MenuState state) {
 		MainMenu.state = state;

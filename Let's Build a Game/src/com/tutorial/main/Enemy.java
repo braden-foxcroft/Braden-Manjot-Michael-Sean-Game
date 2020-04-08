@@ -1,29 +1,64 @@
 package com.tutorial.main;
 
-// import java.awt.Color;
-// import java.awt.Graphics;
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
 
-// An enemy. Moves toward you, tries to hit you. That is all, so far.
-//Exclusively original code.
+/**
+ * A computer-controlled AI character, that tries to kill Allies and the Player
+ */
 
 public class Enemy extends Character {
 	
-	private float accel = 0.2f; // how fast can it accelerate?
+	/**
+	 * A constant representing how fast the character can accelerate
+	 */
+	private float accel = 0.2f;
+	
+	/**
+	 * A pointer to the current target the bot is trying to kill
+	 */
 	private GameObject target;
 	
-//	Makes an enemy.
+	/**
+	 * Makes an enemy.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param handler - The instance of the handler the game uses
+	 */
 	public Enemy(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.setVelX(0);
 		this.setVelY(0);
 		this.radius = 25;
 	}
+	
+	/**
+	 * Makes an ally.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param velX - The starting x velocity
+	 * @param velY - The starting y velocity
+	 * @param handler - The instance of the handler the game uses
+	 */
 	public Enemy(int x, int y, ID id, int velX, int velY, Handler handler) {
 		super(x, y, id, handler);
 		this.setVelX(velX);
 		this.setVelY(velY);
 		this.radius = 25;
 	}
+	
+	/**
+	 * Makes an ally.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param velX - The starting x velocity
+	 * @param velY - The starting y velocity
+	 * @param handler - The instance of the handler the game uses
+	 * @param health - The starting health of the ally
+	 */
 	public Enemy(int x, int y, ID id,int velX,int velY, Handler handler,int health) {
 		super(x, y, id, handler);
 		this.setVelX(velX);
@@ -32,7 +67,7 @@ public class Enemy extends Character {
 		this.health = health;
 	}
 	
-//	Acts once every tick
+//	See the documentation for the implemented/overridden method
 	public void tick() {
 		this.drag();
 		think();
@@ -41,7 +76,9 @@ public class Enemy extends Character {
 		this.skillUpdate();
 	}
 	
-//	The AI of the enemy
+	/**
+	 * Causes character to act in a reasonable way, given its surroundings
+	 */
 	private void think() {
 //		Each drive vector represents a factor in deciding acceleration
 		
@@ -52,7 +89,6 @@ public class Enemy extends Character {
 //		alignDrive aligns the two velocities, to avoid orbiting
 		Vector targetDrive;
 		Vector alignDrive;
-//		TODO fix alignDrive
 		if (target == null) {
 			float xA = (float) (Game.WIDTH / 2) - x; // the direction the player is in
 			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the player is in
@@ -93,6 +129,9 @@ public class Enemy extends Character {
 		this.accelY(drive.y);
 	}
 	
+	/**
+	 * Determines if the target should change, and changes it if needed
+	 */
 	public void updateTarget() {
 		if (target != null) {
 			maybeRemoveTarget();
@@ -102,7 +141,9 @@ public class Enemy extends Character {
 		}
 	}
 	
-//	Finds the most suitable target
+	/**
+	 * Selects the most reasonable target, when possible
+	 */
 	private void chooseNewTarget() {
 		if (handler.allies.size() == 0) {
 			return;
@@ -117,7 +158,9 @@ public class Enemy extends Character {
 		}
 	}
 
-//	Decides if to remove the target
+	/**
+	 *	Decides if to remove the target, and removes it if needed
+	 */
 	private void maybeRemoveTarget() {
 		if (target.check_Death()) {
 			target = null;
@@ -127,13 +170,17 @@ public class Enemy extends Character {
 		}
 	}
 
-	//	Moves it, based on its velocity
+	/**
+	 * Updates its position
+	 */
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
 	
-//	Slows it down proportional to its velocity
+	/**
+	 * Applies a drag force
+	 */
 	private void drag() {
 		if (!this.anchored) {
 			this.setVelX(this.getVelX() * 0.99f);
@@ -141,34 +188,38 @@ public class Enemy extends Character {
 		}
 	}
 	
-//	Accelerates in the x direction
+//	See the documentation for the implemented/overridden method
 	public void accelX(float multiple) {
 		this.velX += multiple * this.getAccel();
 	}
 
-//	Accelerates in the y direction
+//	See the documentation for the implemented/overridden method
 	public void accelY(float multiple) {
 		this.velY += multiple * this.getAccel();
 	}
 	
-//	Get the acceleration constant
+	/**
+	 * Get the acceleration constant
+	 * @return The acceleration constant
+	 */
 	public float getAccel() {
 		return this.accel;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.enemies.add(this);
 		h.movingStuff.add(this);
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.enemies.remove(this);
 		h.movingStuff.remove(this);
 	}
 	
-//	Render it
 	public void render(Display d) {
 		if (this.invincible) {
 			d.displayObject(DisplayID.EnemyInvincible, x, y, radius);

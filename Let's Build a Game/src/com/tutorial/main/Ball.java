@@ -1,22 +1,26 @@
 package com.tutorial.main;
 
-//import java.awt.Color;
-// import java.awt.Graphics;
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
 
-// Creates a ball. This ball has friction, and can collide with stuff.
-// Exclusively original code.
+/**
+ * A ball, which can move around the screen and hit stuff.
+ */
 
 public class Ball extends GameObject {
 	
+	/**
+	 * An integer value representing the number of ticks that an object will remain on-screen for.
+	 */
 	private int lifeSpan;
 	
-/**	creates a ball of radius 40. The handler should be the original handler you use.
- * 
- * @param x = initial X coordinate on canvas
- * @param y = initial Y coordinate on canvas
- * @param id = identification flag for handler
- * @param handler = the list that this object will be kept in for rendering and ticks
- */
+	/**	
+	 * Creates a ball of radius 40. The handler should be the original handler you use.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param handler - The instance of the handler the game uses
+	 */
 	public Ball(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.radius = 40;
@@ -24,9 +28,7 @@ public class Ball extends GameObject {
 		this.lifeSpan = 60 * lifeSpan;
 	}
 	
-/**	A routine that acts once a tick.
- * All of the calls that must be called per tick of the game.
- */
+//	See the documentation for the implemented/overridden method
 	public void tick() {
 		this.drag();
 		displace();
@@ -36,45 +38,45 @@ public class Ball extends GameObject {
 			Handler.time_To_Die();
 		}
 	}
-	
-/**	Overwrite the default behavior
- * checks for death of the object
- */
+
+//	See the documentation for the implemented/overridden method
 	public boolean check_Death() {
 		return this.lifeSpan < 0;
 	}
 	
+	/**
+	 * Sets the radius of this to the radius of other
+	 * @param other - The object to inherit the radius from
+	 */
 	public void inheritRadius(GameObject other) {
 		this.radius = other.radius;
 	}
 	
-/**	display the object
- * passes the instance variable references to the display class
- */
+//	See the documentation for the implemented/overridden method
 	public void render(Display d) {
 		d.displayObject(DisplayID.Ball, x, y, radius);
 	}
 	
-/**	Gives the Ball a randomized direction and a constrained randomized velocity. 
- * 
- * @param dir = direction of the vector being passed in
- */
+	/**	
+	 * Gives the ball a velocity, and anchors it. 
+	 * @param dir - Direction of the vector being passed in
+	 */
 	public void launchAround(Vector dir) {
 		this.anchored = true;
 		this.setVelocity(dir);
 	}
 	
-/**	Offsets position based on current velocity
- * 
- */
+	/**
+	 * Offsets position based on current velocity
+	 */
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
 	
-/**	slow the object proportional to its velocity
- * 
- */
+	/**
+	 * Applies a drag force to the object
+	 */
 	private void drag() {
 		if (!this.anchored) {
 			float drag = 0.99f;
@@ -83,32 +85,26 @@ public class Ball extends GameObject {
 		}
 	}
 	
-/**	adds objects to their respective / appropriate lists in the handler
- * 
- */
+//	See the documentation for the implemented/overridden method
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.movingStuff.add(this);
 	}
 	
-/**	removes objects from their respective / appropriate lists in the handler
- * 
- */
+//	See the documentation for the implemented/overridden method
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.movingStuff.remove(this);
 	}
 	
-	
+//	See the documentation for the implemented/overridden method
 	public void onCollision(GameObject other) {
-		
+		// Do nothing
 	}
 	
-/**	does nothing; there because it's required.
- * 
- */
+//	See the documentation for the implemented/overridden method
 	public void hitWall() {
-		// do nothing
+		// Do nothing
 	}
 	
 }
