@@ -5,31 +5,59 @@ import com.tutorial.display.DisplayID;
 
 import javafx.scene.input.KeyCode;
 
-// import java.awt.Color;
-// import java.awt.Graphics;
-// import java.util.Random;
-
-// The player character.
 // Contains only original code.
 
-// TODO Comments by Manjot
+/**
+ * The player that the user controls and plays as
+ */
 public class Player extends Character{
 	
+	/**
+	 * A constant representing how fast the character can accelerate
+	 */
 	private float accel = 0.2f; // an acceleration multiplier.
 	
-//	create a player
+	
+	/**
+	 * Makes a player.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (player type) of the object
+	 * @param handler - The instance of the handler the game uses
+	 */
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.setVelX(0);
 		this.setVelY(0);
 		this.radius = 25;
 	}
+	
+	/**
+	 * Makes an ally.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (ally type) of the object
+	 * @param velX - The starting x velocity
+	 * @param velY - The starting y velocity
+	 * @param handler - The instance of the handler the game uses
+	 */
 	public Player(int x, int y, ID id,int velX,int velY, Handler handler) {
 		super(x, y, id, handler);
 		this.setVelX(velX);
 		this.setVelY(velY);
 		this.radius = 25;
 	}
+	
+	/**
+	 * Makes an ally.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (ally type) of the object
+	 * @param velX - The starting x velocity
+	 * @param velY - The starting y velocity
+	 * @param handler - The instance of the handler the game uses
+	 * @param health - The starting health of the ally
+	 */
 	public Player(int x, int y, ID id,int velX,int velY, Handler handler,int health) {
 		super(x, y, id, handler);
 		this.setVelX(velX);
@@ -38,7 +66,9 @@ public class Player extends Character{
 		this.health = health;
 	}
 
-//	Update the player's state
+	/**
+	 * Updates a player's state and updates any skills
+	 */
 	public void tick() {
 		this.skillUpdate();
 		displace();
@@ -46,13 +76,17 @@ public class Player extends Character{
 		this.constrain();
 	}
 	
-//	Move the player, based on its current velocity
+	/**
+	 * Move the player, based on its current velocity
+	 */
 	private void displace() {
 		this.x += this.velX;
 		this.y += this.velY;
 	}
 	
-//	Slow the player down, based on its current velocity
+	/**
+	 * Slow the player down, based on its current velocity, applying a drag force
+	 */
 	private void drag() {
 		if (!this.anchored) {
 			float drag = 0.99f;
@@ -61,25 +95,35 @@ public class Player extends Character{
 		}
 	}
 	
-//	Accelerate the character.
+//	See the documentation for the implemented/overridden method
 	public void accelX(float multiple) {
 		this.velX += multiple * this.getAccel();
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void accelY(float multiple) {
 		this.velY += multiple * this.getAccel();
 	}
 	
-//	Get the acceleration factor
+	/**
+	 * Get the acceleration constant
+	 * @return The acceleration constant
+	 */
 	public float getAccel() {
 		return this.accel;
 	}
 
-//	For when you hit a wall, and take damage.
+	/**
+	 * Updates when you hit a wall and take damage
+	 */
 	public void hitWall() {
 		super.hitWall();
 	}
 	
+	/**
+	 * Creates the keys which the user uses to play as their character
+	 * @param kL - Keys that are the controls of the player for the user
+	 */
 	public void processInput(Keylist kL) {
 		if (kL.isPressed(KeyCode.W)) {accelY(-1);}
 		if (kL.isPressed(KeyCode.A)) {accelX(-1);}
@@ -94,10 +138,16 @@ public class Player extends Character{
 		}
 	}
 	
+	/**
+	 * Click based skills
+	 * @param x - x position of where mouse is clicking
+	 * @param y - y position of where mouse is clicking
+	 */
 	public void doClick(double x, double y) {
 		this.startSkill("dash", (float)x, (float)y);
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void addTo(Handler h) {
 		if (h.player == null)
 		{
@@ -107,7 +157,8 @@ public class Player extends Character{
 			h.movingStuff.remove(this);
 		}
 	}
-	
+
+//	See the documentation for the implemented/overridden method
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.allies.remove(this);
@@ -115,7 +166,9 @@ public class Player extends Character{
 		h.player = null;
 	}
 
-//	Should render the character
+	/**
+	 * Renders character
+	 */
 	public void render(Display d) {
 		if (this.invincible) {
 			d.displayObject(DisplayID.PlayerInvincible, x, y, radius);

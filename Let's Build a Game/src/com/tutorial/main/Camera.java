@@ -1,13 +1,19 @@
 package com.tutorial.main;
 
-// TODO Comments by Manjot
-
+/**
+ * Creates a camera that follows the user's player and moves around if the map is bigger than the screen
+ */
 public class Camera {
+	
+	/**
+	 * Top left x coordinate of camera's vision
+	 */
 	private int cameraX = 0;
+	
+	/**
+	 * Top left y coordinate of camera's vision
+	 */
 	private int cameraY = 0;
-//	These values mark the top-left corner of the camera's vision.
-//	They do not mark the center of the camera's vision.
-//	To get the width and height of the screen, Game.WIDTH and Game.HEIGHT is used
 	
 	/**
 	 * Gets the x-value of the top-left corner of the camera
@@ -27,7 +33,7 @@ public class Camera {
 	
 	/**
 	 *  Takes x position of the object in the arena and returns the x positions of the object
-	 on the screen
+	 *  on the screen
 	 */
 	public float placeXOnScreen(float x) {
 		x -= this.getXPos();
@@ -36,7 +42,7 @@ public class Camera {
 	
 	/**
 	 * Takes y position of the object in the arena and returns the y positions of the object
-	 on the screen
+	 * on the screen
 	 */
 	public float placeYOnScreen(float y) {
 		y -= this.getYPos();
@@ -45,7 +51,7 @@ public class Camera {
 	
 	/**
 	 * Takes the x screen coordinate of a point, and returns the absolute coordinate
-	 * @param x The screen coordinate x
+	 * @param x - The screen coordinate x
 	 * @return The arena (absolute) coordinate x
 	 */
 	public float reverseEngineerX(float x) {
@@ -54,7 +60,7 @@ public class Camera {
 	
 	/**
 	 * Takes the y screen coordinate of a point, and returns the absolute coordinate
-	 * @param y The screen coordinate y
+	 * @param y - The screen coordinate y
 	 * @return The arena (absolute) coordinate y
 	 */
 	public float reverseEngineerY(float y) {
@@ -63,7 +69,7 @@ public class Camera {
 
 	/**
 	 * Aligns the camera to center on the given object
-	 * @param thing The object to center on.
+	 * @param thing - The object to center on.
 	 */
 	public void centerCameraOn(GameObject thing) {
 		this.cameraX = (int)(thing.getX() - Game.WIDTH / 2);
