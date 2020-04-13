@@ -358,9 +358,9 @@ public abstract class GameObject {
 		int y =  (int)(this.y * ((float)TextGame.HEIGHT / Game.HEIGHT));
 		try {
 			board[x][y] = t;
-		} catch (Error e) {
-//			System.out.println("Could not display: " + this.id);
-//			TextGame.padding++;
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Could not display: " + this.id);
+			TextGame.padding++;
 		}
 	}
 	

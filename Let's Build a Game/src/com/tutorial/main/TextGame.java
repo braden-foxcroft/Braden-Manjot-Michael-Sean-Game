@@ -61,7 +61,11 @@ public class TextGame {
 		textGameActive = true;
 		setupBoard();
 		setupScanner();
+		Game.arenaHeight = Game.HEIGHT;
+		Game.arenaWidth = Game.WIDTH;
 		handler = new Handler();
+		handler.addKeyboard(new Keylist());
+		handler.setGameStatePlay();
 		System.out.println("Welcome to the text version of our game!");
 		System.out.println("Use W to go up, A to go left, S to go down, D to go right,"
 				+ "and anything else to do nothing!");
@@ -190,8 +194,8 @@ public class TextGame {
 		g.handler.addObject(new Player(320,300,ID.Player, g.handler));
 		g.handler.addObject(new Enemy(640,300,ID.Enemy, g.handler));
 		while (g.handler.player != null) {
-			g.showBoard();
 			g.getInput();
+			g.showBoard();
 		}
 		System.out.println("You have died!");
 		g.getInput();
