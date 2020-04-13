@@ -1,6 +1,10 @@
 package com.tutorial.main;
 
-// TODO Comments by Michael
+/**
+ * these enums are used to control what state the game is in, and so the handler knows what to load.
+ * @author mdbuc
+ *
+ */
 public enum GameState {
 Play(),
 Pause(),

@@ -1,6 +1,10 @@
 package com.tutorial.main;
 
-// TODO Comments by Michael
+/**
+ * enum that is used to control what is displayed on the PauseMenu
+ * @author mdbuc
+ *
+ */
 public enum PauseState {
 save(),
 mainPause(),
