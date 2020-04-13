@@ -6,29 +6,34 @@ import com.tutorial.display.Display;
 import com.tutorial.display.DisplayID;
 
 /**
- * 
- * Dasher Trap class Spawns a neutral object that will target the character who 
+ * A neutral object that will target the character who 
  * activated it, wait, then dash at said character. This object only takes damage
- * when it uses its dash skill. 
- *
+ * once per use of its dash skill.
  */
+
 public class DasherTrap extends Trap {
+	
 	/**
 	 * The game object that the DasherTrap will aim at
 	 */
 	private GameObject target;
+	
 	/**
 	 * The max length that the trap will dash forward
 	 */
 	private int range = 1000;
+	
 	/**
-	 * an integer value representing the time this trap will wait between dashes
+	 * an integer value representing the time this trap is currently waiting
+	 * before dashing again
 	 */
+	
 	private int wait = 0;
+	
 	/**
-	 * A random number
+	 * An instance of the random class
 	 */
-	private java.util.Random r = new Random();
+	private Random r = new Random();
 	
 	/** 
 	 * Constructor for DashTrap
@@ -49,36 +54,40 @@ public class DasherTrap extends Trap {
 		this.dashSpeed = 10;
 	}
 
+//	See the documentation for the implemented/overridden method
 	public void tick() {
 		think();
 		displace();
 		constrain();
 		skillUpdate();
 	}
-/**	
- * Offsets position based on current velocity
- */	
+	
+	/**	
+	 * Offsets position based on current velocity
+	 */	
 	public void displace() {
 		this.x += velX;
 		this.y += velY;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void onCollision(GameObject other) {
 		
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void hitWall() {
 		this.skillReset();
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void hurt(int damage) {
-//		Nope, no damage here!
+//		DashTraps should not take damage in this way.
 	}
-/** 
- * think has the DasherTrap complete its wait period, then performs 
- * 	linear algebra to dictate what its relative path must be to collide with 
- *  its intended target.
- */
+	
+	/** 
+	 * Completes its wait period, then triggers a dash of randomized length toward the target
+	 */
 	public void think() {
 		if (this.currentSkill.equals("dash")) {
 			return;
@@ -100,30 +109,29 @@ public class DasherTrap extends Trap {
 		}
 	}
 	
-/**	
- * adds objects to their respective / appropriate lists in the handler
- */
+//	See the documentation for the implemented/overridden method
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.movingStuff.add(this);
 	}
 	
-/** 
- * removes objects from their respective / appropriate lists in the handler	
- */
+//	See the documentation for the implemented/overridden method
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.movingStuff.remove(this);
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public boolean check_Death() {
 		return this.health <= 0;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public float getDashSpeed() {
 		return this.dashSpeed;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void render(Display d) {
 		d.displayObject(DisplayID.DasherTrap, x, y, radius);
 		d.drawHealthBar(x, y, radius, health, MAXHEALTH);

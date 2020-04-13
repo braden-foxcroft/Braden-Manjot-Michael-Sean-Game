@@ -1,6 +1,10 @@
 package com.tutorial.main;
 
-// TODO Comments by Michael
+/**
+ * enum that controls the state in the MainMenu
+ * @author mdbuc
+ *
+ */
 public enum MenuState {
 	mainmenu(),
 	optionsmenu(),

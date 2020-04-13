@@ -1,11 +1,13 @@
 package com.tutorial.main;
-// And abstract class for all characters. Each character can:
-// Move itself around
-// Use skills
-// Die and take damage
-// Exclusively original code.
 
 
+/**
+ * An abstract class for all characters. Each character can 
+ * move itself around,
+ * use skills,
+ * die,
+ * and take damage.
+ */
 
 public abstract class Character extends GameObject {
 	
@@ -15,22 +17,47 @@ public abstract class Character extends GameObject {
 	public static final int MAXHEALTH = 5;
 	
 	/**
-	 * The default explosion radius
+	 * The default explosion radius (unused)
 	 */
-	public int explodeRadius = 30; // The radius of explosions
+	public int explodeRadius = 30;
 	
+	/**
+	 * The default speed of dashing
+	 */
+	public float dashSpeed = 20;
 	
-	public float dashSpeed = 20; // The speed of dashing
+	/**
+	 * The skill currently in progress
+	 */
 	protected String currentSkill = "";
+	
+	/**
+	 * The current param1 of the current skill
+	 */
 	protected float currentParam1 = 0f;
+	
+	/**
+	 * The current param2 of the current skill
+	 */
 	protected float currentParam2 = 0f;
-	protected long invulnTime = 0; // The point in time when being invincible wears off
-	protected boolean invincible = false; // whether you are invincible after taking damage
-	protected int health = Character.MAXHEALTH; // your health. 0=death.
+	
+	/**
+	 * The point in time when being invincible wears off
+	 */
+	protected long invulnTime = 0;
+	
+	/**
+	 * Whether the character is currently invincible
+	 */
+	protected boolean invincible = false;
+	
+	/**
+	 * The current health of the character.
+	 */
+	protected int health = Character.MAXHEALTH;
 	
 	/**	
-	 * Implement a character.
-	 * 
+	 * Create a character
 	 * @param x - initial X coordinate of the Character being spawned
 	 * @param y - initial Y coordinate of the Character being spawned
 	 * @param id - The identifier tag for the handling and display / rendering
@@ -41,7 +68,7 @@ public abstract class Character extends GameObject {
 	}
 	
 	/**
-	 * 	Checks if you should stop being invincible, and enforces it when needed.
+	 * Checks if you should stop being invincible, and enforces it when needed.
 	 */
 	public void invincibleUpdate() {
 		if (this.invincible) {
@@ -54,7 +81,7 @@ public abstract class Character extends GameObject {
 	}
 	
 	/**	
-	 * Executes skills
+	 * Executes the current skill
 	 */
 	public void skillUpdate() {
 		this.invincibleUpdate();
@@ -62,9 +89,10 @@ public abstract class Character extends GameObject {
 			doCurrentSkill();
 		}
 	}
+	
 	/** 
-	 * 	doCurrentSkill will execute a skill based on the parameters
-	 *  currently being met in the doSkill method
+	 * Executes currentSkill.
+	 * It will also end the current skill, when needed.
 	 */
 	public void doCurrentSkill() {
 		doSkill(currentSkill, currentParam1, currentParam2);
@@ -80,9 +108,9 @@ public abstract class Character extends GameObject {
 	}
 	
 	/** 
-	 * startSkill assigns an available skill as instance variables to be used 
-	 *  by the class during activation and execution of said skill.
-	 * 	
+	 * startSkill starts the execution of a skill. This execution will continue to happen
+	 * until the skill is instructed to stop.
+	 * 
 	 * @param skillName - The String representation of the skill being added
 	 * @param param1 - differing float values, assigned differently by each skill
 	 * @param param2 - differing float values, assigned differently by each skill
@@ -92,8 +120,9 @@ public abstract class Character extends GameObject {
 		this.currentParam1 = param1;
 		this.currentParam2 = param2;
 	}
+	
 	/** 
-	 * resets the instance variable values to empty / base, removing any skills that were previously in them.	
+	 * Ends the current skill.
 	 */
 	public void skillReset() {
 		this.currentSkill = "";
@@ -103,7 +132,7 @@ public abstract class Character extends GameObject {
 	}
 	
 	/**	
-	 * Performs skills, as needed, can be overridden, but overrides must call this.
+	 * Performs the given skill.
 	 * 
 	 * @param skillName - The String representation of the skill being added
 	 * @param param1 - differing float values, assigned differently by each skill
@@ -133,21 +162,25 @@ public abstract class Character extends GameObject {
 		
 	}
 
+//	See the documentation for the implemented/overridden method
 	public void onCollision(GameObject other) {
 		
 	}
 	
+	/**
+	 * Triggers whenever the character collides with something (including a wall)
+	 */
 	public void anyCollision() {
 		
 	}
 	
-/**	
- * Heals a character by 1 health, returns true if now at max health.
- * 
- * @param healBy - integer value that the health will be increased by
- * 
- * @return Boolean value for if the character has full health or not
- */
+	/**	
+	 * Heals a character by the given number of health, returns true if now at max health.
+	 * 
+	 * @param healBy - integer value that the health will be increased by
+	 * 
+	 * @return Boolean value for if the character has full health or not
+	 */
 	public boolean heal(int healBy) {
 		this.health += healBy;
 		if (this.health >= Character.MAXHEALTH) {
@@ -156,11 +189,12 @@ public abstract class Character extends GameObject {
 		}
 		return false;
 	}
-/** 
- * hurt decrements the players remaining health and prompts the timeToDie check.
- * 	
- * @param damage - integer representation of the amount of health that will be lost
- */
+	
+	/** 
+	 * Decrements the players remaining health, killing the character when health reaches zero.
+	 * 
+	 * @param damage - integer representation of the amount of health that will be lost
+	 */
 	public void hurt(int damage) {
 		if (this.invincible)
 		{
@@ -173,11 +207,12 @@ public abstract class Character extends GameObject {
 		}
 		return;
 	}
-/** 
- * invuln is a boolean flag for a state of invulnerability in a character
- * 	
- * @param time - the amount of time your character will remain invulnerable
- */
+	
+	/** 
+	 * Makes the character invincible for the given duration
+	 * 	
+	 * @param time - the amount of time your character will remain invulnerable
+	 */
 	public void invuln(float time) {
 		if (invincible) {
 			return;
@@ -186,18 +221,19 @@ public abstract class Character extends GameObject {
 		this.invincible = true;
 	}
 	
-/**	
- * restores a characters health to maximum
- */
+	/**	
+	 * restores a characters health to maximum
+	 */
 	public void maxHeal() {
 		this.health = Character.MAXHEALTH;
 	}
-/** 
- * Performs a dash skill which offers a temporary boost to acceleration
- * 	
- * @param x - X coordinate of dash destination
- * @param y - Y coordinate of the dash destination
- */
+	
+	/** 
+	 * Triggers a dash skill which moves the character to the given coordinates
+	 * 	
+	 * @param x - X coordinate of dash destination
+	 * @param y - Y coordinate of the dash destination
+	 */
 	public void dash(float x, float y) {
 		this.anchored = true;
 		Vector v = new Vector(x, y);
@@ -206,13 +242,15 @@ public abstract class Character extends GameObject {
 		this.setVelocity(move);
 	}
 	
+	/**
+	 * Triggers an explosion
+	 * @deprecated (But actually never implemented in the first place)
+	 */
 	public void explode() {
 		
 	}
 	
-/** 
- * For when it hits something damaging	
- */
+//	See the documentation for the implemented/overridden method
 	public void hitWall() {
 		if (!this.invincible) {
 			if (TextGame.textGameActive) {
@@ -228,16 +266,20 @@ public abstract class Character extends GameObject {
 		}
 	}
 	
-/**	
- * Returns a boolean saying if the object should be removed this frame.
- */
+//	See the documentation for the implemented/overridden method
 	public boolean check_Death() {
 		return (this.health <= 0) && !this.invincible;
 	}
 	
+	/**
+	 * Gets the speed at which the character should dash.
+	 * @return The dash speed
+	 */
 	public float getDashSpeed() {
 		return this.dashSpeed;
 	}
+	
+//	See the documentation for the implemented/overridden method
 	public String toString() {
 		String result = "";
 		result += this.id; 
