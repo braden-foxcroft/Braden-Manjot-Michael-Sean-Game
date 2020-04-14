@@ -14,12 +14,24 @@ import javafx.stage.Stage;
 
 public class MainMenu extends Handler {
 	/**
-	 * 
+	 * State of the menu
 	 */
 	private static MenuState state = MenuState.mainmenu;
+	/**
+	 * List of buttons
+	 */
 	private static LinkedList<OurButton> buttonList;
+	/**
+	 * handler object
+	 */
 	private Handler handler;
+	/**
+	 * stage used for load function
+	 */
 	private Stage mainStage;
+	/**
+	 * Boolean that tells the display when and when not to update
+	 */
 	private boolean timeToUpdate = true;
 	
 /**
