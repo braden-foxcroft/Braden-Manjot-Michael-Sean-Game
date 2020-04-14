@@ -4,12 +4,28 @@ import java.util.Random;
 // Traps are a collision activated gameObject with a randomized variety of effects. 
 // traps generation and placement done in the Handler class, setup method.
 
-// TODO Comments by Sean
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
+
+/**
+ * A trap that triggers miscellaneous effects on activation
+ */
+
 public class Trap extends Character {
 	
+	/**
+	 * An instance of the Random class.
+	 */
 	Random r = new Random();
 	
-// parameters all passed from Handler setup method
+	/**	
+	 * Creates an anchored obstacle on the canvas
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param handler - The instance of the handler the game uses
+	 * @param aRadius - The radius of the trap being created
+	 */
 	public Trap(int x, int y, ID id, Handler handler, int aRadius) {
 		super(x, y, id, handler);
 		this.anchored = true;
@@ -17,51 +33,50 @@ public class Trap extends Character {
 		this.damaging = false;
 	}
 
-/** A routine that acts once per tick of the game. 
- * 	
- */
+//	See the documentation for the implemented/overridden method
 	public void tick() {
 		this.invincibleUpdate();
 	}
-/** adds objects to their respective lists in the handler	
- * 
- */
+
+//	See the documentation for the implemented/overridden method
 	public void addTo(Handler h) {
 		h.obstacles.add(this);
 		h.object.add(this);
 	}
-/**	removes objects from their respective lists in the handler	
- * 
- */
+
+//	See the documentation for the implemented/overridden method
 	public void removeFrom(Handler h) {
 		h.obstacles.remove(this);
 		h.object.remove(this);
 	}
 
+//	See the documentation for the implemented/overridden method
 	public void hitWall() {
 		// do Nothing, this will be an anchored object.
 	}
-/** Determines if the conditions for death of the object have been met,
- *  Calls for the Handler to remove it at the end of the tick. 
- */
+	
+	/** 
+	 *  Calls for the Handler to remove it at the end of the tick. 
+	 */
 	public void planDeath() {
 		this.health = 0;
 		Handler.time_To_Die();
 	}
 
-	public void onCollision(GameObject other) { 
-		// This method is special because the trap actually triggers
+	public void onCollision(GameObject other) {
 		
-		// avoids traps being set off by other traps
+//		This triggers the trap's effects on collision
+		
+//		avoids traps being set off by other traps
 		if (other.id != ID.Enemy && other.id != ID.Player)
 		{
 			return;
 		}
-		// avoids traps being set off multiple times
+//		avoids traps being set off multiple times
 		if (this.health < 1) {
 			return;
 		}
-		// creates temporary place holders for the traps position
+//		creates temporary place holders for the traps position
 		int tempX = (int)this.getX();
 		int tempY = (int)this.getY();
 		
@@ -143,9 +158,8 @@ public class Trap extends Character {
 		}
 		
 	}
-/**	display the object
- * passes the instance variable references to the display class
- */	
+
+//	See the documentation for the implemented/overridden method	
 	public void render(Display d) {
 		d.displayObject(DisplayID.Trap, this.x, this.y, radius);
 		if (this.health < MAXHEALTH)
@@ -153,9 +167,8 @@ public class Trap extends Character {
 			d.drawHealthBar(x, y, radius, health, MAXHEALTH);
 		}
 	}
-/** toString method that displays the instance variables of the class
- * 	
- */
+
+//	See the documentation for the implemented/overridden method
 	public String toString() {
 		String result = "";
 		result += this.id; 
@@ -169,10 +182,6 @@ public class Trap extends Character {
 		result += this.velX;
 		result += ",";
 		result += this.velY;
-//		result += ",";
-//		result += this.anchored;
-//		result += ",";
-//		result += this.damaging;
 		result += ",";
 		
 		return result;

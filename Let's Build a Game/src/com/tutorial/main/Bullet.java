@@ -1,22 +1,27 @@
 package com.tutorial.main;
 
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
 
-// Creates a Bullet. This Bullet that can collide with stuff.
-// Exclusively original code.
-
-// TODO Comments by Sean
+/**
+ * A bullet, with a finite lifespan, that cannot collide with anything
+ * for the first few moments of its life.
+ */
 
 public class Bullet extends GameObject {
 	
+	/**
+	 * an integer value representing the time that an object will remain on screen for.
+	 */	
 	protected int lifeSpan;
 	
-/**	
- * Creates a bullet of radius 5.
- * @param x The x coordinate to create it at
- * @param y The y coordinate to create it at
- * @param id The id (enemy type) of the object
- * @param handler The instance of the handler the game uses
- */
+	/**	
+	 * Creates a bullet of radius 5.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param handler - The instance of the handler the game uses
+	 */
 	public Bullet(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
 		this.radius = 5;
@@ -24,6 +29,7 @@ public class Bullet extends GameObject {
 		this.canTouch = false;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void tick() {
 		displace();
 		this.constrain();
@@ -37,10 +43,12 @@ public class Bullet extends GameObject {
 		}
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public boolean check_Death() {
 		return this.lifeSpan < 0;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void render(Display d) {
 		if (this.canTouch) {
 			d.displayObject(DisplayID.Bullet, x, y, radius);
@@ -49,8 +57,9 @@ public class Bullet extends GameObject {
 		}
 	}
 	
-	/**	Gives the Bullet a velocity. 
-	 * @param dir = direction of the vector to use
+	/**	
+	 * Gives the Bullet a velocity.
+	 * @param dir - direction of the vector to use
 	 */
 	public void launchAround(Vector dir) {
 		this.setVelocity(dir);
@@ -75,20 +84,24 @@ public class Bullet extends GameObject {
 		}
 	}
 
+//	See the documentation for the implemented/overridden method
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.movingStuff.add(this);
 	}
 
+//	See the documentation for the implemented/overridden method
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.movingStuff.remove(this);
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void onCollision(GameObject other) {
 		// Do nothing
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void hitWall() {
 		// do nothing
 	}

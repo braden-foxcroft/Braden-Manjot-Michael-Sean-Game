@@ -1,24 +1,30 @@
 package com.tutorial.main;
 
-// import java.awt.Color;
-// import java.awt.Graphics;
+import com.tutorial.display.Display;
+import com.tutorial.display.DisplayID;
 
-// An enemy. Moves toward you, tries to hit you. That is all, so far.
-// Exclusively original code.
-
-// TODO Comments by Braden
+/**
+ * A computer-controlled ally that attacks enemies
+ */
 
 public class Ally extends Character {
 	
-	private float accel = 0.2f; // how fast can it accelerate?
+	/**
+	 * A constant representing how fast the character can accelerate
+	 */
+	private float accel = 0.2f;
+	
+	/**
+	 * A pointer to the current target the bot is trying to kill
+	 */
 	private GameObject target;
 	
 	/**
-	 * Makes an enemy.
-	 * @param x The x coordinate to create it at
-	 * @param y The y coordinate to create it at
-	 * @param id The id (enemy type) of the object
-	 * @param handler The instance of the handler the game uses
+	 * Makes an ally.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param handler - The instance of the handler the game uses
 	 */
 	public Ally(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
@@ -26,14 +32,15 @@ public class Ally extends Character {
 		this.setVelY(0);
 		this.radius = 25;
 	}
+	
 	/**
-	 * 
-	 * @param x The x coordinate to create it at
-	 * @param y The y coordinate to create it at
-	 * @param id The id (enemy type) of the object
-	 * @param velX The starting x velocity
-	 * @param velY The starting y velocity
-	 * @param handler The instance of the handler the game uses
+	 * Makes an ally.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param velX - The starting x velocity
+	 * @param velY - The starting y velocity
+	 * @param handler - The instance of the handler the game uses
 	 */
 	public Ally(int x, int y, ID id, int velX, int velY, Handler handler) {
 		super(x, y, id, handler);
@@ -41,15 +48,16 @@ public class Ally extends Character {
 		this.setVelY(velY);
 		this.radius = 25;
 	}
+	
 	/**
-	 * 
-	 * @param x The x coordinate to create it at
-	 * @param y The y coordinate to create it at
-	 * @param id The id (enemy type) of the object
-	 * @param velX The starting x velocity
-	 * @param velY The starting y velocity
-	 * @param handler
-	 * @param health
+	 * Makes an ally.
+	 * @param x - The x coordinate to create it at
+	 * @param y - The y coordinate to create it at
+	 * @param id - The id (enemy type) of the object
+	 * @param velX - The starting x velocity
+	 * @param velY - The starting y velocity
+	 * @param handler - The instance of the handler the game uses
+	 * @param health - The starting health of the ally
 	 */
 	public Ally(int x, int y, ID id,int velX,int velY, Handler handler,int health) {
 		super(x, y, id, handler);
@@ -59,6 +67,7 @@ public class Ally extends Character {
 		this.health = health;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void tick() {
 		this.drag();
 		think();
@@ -81,15 +90,15 @@ public class Ally extends Character {
 		Vector targetDrive;
 		Vector alignDrive;
 		if (target == null) {
-			float xA = (float) (Game.WIDTH / 2) - x; // the direction the player is in
-			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the player is in
+			float xA = (float) (Game.WIDTH / 2) - x; // the direction the target is in
+			float yA = (float) (Game.HEIGHT / 2) - y; // the direction the target is in
 			targetDrive = new Vector(xA, yA);
 			alignDrive = new Vector(0, 0);
 		}
 		else
 		{
 			targetDrive = new Vector(this, target);
-			alignDrive = (new Vector(handler.player)).add(new Vector(this).negate());
+			alignDrive = (new Vector(target)).add(new Vector(this).negate());
 		}
 		targetDrive = targetDrive.scaleAndCopy(0.01f);
 		
@@ -121,7 +130,7 @@ public class Ally extends Character {
 	}
 	
 	/**
-	 * Determines if the target should change
+	 * Determines if the target should change, and changes it if needed
 	 */
 	public void updateTarget() {
 		if (target != null) {
@@ -150,7 +159,7 @@ public class Ally extends Character {
 	}
 
 	/**
-	 *	Decides if to remove the target
+	 *	Decides if to remove the target, and removes it if needed
 	 */
 	private void maybeRemoveTarget() {
 		if (target.check_Death()) {
@@ -179,35 +188,39 @@ public class Ally extends Character {
 		}
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void accelX(float multiple) {
 		this.velX += multiple * this.getAccel();
 	}
 
+//	See the documentation for the implemented/overridden method
 	public void accelY(float multiple) {
 		this.velY += multiple * this.getAccel();
 	}
 	
 	/**
 	 * Get the acceleration constant
-	 * @return the acceleration coefficient
+	 * @return The acceleration coefficient
 	 */
 	public float getAccel() {
 		return this.accel;
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void addTo(Handler h) {
 		h.object.add(this);
 		h.allies.add(this);
 		h.movingStuff.add(this);
 	}
 	
+//	See the documentation for the implemented/overridden method
 	public void removeFrom(Handler h) {
 		h.object.remove(this);
 		h.allies.remove(this);
 		h.movingStuff.remove(this);
 	}
 	
-//	Render it
+//	See the documentation for the implemented/overridden method
 	public void render(Display d) {
 		if (this.invincible) {
 			d.displayObject(DisplayID.AllyInvincible, x, y, radius);
