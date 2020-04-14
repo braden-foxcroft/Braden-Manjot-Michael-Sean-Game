@@ -4,6 +4,9 @@ import com.tutorial.display.Display;
 
 import javafx.scene.paint.Color;
 
+/**
+ * A drawable canvas button 
+ */
 public class OurButton {
 	/**
 	 * Coordinates and size of the button

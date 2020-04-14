@@ -12,6 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * The Pausemenu handler
+ */
 public class PauseMenu extends Handler{
 	/**
 	 * State of the PauseMenu
