@@ -76,32 +76,59 @@ public class MainMenu extends Handler {
 		else if (text == "^") {
 			Game.arenaHeight = Game.arenaHeight + 100;
 			Game.arenaWidth = Game.arenaWidth + 100;
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		else if (text == "v") {
 			Game.arenaHeight = Game.arenaHeight - 100;
 			Game.arenaWidth = Game.arenaWidth - 100;
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		else if (text == "Defaults") {
 			Game.arenaHeight = 1500;
 			Game.arenaWidth = 2000;
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		else if (text == "^ ") {
 			handler.setNumOfTraps(handler.getNumOfTraps() + 5);
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		else if (text == "v ") {
 			handler.setNumOfTraps(handler.getNumOfTraps() - 5);
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		else if (text == "Defaults ") {
 			handler.setNumOfTraps(5);
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		else if (text == "^  ") {
 			handler.setNumOfObstacles(handler.getNumOfObstacles() + 5);
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		else if (text == "v  ") {
 			handler.setNumOfObstacles(handler.getNumOfObstacles() - 5);
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		else if (text == "Defaults  ") {
 			handler.setNumOfObstacles(10);
+			handler.removeByID(ID.Obstacle);
+			handler.removeByID(ID.Trap);
+			handler.setup();
 		}
 		this.timeToUpdate = true;
 	}
