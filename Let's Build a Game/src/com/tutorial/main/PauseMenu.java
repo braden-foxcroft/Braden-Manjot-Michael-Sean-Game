@@ -12,10 +12,25 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * The Pausemenu handler
+ */
 public class PauseMenu extends Handler{
+	/**
+	 * State of the PauseMenu
+	 */
 	private static PauseState state = PauseState.mainPause;
+	/**
+	 * List of buttons used 
+	 */
 	private static LinkedList<OurButton> buttonList;
+	/**
+	 * Object of the handler
+	 */
 	private Handler handler;
+	/**
+	 * Stage used for the Save feature
+	 */
 	private Stage mainStage;
 	/**
 	 * Constructor for the pause menu.

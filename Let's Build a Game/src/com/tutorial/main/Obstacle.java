@@ -7,7 +7,10 @@ import java.util.Random;
 import com.tutorial.display.Display;
 import com.tutorial.display.DisplayID;
 
-
+/**
+ * An obstacle that damages things on collision,
+ * and cannot move.
+ */
 public class Obstacle extends GameObject {
 	
 	

@@ -4,11 +4,29 @@ import com.tutorial.display.Display;
 
 import javafx.scene.paint.Color;
 
+/**
+ * A drawable canvas button 
+ */
 public class OurButton {
+	/**
+	 * Coordinates and size of the button
+	 */
 	private int x,y,width,height;
+	/**
+	 * color of the button
+	 */
 	private Color color;
+	/**
+	 * Name and text displayed by the button
+	 */
 	private String text;
+	/**
+	 * object of the Main menu
+	 */
 	private MainMenu menu;
+	/**
+	 * object of the Pause menu
+	 */
 	private PauseMenu pause;
 	/**
 	 * Constructor for our buttons
