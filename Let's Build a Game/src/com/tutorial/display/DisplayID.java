@@ -1,6 +1,5 @@
  package com.tutorial.display;
 
- // TODO Comments by Manjot
 /**
  * Enumerations to be used in display class which represent different objects that will displayed in the game
  */
