@@ -279,7 +279,7 @@ public class Display {
 	}
 
 	/**
-	 * 
+	 * Sets screen background to black, clears existing objects.
 	 */
 	public void setupNextFrame() {
 		gC.setFill(Color.BLACK);
